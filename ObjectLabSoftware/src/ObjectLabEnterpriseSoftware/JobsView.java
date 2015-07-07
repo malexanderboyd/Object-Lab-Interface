@@ -24,6 +24,8 @@ public class JobsView extends javax.swing.JFrame
     private static final int LAST_NAME_COLUMN_NUMBER = 2;
     private static final int PRINTER_COLUMN_NUMBER = 3;
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
+    private ArrayList<String> printers;
+    private String selectedPrinter;
 
     private static final MainView home = new MainView();
 
@@ -50,15 +52,28 @@ public class JobsView extends javax.swing.JFrame
         {
             approveButton.setVisible(false);
             rejectButton.setVisible(false);
-        } else
+        } else if(status.equals("pending"))
         {
             approveButton.setVisible(true);
             rejectButton.setVisible(true);
+        }
+        if (!status.equals("completed"))
+        {
+            exportButton.setVisible(false);
+            deviceLabel.setVisible(false);
+            printerBox.setVisible(false);
+        } else if(status.equals("completed"))
+        {
+            exportButton.setVisible(true);
+            deviceLabel.setVisible(true);
+            printerBox.setVisible(true);
         }
     }
 
     public JobsView()
     {
+        
+        printers = UtilController.getListOfAllDevices();
         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
@@ -113,8 +128,7 @@ public class JobsView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
@@ -130,13 +144,15 @@ public class JobsView extends javax.swing.JFrame
         reviewFile = new javax.swing.JLabel();
         approveButton = new javax.swing.JLabel();
         rejectButton = new javax.swing.JLabel();
+        exportButton = new javax.swing.JButton();
+        deviceLabel = new javax.swing.JLabel();
+        printerBox = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
-        jList1.setModel(new javax.swing.AbstractListModel()
-        {
+        jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -154,7 +170,7 @@ public class JobsView extends javax.swing.JFrame
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Jobs Manager");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 750, 10));
@@ -181,63 +197,75 @@ public class JobsView extends javax.swing.JFrame
             backToMainMenu.setBorderPainted(false);
             backToMainMenu.setContentAreaFilled(false);
             backToMainMenu.setFocusPainted(false);
-            backToMainMenu.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
                 }
             });
             getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 40));
 
+            jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
             jLabel3.setText("Job status:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 60, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 60, 20));
 
+            jobStatus.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pending", "rejected", "approved", "completed"}));
-            jobStatus.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jobStatus.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jobStatusActionPerformed(evt);
                 }
             });
             getContentPane().add(jobStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 90, 20));
 
+            reviewFile.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             reviewFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png"))); // NOI18N
             reviewFile.setText("Review File");
             reviewFile.setToolTipText("Review file");
-            reviewFile.addMouseListener(new java.awt.event.MouseAdapter()
-            {
-                public void mouseClicked(java.awt.event.MouseEvent evt)
-                {
+            reviewFile.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     openFileInDefaultProgram(evt);
                 }
             });
             getContentPane().add(reviewFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 120, 50));
 
+            approveButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             approveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/accept_icon.png"))); // NOI18N
             approveButton.setText("Approve");
             approveButton.setToolTipText("Accept job");
-            approveButton.addMouseListener(new java.awt.event.MouseAdapter()
-            {
-                public void mouseClicked(java.awt.event.MouseEvent evt)
-                {
+            approveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     approveButtonMouseClicked(evt);
                 }
             });
-            getContentPane().add(approveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 100, 60));
+            getContentPane().add(approveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 510, 110, 60));
 
+            rejectButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             rejectButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/reject_icon.png"))); // NOI18N
             rejectButton.setText("Reject");
             rejectButton.setToolTipText("Reject job");
-            rejectButton.addMouseListener(new java.awt.event.MouseAdapter()
-            {
-                public void mouseClicked(java.awt.event.MouseEvent evt)
-                {
+            rejectButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     rejectButtonMouseClicked(evt);
                 }
             });
             getContentPane().add(rejectButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, 100, 60));
+
+            exportButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            exportButton.setText("Export File Tracking Report");
+            exportButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    exportButtonActionPerformed(evt);
+                }
+            });
+            getContentPane().add(exportButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 530, -1, -1));
+
+            deviceLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+            deviceLabel.setText("Device:");
+            getContentPane().add(deviceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 60, 40, 20));
+
+            printerBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            printerBox.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
+            getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 90, 20));
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 790, 590));
@@ -245,10 +273,8 @@ public class JobsView extends javax.swing.JFrame
             jMenu2.setText("Help");
 
             jMenuItem2.setText("Contents");
-            jMenuItem2.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
+            jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jMenuItem2ActionPerformed(evt);
                 }
             });
@@ -411,11 +437,21 @@ public class JobsView extends javax.swing.JFrame
         }
     }//GEN-LAST:event_rejectButtonMouseClicked
 
+    private void exportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportButtonActionPerformed
+
+        selectedPrinter = printerBox.getSelectedItem().toString();
+        UtilController controller = new UtilController();
+        String[] headers = new String[]{"","","",""};
+        controller.exportReportToFile(allFileTableModel, headers, selectedPrinter, 'f');
+    }//GEN-LAST:event_exportButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable PendingTable;
     private javax.swing.JLabel approveButton;
     private javax.swing.JButton backToMainMenu;
+    private javax.swing.JLabel deviceLabel;
+    private javax.swing.JButton exportButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -429,6 +465,7 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox jobStatus;
+    private javax.swing.JComboBox printerBox;
     private javax.swing.JLabel rejectButton;
     private javax.swing.JLabel reviewFile;
     // End of variables declaration//GEN-END:variables
