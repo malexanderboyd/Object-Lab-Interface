@@ -45,8 +45,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         backButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -68,42 +67,41 @@ public class ChangePasswordView extends javax.swing.JFrame {
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Change Password");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 170, 30));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 320, 20));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel3.setText("New Password:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel4.setText("Confirm Password:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 100, -1));
 
+        submitButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         submitButton.setText("Submit");
-        submitButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        submitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 70, -1));
+        getContentPane().add(submitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 70, -1));
         getContentPane().add(newPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 120, -1));
         getContentPane().add(confirmPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 120, -1));
 
-        passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        passwordError.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
         passwordError.setText("Passwords must match!");
-        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 150, 20));
+        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 150, 20));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -112,10 +110,8 @@ public class ChangePasswordView extends javax.swing.JFrame {
         EditMenu.setText("Help");
 
         usersGuideButton.setText("User Guide");
-        usersGuideButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        usersGuideButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usersGuideButtonActionPerformed(evt);
             }
         });

@@ -50,8 +50,7 @@ public class PasswordDialogView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         CancelButton = new javax.swing.JButton();
@@ -65,35 +64,32 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Administrator Password:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         CancelButton.setText("Cancel");
-        CancelButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, 20));
+        getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 20));
 
         SubmitButton.setText("Submit");
-        SubmitButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SubmitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 20));
-        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 136, -1));
+        getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, 20));
+        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 136, -1));
 
         passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 180, 20));
+        passwordError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 200, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 210, 130));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 130));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -163,18 +163,19 @@ public class ClassOptionsView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Add/Remove Classes");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 500, 10));
 
+        addNewClass.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         addNewClass.setText("Add New Class");
         addNewClass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewClassActionPerformed(evt);
             }
         });
-        getContentPane().add(addNewClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, -1, -1));
+        getContentPane().add(addNewClass, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         closeBtn.setToolTipText("Back");
@@ -196,14 +197,15 @@ public class ClassOptionsView extends javax.swing.JFrame
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 185, 190));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Current Classes");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 129, 19));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Available Classes");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, 19));
 
+        addArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         addArrow.setText("Add ->");
         addArrow.setPreferredSize(new java.awt.Dimension(60, 23));
         addArrow.addActionListener(new java.awt.event.ActionListener() {
@@ -213,59 +215,68 @@ public class ClassOptionsView extends javax.swing.JFrame
         });
         getContentPane().add(addArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 90, -1));
 
+        removeArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         removeArrow.setText("<- Remove");
         removeArrow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeArrowActionPerformed(evt);
             }
         });
-        getContentPane().add(removeArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, -1, -1));
-        getContentPane().add(classNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 124, -1));
-        getContentPane().add(sectionNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 124, -1));
+        getContentPane().add(removeArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 90, -1));
+        getContentPane().add(classNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 120, -1));
+        getContentPane().add(sectionNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 430, 120, -1));
 
+        classNameL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classNameL.setText("Department:");
         getContentPane().add(classNameL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
 
+        classNumberL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classNumberL.setText("Class Number:");
         getContentPane().add(classNumberL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, -1, -1));
 
+        sectionNumberL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         sectionNumberL.setText("Section Number:");
         getContentPane().add(sectionNumberL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
 
+        addNewButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         addNewButton.setText("Add");
         addNewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addNewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 490, -1, -1));
+        getContentPane().add(addNewButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 490, -1, -1));
 
+        cancelBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 490, -1, -1));
+        getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 490, 70, -1));
 
+        saveBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         saveBtn.setText("Apply Changes");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 380, -1, -1));
+        getContentPane().add(saveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 490, -1, -1));
 
         classProfessor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classProfessorActionPerformed(evt);
             }
         });
-        getContentPane().add(classProfessor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 120, -1));
+        getContentPane().add(classProfessor, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 120, -1));
 
+        classProfessorL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classProfessorL.setText("<html>\nProfessor\n<br>\n(Last Name):\n</html>");
         getContentPane().add(classProfessorL, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 100, 30));
 
+        classNameList.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classNameList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -279,7 +290,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         jScrollPane5.setViewportView(classNameList);
         classNameList.setListData(arrayOfTowsonDepartments);
 
-        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, 130, 90));
+        getContentPane().add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 120, 70));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 540, 550));

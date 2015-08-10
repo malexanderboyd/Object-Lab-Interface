@@ -968,6 +968,9 @@ public class UtilController
 
         /* STEP 1.0 - Add new build to printer build table in database */
         int runtime;
+        /*
+        runtime = convertToSeconds(deviceModel.getFieldData("Hours"), deviceModel.getFieldData("Minutes"), deviceModel.getFieldData("Seconds"));
+        */
         if (deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
         {
             runtime = Integer.parseInt((String) deviceModel.getFieldData("Run time"));
@@ -1040,6 +1043,12 @@ public class UtilController
         }
         dbconn.closeDBConnection();
         return true;
+    }
+    
+    public static int convertToSeconds(int h, int m, int s)
+    {
+        int sec = (h*3600) + (m*60) + s;
+        return sec;
     }
 
     public static boolean findAndVerifyFile(String file){

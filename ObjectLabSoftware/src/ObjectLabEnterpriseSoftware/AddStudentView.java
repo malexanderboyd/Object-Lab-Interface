@@ -106,37 +106,44 @@ public class AddStudentView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        newStudentLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        newStudentLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         newStudentLabel.setText("New Student");
         getContentPane().add(newStudentLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
+        firstName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         firstName.setText("First Name:");
         getContentPane().add(firstName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
+        lastName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lastName.setText("Last Name:");
         getContentPane().add(lastName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
 
+        netID.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         netID.setText("Email:");
         getContentPane().add(netID, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 
+        tuID.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tuID.setText("TU ID:");
         getContentPane().add(tuID, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
+        emailExtension.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         emailExtension.setText("ex:  jsmith1@gmail.com");
-        getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, 30));
+        getContentPane().add(emailExtension, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 120, 40));
 
+        errorLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorLabel.setForeground(new java.awt.Color(255, 0, 0));
         errorLabel.setText("ERROR");
         errorLabel.setToolTipText("");
         getContentPane().add(errorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 120, -1));
 
+        submit.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
-        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, -1, -1));
+        getContentPane().add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
 
         tuIDEntry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

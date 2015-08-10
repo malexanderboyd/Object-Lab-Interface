@@ -172,7 +172,7 @@ public class SQLMethods
         try
         {
             stmt = this.conn.prepareStatement("SELECT job.file_name, users.first_name, users.last_name, "
-					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+					+ "job.submission_date ,job.printer_name, class_name, class_section " 
 					+ "FROM job, users ,class " + "WHERE job.status = ? "
 					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
             stmt.setString(1, status);

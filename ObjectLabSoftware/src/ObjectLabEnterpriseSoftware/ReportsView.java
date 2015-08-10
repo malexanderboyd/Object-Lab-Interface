@@ -79,6 +79,7 @@ public class ReportsView extends javax.swing.JFrame
         reportsTable = new javax.swing.JTable();
         exportBtn = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -88,22 +89,27 @@ public class ReportsView extends javax.swing.JFrame
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        searchFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
         searchFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFilterActionPerformed(evt);
             }
         });
-        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 90, -1));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Object Lab Search");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
-        jLabel2.setText("Search:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 43, 21));
-        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 120, 400, -1));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jLabel2.setText("Search For:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 60, 21));
 
+        searchKey.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 120, 430, -1));
+
+        searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         searchBtn.setText("Search");
         searchBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -111,9 +117,10 @@ public class ReportsView extends javax.swing.JFrame
                 searchBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 77, 20));
+        getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 120, 50, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 682, 10));
 
+        ExportMasterReportButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         ExportMasterReportButton.setText("Export Master Report");
         ExportMasterReportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,10 +129,11 @@ public class ReportsView extends javax.swing.JFrame
         });
         getContentPane().add(ExportMasterReportButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Reports");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
         jComboBox1.setName("PrinterSelection"); // NOI18N
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -133,9 +141,10 @@ public class ReportsView extends javax.swing.JFrame
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 80, -1));
 
         reportsTable.setAutoCreateRowSorter(true);
+        reportsTable.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         reportsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object[][]{},
             headers
@@ -145,6 +154,7 @@ public class ReportsView extends javax.swing.JFrame
 
     getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 682, 203));
 
+    exportBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
     exportBtn.setText("Export Current Report");
     exportBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
     exportBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -166,9 +176,13 @@ public class ReportsView extends javax.swing.JFrame
     });
     getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
 
+    jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+    jLabel4.setText("Device Name:");
+    getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 20));
+
     jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
     jLabel5.setText("jLabel5");
-    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -8, 710, 430));
+    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -18, 710, 430));
 
     jMenu2.setText("Help");
 
@@ -266,6 +280,7 @@ public class ReportsView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

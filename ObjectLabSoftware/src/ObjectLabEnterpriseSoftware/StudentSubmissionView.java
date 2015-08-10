@@ -58,8 +58,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -98,49 +97,46 @@ public class StudentSubmissionView extends javax.swing.JFrame
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel1_FileLocation.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1_FileLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1_FileLocation.setText("File Location:");
         getContentPane().add(jLabel1_FileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 95, 20));
 
         fileLocation.setEditable(false);
-        fileLocation.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        fileLocation.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        fileLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fileLocationActionPerformed(evt);
             }
         });
         getContentPane().add(fileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 200, 20));
 
+        Browse.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Browse.setText("Browse");
         Browse.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Browse.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        Browse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BrowseMouseClicked(evt);
             }
         });
-        Browse.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Browse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BrowseActionPerformed(evt);
             }
         });
         getContentPane().add(Browse, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 73, 23));
 
         projName.setEditable(false);
+        projName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         projName.setName("projName"); // NOI18N
-        projName.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        projName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 projNameActionPerformed(evt);
             }
         });
         getContentPane().add(projName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 200, -1));
 
+        jLabel5_ProjName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel5_ProjName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5_ProjName.setText("Project Name:");
         getContentPane().add(jLabel5_ProjName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 95, 20));
@@ -149,99 +145,92 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jLabel6_Class.setText("Class:");
         getContentPane().add(jLabel6_Class, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 95, 20));
 
+        jLabel7_Printer.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel7_Printer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel7_Printer.setText("Printer:");
         jLabel7_Printer.setToolTipText("");
         getContentPane().add(jLabel7_Printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 95, 20));
 
+        Student_Submit.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Student_Submit.setText("Submit");
         Student_Submit.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        Student_Submit.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Student_Submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Student_SubmitActionPerformed(evt);
             }
         });
-        getContentPane().add(Student_Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 100, 23));
+        getContentPane().add(Student_Submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 100, 23));
 
+        classBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableClasses()));
         classBox.setSelectedItem(null);
-        classBox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        classBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classBoxActionPerformed(evt);
             }
         });
         getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 140, -1));
 
+        printerBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableDevicesStudentSubmissionRequired()));
         printerBox.setSelectedItem(null);
-        printerBox.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        printerBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 printerBoxActionPerformed(evt);
             }
         });
         getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 140, -1));
 
-        error_NoFileLocationSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoFileLocationSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoFileLocationSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoFileLocationSelected.setText("Error Text");
         getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 70, 20));
 
-        error_NoClassSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoClassSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoClassSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoClassSelected.setText("Error Text");
         getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, -1, 20));
 
-        error_NoPrinterSelected.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        error_NoPrinterSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoPrinterSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoPrinterSelected.setText("Error Text");
         getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 70, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 400, 10));
 
-        jLabel8_StudentSubmission.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8_StudentSubmission.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8_StudentSubmission.setText("Student Submission");
         getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setContentAreaFilled(false);
-        backButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
             }
         });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1.setText("Your user ID:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 70, 30));
 
         idOfUser.setEditable(false);
-        idOfUser.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        idOfUser.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        idOfUser.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        idOfUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idOfUserActionPerformed(evt);
             }
         });
         getContentPane().add(idOfUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 50, 130, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 260));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 260));
 
         editMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });

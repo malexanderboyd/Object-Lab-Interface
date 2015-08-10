@@ -1,5 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class AddDeviceView extends javax.swing.JFrame
     {
         initComponents();
         settings = new AdminSettingsView();
+        jPanel.setLayout(new BorderLayout());
         fields.add(printerNameTF);
         fields.add(fileExtensionTF);
         fields.add(fieldTF0);
@@ -86,8 +88,7 @@ public class AddDeviceView extends javax.swing.JFrame
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -103,7 +104,7 @@ public class AddDeviceView extends javax.swing.JFrame
         numberCB = new javax.swing.JCheckBox();
         studentSubmissionCB = new javax.swing.JCheckBox();
         fileExtensionL = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         EditMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -113,46 +114,45 @@ public class AddDeviceView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(530, 475));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Add Printer");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 440, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
         getContentPane().add(fileExtensionTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 124, -1));
 
+        printerNameL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         printerNameL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         printerNameL.setText("Printer Name:");
         getContentPane().add(printerNameL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
+        removeFieldButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         removeFieldButton.setText("Remove Field");
-        removeFieldButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        removeFieldButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeFieldButtonActionPerformed(evt);
             }
         });
         getContentPane().add(removeFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 100, 20));
 
+        fieldL0.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         fieldL0.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fieldL0.setText("Field #1:");
         getContentPane().add(fieldL0, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
 
+        addFieldButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         addFieldButton.setText("Add Field");
-        addFieldButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        addFieldButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addFieldButtonActionPerformed(evt);
             }
         });
         getContentPane().add(addFieldButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 90, 20));
 
+        saveBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         saveBtn.setText("Save");
-        saveBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
             }
         });
@@ -163,53 +163,49 @@ public class AddDeviceView extends javax.swing.JFrame
         cancelBtn.setBorderPainted(false);
         cancelBtn.setContentAreaFilled(false);
         cancelBtn.setFocusPainted(false);
-        cancelBtn.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelBtnActionPerformed(evt);
             }
         });
         getContentPane().add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        fieldTF0.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        fieldTF0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldTF0ActionPerformed(evt);
             }
         });
         getContentPane().add(fieldTF0, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 124, -1));
 
+        numberCB.setBackground(new java.awt.Color(255, 255, 255));
+        numberCB.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         numberCB.setText("Number Value");
         getContentPane().add(numberCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, -1, -1));
 
+        studentSubmissionCB.setBackground(new java.awt.Color(255, 255, 255));
+        studentSubmissionCB.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         studentSubmissionCB.setSelected(true);
         studentSubmissionCB.setText("Require Student Submission (recommended)");
-        studentSubmissionCB.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        studentSubmissionCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentSubmissionCBActionPerformed(evt);
             }
         });
         getContentPane().add(studentSubmissionCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, -1, 20));
 
+        fileExtensionL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         fileExtensionL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         fileExtensionL.setText("File Ext.:");
         getContentPane().add(fileExtensionL, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 370));
+        jPanel.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 260));
 
         EditMenu.setText("Help");
 
         jMenuItem1.setText("Users Guide");
-
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
@@ -413,9 +409,9 @@ public class AddDeviceView extends javax.swing.JFrame
     private javax.swing.JLabel fileExtensionL;
     private javax.swing.JTextField fileExtensionTF;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JCheckBox numberCB;
     private javax.swing.JLabel printerNameL;

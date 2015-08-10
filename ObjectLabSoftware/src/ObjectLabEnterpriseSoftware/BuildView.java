@@ -252,6 +252,15 @@ public class BuildView extends javax.swing.JFrame
         jLabel3 = new javax.swing.JLabel();
         backToMainMenu = new javax.swing.JButton();
         buildFileLocationErrorStatusText = new javax.swing.JLabel();
+        runtimeLabel = new javax.swing.JLabel();
+        hourField = new javax.swing.JTextField();
+        secondField = new javax.swing.JTextField();
+        minuteField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         removeBuildOpen = new javax.swing.JMenu();
@@ -281,23 +290,25 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
         Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
+        Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 640, 120, 30));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 640, 100, 30));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Choose jobs part of build: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 200, 19));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 19));
 
-        buildLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buildLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buildLbl.setText("Build File Name:");
         getContentPane().add(buildLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, 20));
 
         filepathToSelectedDeviceBuild.setEditable(false);
+        filepathToSelectedDeviceBuild.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         filepathToSelectedDeviceBuild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filepathToSelectedDeviceBuildActionPerformed(evt);
@@ -305,6 +316,7 @@ public class BuildView extends javax.swing.JFrame
         });
         getContentPane().add(filepathToSelectedDeviceBuild, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 200, -1));
 
+        browseBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,7 +325,7 @@ public class BuildView extends javax.swing.JFrame
         });
         getContentPane().add(browseBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 70, 20));
 
-        ErrorText.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        ErrorText.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         ErrorText.setForeground(new java.awt.Color(255, 0, 0));
         ErrorText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         ErrorText.setText("Error Text");
@@ -352,10 +364,11 @@ public class BuildView extends javax.swing.JFrame
 
             getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 950, 300));
 
-            jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+            jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             jLabel2.setText("Select Device:");
-            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
+            getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
+            deviceNameComboBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             deviceNameComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
             deviceNameComboBox.setSelectedItem(null);
             deviceNameComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -373,9 +386,9 @@ public class BuildView extends javax.swing.JFrame
 
             getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 950, 150));
 
-            jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+            jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel3.setText("Enter Build Data:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 150, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 150, 20));
 
             backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
             backToMainMenu.setToolTipText("Back");
@@ -389,7 +402,7 @@ public class BuildView extends javax.swing.JFrame
             });
             getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
 
-            buildFileLocationErrorStatusText.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+            buildFileLocationErrorStatusText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             buildFileLocationErrorStatusText.setForeground(new java.awt.Color(255, 0, 0));
             buildFileLocationErrorStatusText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             buildFileLocationErrorStatusText.setLabelFor(browseBtn);
@@ -397,8 +410,56 @@ public class BuildView extends javax.swing.JFrame
             buildFileLocationErrorStatusText.setToolTipText("");
             getContentPane().add(buildFileLocationErrorStatusText, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 520, 20));
 
+            runtimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+            runtimeLabel.setText("Total Runtime:");
+            getContentPane().add(runtimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 650, -1, 20));
+
+            hourField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            hourField.setText("00");
+            getContentPane().add(hourField, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 650, 20, -1));
+
+            secondField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            secondField.setText("00");
+            secondField.setPreferredSize(new java.awt.Dimension(20, 20));
+            getContentPane().add(secondField, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 650, -1, -1));
+
+            minuteField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            minuteField.setText("00");
+            minuteField.setPreferredSize(new java.awt.Dimension(20, 20));
+            minuteField.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    minuteFieldActionPerformed(evt);
+                }
+            });
+            getContentPane().add(minuteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 650, -1, -1));
+
+            jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+            jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel5.setText(":");
+            getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 650, 10, 20));
+
+            jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+            jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel6.setText(":");
+            getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 650, 10, 20));
+
+            jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+            jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel7.setText("H");
+            getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 670, 20, -1));
+
+            jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+            jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel8.setText("M");
+            getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 670, 20, -1));
+
+            jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
+            jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel9.setText("S");
+            getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 670, 20, -1));
+
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 730));
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 780));
 
             removeBuildOpen.setText("Remove Build");
             removeBuildOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -499,7 +560,11 @@ public class BuildView extends javax.swing.JFrame
     {
         buildFileLocationErrorStatusText.setVisible(false);
         deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
-
+        /*
+        deviceModel.addField("Hours", 0);
+        deviceModel.addField("Minutes", 0);
+        deviceModel.addField("Seconds", 0);
+        */
         trackableFields = deviceModel.getFieldNames();
         deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
         deviceInputTable.setModel(deviceDataModel);
@@ -577,6 +642,10 @@ public class BuildView extends javax.swing.JFrame
 		removeWindow.init();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void minuteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minuteFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_minuteFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ErrorText;
@@ -589,10 +658,16 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JComboBox deviceNameComboBox;
     private javax.swing.JTextField filepathToSelectedDeviceBuild;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JTextField hourField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -604,7 +679,10 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextField minuteField;
     private javax.swing.JMenu removeBuildOpen;
+    private javax.swing.JLabel runtimeLabel;
+    private javax.swing.JTextField secondField;
     private javax.swing.JTable studentSubmissionApprovedTableList;
     private javax.swing.JMenuItem userGuide;
     // End of variables declaration//GEN-END:variables

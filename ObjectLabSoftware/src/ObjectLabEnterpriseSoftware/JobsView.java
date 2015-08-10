@@ -26,6 +26,7 @@ public class JobsView extends javax.swing.JFrame
     private static final int DATE_PROJECT_STARTED_COLUMN_NUMBER = 4;
     private ArrayList<String> printers;
     private String selectedPrinter;
+    private String[] completedHeaders = new String[]{"File Name","First Name","Last Name","Submission Date","Class","Section","Volume"};
 
     private static final MainView home = new MainView();
 
@@ -48,6 +49,7 @@ public class JobsView extends javax.swing.JFrame
                 pendingJobsView.addRow(row.toArray());
             }
         }
+        //if the status is pending, show the approve and reject buttons
         if (!status.equals("pending"))
         {
             approveButton.setVisible(false);
@@ -57,6 +59,7 @@ public class JobsView extends javax.swing.JFrame
             approveButton.setVisible(true);
             rejectButton.setVisible(true);
         }
+        //If status is completed, let the user see printer selection and export button
         if (!status.equals("completed"))
         {
             exportButton.setVisible(false);
@@ -264,7 +267,7 @@ public class JobsView extends javax.swing.JFrame
             getContentPane().add(deviceLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(208, 60, 40, 20));
 
             printerBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            printerBox.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
+            printerBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
             getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 60, 90, 20));
 
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
@@ -441,8 +444,8 @@ public class JobsView extends javax.swing.JFrame
 
         selectedPrinter = printerBox.getSelectedItem().toString();
         UtilController controller = new UtilController();
-        String[] headers = new String[]{"","","",""};
-        controller.exportReportToFile(allFileTableModel, headers, selectedPrinter, 'f');
+        
+        controller.exportReportToFile(allFileTableModel, completedHeaders, selectedPrinter, 'f');
     }//GEN-LAST:event_exportButtonActionPerformed
 
 

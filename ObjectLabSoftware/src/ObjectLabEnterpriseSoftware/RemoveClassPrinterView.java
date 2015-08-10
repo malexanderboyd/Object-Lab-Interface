@@ -36,8 +36,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         cancelButton = new javax.swing.JButton();
         classComboBox = new javax.swing.JComboBox();
@@ -59,59 +58,56 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         cancelButton.setBorderPainted(false);
         cancelButton.setContentAreaFilled(false);
         cancelButton.setFocusPainted(false);
-
-        cancelButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
         getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 70, -1));
 
+        classComboBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.returnAvailableClasses()));
         classComboBox.setSelectedItem(null);
         getContentPane().add(classComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 200, -1));
 
-        titleLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         titleLabel.setText("Remove Class/Printer");
         getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 290, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 390, 10));
 
-        classLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        classLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         classLabel.setText("Class:");
         getContentPane().add(classLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 50, -1));
 
-        printerLabel.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
+        printerLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         printerLabel.setText("Printer:");
         getContentPane().add(printerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, -1));
 
+        printerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         printerComboBox.setModel(new javax.swing.DefaultComboBoxModel(UtilController.arrayListToStringArray(UtilController.getListOfCurrentDevices())));
         printerComboBox.setSelectedItem(null);
         getContentPane().add(printerComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 200, -1));
 
+        removeClassButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         removeClassButton.setText("Remove");
-        removeClassButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        removeClassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeClassButtonActionPerformed(evt);
             }
         });
         getContentPane().add(removeClassButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
 
+        removePrinterButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         removePrinterButton.setText("Remove");
-        removePrinterButton.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        removePrinterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removePrinterButtonActionPerformed(evt);
             }
         });
         getContentPane().add(removePrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 200));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 160));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
