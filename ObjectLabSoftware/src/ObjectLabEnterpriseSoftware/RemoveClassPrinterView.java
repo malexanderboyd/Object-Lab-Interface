@@ -5,6 +5,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 
 public class RemoveClassPrinterView extends javax.swing.JFrame {
+	public RemoveClassPrinterView() {
+	}
     
     private static final String NAME_OF_PAGE = "Remove Class/Printer";
     private static SQLMethods sql = new SQLMethods();

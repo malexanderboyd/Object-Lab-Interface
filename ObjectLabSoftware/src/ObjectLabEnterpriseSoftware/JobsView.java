@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class JobsView extends javax.swing.JFrame
 {
 
-    private static final String NAME_OF_PAGE = "Student Submission";
+    private static final String NAME_OF_PAGE = "Student Submission - Admin";
 
     private static final int PROJECT_NAME_COLUMN_NUMBER = 0;
     private static final int FIRST_NAME_COLUMN_NUMBER = 1;
@@ -154,6 +156,8 @@ public class JobsView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        
+        checkBox = new javax.swing.JCheckBox();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -386,7 +390,7 @@ public class JobsView extends javax.swing.JFrame
         if (userSelectedRow > -1)
         {
             int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
-            double volume = getDouble("Enter volume (in cubic inches): ", 1, maxVolume);
+            double volume = getDouble("Enter volume (in cubic inches): ", 0, maxVolume); // couldn't enter values between 0 < x < 1 before - fixed, --Alex
 
             if (volume >= 1)
             {
@@ -471,5 +475,6 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JComboBox printerBox;
     private javax.swing.JLabel rejectButton;
     private javax.swing.JLabel reviewFile;
+    private JCheckBox checkBox;
     // End of variables declaration//GEN-END:variables
 }

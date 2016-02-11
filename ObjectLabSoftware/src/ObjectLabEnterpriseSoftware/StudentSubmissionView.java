@@ -4,12 +4,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StudentSubmissionView extends javax.swing.JFrame
 {
+	public StudentSubmissionView() {
+	}
     private static final String NAME_OF_PAGE = "Student Submission";
     private static final MainView home = new MainView();
     private String userID;
@@ -84,6 +88,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         editMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        
+        checkBox = new javax.swing.JCheckBox();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -96,6 +102,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(430, 310));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        
+        
+        
+        
+        
+        
 
         jLabel1_FileLocation.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1_FileLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -403,5 +415,6 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox printerBox;
     private javax.swing.JTextField projName;
+    private javax.swing.JCheckBox checkBox;
     // End of variables declaration//GEN-END:variables
 }
