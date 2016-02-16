@@ -1,5 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Checkbox;
+import java.awt.CheckboxGroup;
 import java.awt.Desktop;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -15,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class JobsView extends javax.swing.JFrame
 {
@@ -36,21 +39,38 @@ public class JobsView extends javax.swing.JFrame
 
     private void updateView(String status, DefaultTableModel pendingJobsView, ArrayList<ArrayList<Object>> view)
     {
-        pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
 
+        pendingJobsView.setColumnIdentifiers(UtilController.getStatusJobsHeaders(status));
         /* Clears up the rows in the view's model. */
         for (int rows = pendingJobsView.getRowCount() - 1; rows >= 0; rows--)
         {
             pendingJobsView.removeRow(rows);
         }
-
+        	int rowSelector = 0;
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view)
         {
+        
             if(UtilController.findAndVerifyFile((String)(row.toArray()[0]))){
                 pendingJobsView.addRow(row.toArray());
-            }
+               // add(new Checkbox(Integer.toString(rowSelector), selectedGroup, false));
+                rowSelector++;
+              
+            } 
         }
+        
+        
+      
+        pendingJobsView.addColumn("Select");
+   
+        pendingJobsView.setValueAt(Boolean.TRUE, 0, 7);
+        
+
+        
+        
+        
+        
+        
         //if the status is pending, show the approve and reject buttons
         if (!status.equals("pending"))
         {
@@ -156,8 +176,11 @@ public class JobsView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        CheckboxGroup selectedGroup = new CheckboxGroup();
         
-        checkBox = new javax.swing.JCheckBox();
+        
+ ;	
+        
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -209,6 +232,13 @@ public class JobsView extends javax.swing.JFrame
                     backToMainMenuActionPerformed(evt);
                 }
             });
+            
+            
+            
+            
+            
+            
+            
             getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 40));
 
             jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -475,6 +505,6 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JComboBox printerBox;
     private javax.swing.JLabel rejectButton;
     private javax.swing.JLabel reviewFile;
-    private JCheckBox checkBox;
+    private CheckboxGroup selectedGroup;
     // End of variables declaration//GEN-END:variables
 }
