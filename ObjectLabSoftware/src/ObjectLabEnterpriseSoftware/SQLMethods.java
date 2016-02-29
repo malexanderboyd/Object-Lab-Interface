@@ -33,8 +33,7 @@ public class SQLMethods
     public SQLMethods()
     {
         /* To resolve hostname to an IP adr */
-        //File f = new File("C:\\Sync\\computername.txt");
-    	File f = new File("/home/alex/Documents/School/Spring 2016/Software eng/Object-Lab-Interface/Object-Lab-Interface/computername.txt");
+        File f = new File("C:\\Sync\\computername.txt");
         String line, ip = "";
 
         try
