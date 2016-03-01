@@ -56,6 +56,12 @@ public class SQLMethods
             System.out.println("Couldn't read file! IOException!");
             ex.printStackTrace();
         }
+        
+        
+        
+        //////// EXTERNAL MYSQL SERVER TEST: Boyd ///////////
+        ip = "mysql1110.ixwebhosting.com";
+        ////////////////////////////////////////////////////
         url = "jdbc:mysql://" + ip + ":3306/";
         connectToDatabase("com.mysql.jdbc.Driver", url + "AAAlvxm_oli", "AAAlvxm_oliAdmin", "Password1");
     }

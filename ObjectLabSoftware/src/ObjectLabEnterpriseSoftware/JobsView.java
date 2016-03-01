@@ -58,15 +58,7 @@ public class JobsView extends javax.swing.JFrame
               
             } 
         }
-        
-        
-      
-        pendingJobsView.addColumn("Select");
-   
-      //  pendingJobsView.setValueAt(Boolean.TRUE, 0, 7);
-        
 
-        
         
         //if the status is pending, show the approve and reject buttons
         if (!status.equals("pending"))
