@@ -63,12 +63,9 @@ public class JobsView extends javax.swing.JFrame
       
         pendingJobsView.addColumn("Select");
    
-        pendingJobsView.setValueAt(Boolean.TRUE, 0, 7);
+      //  pendingJobsView.setValueAt(Boolean.TRUE, 0, 7);
         
 
-        
-        
-        
         
         
         //if the status is pending, show the approve and reject buttons
@@ -176,14 +173,13 @@ public class JobsView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        CheckboxGroup selectedGroup = new CheckboxGroup();
-        
+
         
  ;	
         
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -210,7 +206,7 @@ public class JobsView extends javax.swing.JFrame
             {
                 boolean[] canEdit = new boolean []
                 {
-                    false, false, false, false, false, false, false
+                    false, false, false, false, false, false, true
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex)

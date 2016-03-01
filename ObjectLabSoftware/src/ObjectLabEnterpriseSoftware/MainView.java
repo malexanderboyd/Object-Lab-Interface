@@ -3,6 +3,7 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
+import javax.swing.JButton;
 
 public class MainView extends javax.swing.JFrame
 {
@@ -12,6 +13,7 @@ public class MainView extends javax.swing.JFrame
 	UpdateStudentView updateStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
+    AddStatsView statsSys;
     boolean show;
     String PASS = "ForwardMotion";
 
@@ -24,6 +26,7 @@ public class MainView extends javax.swing.JFrame
         studentSys = new StudentSubmissionView();
         newStudentSys = new AddStudentView();
 	updateStudentSys = new UpdateStudentView();
+	statsSys = new AddStatsView();
 				
         //Allows only integers for student ID
         studentIdString.addKeyListener(new KeyAdapter()
@@ -67,6 +70,7 @@ public class MainView extends javax.swing.JFrame
         openProjectsButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
         ReportsButton = new javax.swing.JButton();
+        statsButton = new javax.swing.JButton();
         studentLoginLabel = new javax.swing.JLabel();
         logoutB = new javax.swing.JButton();
         openProjectsLabel = new javax.swing.JLabel();
@@ -165,6 +169,26 @@ public class MainView extends javax.swing.JFrame
             }
         });
         getContentPane().add(ReportsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 70, -1));
+        
+        
+        ///
+        
+        statsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png"))); // Icon made by [simpleicon] from www.flaticon.com 
+        statsButton.setToolTipText("");
+        statsButton.setContentAreaFilled(false);
+        statsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statsButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(statsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 70, -1));
+        statsButton.setVisible(false);
+
+        
+        
+        
+        ////
+        
 
         studentLoginLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentLoginLabel.setText("Enter Your TU ID:");
@@ -277,6 +301,14 @@ public class MainView extends javax.swing.JFrame
         reports.ReportsPage();
         dispose();
     }//GEN-LAST:event_ReportsButtonActionPerformed
+    
+    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportsButtonActionPerformed
+        // TODO add your handling code here:
+        AddStatsView stats = new AddStatsView();
+        stats.setLocationRelativeTo(this);
+        stats.AddStatsViewStart();
+        dispose();
+    }//GEN-LAST:event_ReportsButtonActionPerformed
 
 	public void resetAdminMode()
 	{
@@ -290,7 +322,7 @@ public class MainView extends javax.swing.JFrame
 		studentIdString.setVisible(false);
                 oliSymbol.setVisible(false);
                 studentLoginLabel.setVisible(false);
-	}
+	} 
 	
 	public void showStudentOptions()
 	{
@@ -403,6 +435,7 @@ public class MainView extends javax.swing.JFrame
 	enterBuildLabel.setVisible(isVisible);
 	ReportsButton.setVisible(isVisible);
 	ReportsLabel.setVisible(isVisible);
+	statsButton.setVisible(isVisible);
 	logoutB.setVisible(isVisible);
     }
 
@@ -447,6 +480,7 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JMenuItem AdminLogin;
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton ReportsButton;
+    private javax.swing.JButton statsButton;
     private javax.swing.JLabel ReportsLabel;
     private javax.swing.JButton enterBuild;
     private javax.swing.JLabel enterBuildLabel;

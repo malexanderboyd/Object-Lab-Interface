@@ -34,7 +34,7 @@ public class SQLMethods
     {
         /* To resolve hostname to an IP adr */
         //File f = new File("C:\\Sync\\computername.txt");
-    	File f = new File("/home/alex/Documents/School/Spring 2016/Software eng/Object-Lab-Interface/Object-Lab-Interface/computername.txt");
+    	File f = new File("/home/alex/Documents/School/Spring 2016/Software eng/Object-Lab-Interface/computername.txt");
         String line, ip = "";
 
         try
@@ -57,7 +57,7 @@ public class SQLMethods
             ex.printStackTrace();
         }
         url = "jdbc:mysql://" + ip + ":3306/";
-        connectToDatabase("com.mysql.jdbc.Driver", url + "jobsDB", "root", "password");
+        connectToDatabase("com.mysql.jdbc.Driver", url + "AAAlvxm_oli", "AAAlvxm_oliAdmin", "Password1");
     }
     
     private void connectToDatabase(String driver, String urlDatabaseName, String userName, String pw)
