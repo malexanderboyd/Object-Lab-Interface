@@ -410,7 +410,7 @@ public class JobsView extends javax.swing.JFrame
             int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
             double volume = getDouble("Enter volume (in cubic inches): ", 0, maxVolume); // couldn't enter values between 0 < x < 1 before - fixed, --Alex
 
-            if (volume >= 1)
+            if (volume >= 0.001)
             {
                 /* Hand off the data in the selected row found in our tablemodel to this method so we can 
                  approve the correct file to be printed... -Nick 

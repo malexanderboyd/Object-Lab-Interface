@@ -1,5 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -9,8 +10,8 @@ public class MainView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Home";
 
-    AddStudentView newStudentSys;
-	UpdateStudentView updateStudentSys;
+   // AddStudentView newStudentSys;
+	//UpdateStudentView updateStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
     AddStatsView statsSys;
@@ -24,8 +25,8 @@ public class MainView extends javax.swing.JFrame
         setPrintersVisible(false);
         pendingSys = new JobsView();
         studentSys = new StudentSubmissionView();
-        newStudentSys = new AddStudentView();
-	updateStudentSys = new UpdateStudentView();
+      //  newStudentSys = new AddStudentView();
+	//updateStudentSys = new UpdateStudentView();
 	statsSys = new AddStatsView();
 				
         //Allows only integers for student ID
@@ -34,7 +35,7 @@ public class MainView extends javax.swing.JFrame
             public void keyTyped(KeyEvent e)
             {
                 char c = e.getKeyChar();
-                if (!((c >= '0') && (c <= '9')
+              /*  if (!((c >= '0') && (c <= '9')
                         || (c == KeyEvent.VK_BACK_SPACE)
                         || (c == KeyEvent.VK_DELETE)))
                 {
@@ -45,7 +46,7 @@ public class MainView extends javax.swing.JFrame
 				{
 					getToolkit().beep();
 					e.consume();
-				}
+				}*/
             }
         });
     }
@@ -65,6 +66,7 @@ public class MainView extends javax.swing.JFrame
         jTextArea1 = new javax.swing.JTextArea();
         errorIdLabel = new javax.swing.JLabel();
         studentIdString = new javax.swing.JTextField();
+        studentPassString = new javax.swing.JPasswordField();
         studentButton = new javax.swing.JButton();
         enterBuild = new javax.swing.JButton();
         openProjectsButton = new javax.swing.JButton();
@@ -72,6 +74,7 @@ public class MainView extends javax.swing.JFrame
         ReportsButton = new javax.swing.JButton();
         statsButton = new javax.swing.JButton();
         studentLoginLabel = new javax.swing.JLabel();
+        studentPassLabel = new javax.swing.JLabel();
         logoutB = new javax.swing.JButton();
         openProjectsLabel = new javax.swing.JLabel();
         enterBuildLabel = new javax.swing.JLabel();
@@ -109,10 +112,10 @@ public class MainView extends javax.swing.JFrame
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 130, 20));
+        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 130, 20));
 
         studentIdString.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        studentIdString.setToolTipText("Enter seven digit student ID.");
+        studentIdString.setToolTipText("Enter your student ID.");
         studentIdString.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentIdStringActionPerformed(evt);
@@ -120,6 +123,19 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(studentIdString, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 130, 20));
 
+        studentPassString.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        studentPassString.setToolTipText("Enter your student ID password.");
+        studentPassString.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	studentPassStringActionPerformed(evt);
+            }
+        });
+
+        
+        
+        
+        
+        
         studentButton.setBackground(new java.awt.Color(0, 0, 0));
         studentButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         studentButton.setText("Login");
@@ -173,16 +189,6 @@ public class MainView extends javax.swing.JFrame
         
         ///
         
-        statsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png"))); // Icon made by [simpleicon] from www.flaticon.com 
-        statsButton.setToolTipText("");
-        statsButton.setContentAreaFilled(false);
-        statsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statsButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(statsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 70, -1));
-        statsButton.setVisible(false);
 
         
         
@@ -193,7 +199,19 @@ public class MainView extends javax.swing.JFrame
         studentLoginLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentLoginLabel.setText("Enter Your TU ID:");
         getContentPane().add(studentLoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
+        
+        
+        studentPassLabel.setFont(new java.awt.Font("Segoe UI", 1, 12));
+        studentPassLabel.setText("Password:");
+        
+        //(int x, int y, int width, int height) 
+        getContentPane().add(studentPassString, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 130, 20));
 
+        getContentPane().add(studentPassLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 140, 20));
+        
+        
+        
+        
         logoutB.setBackground(new java.awt.Color(0, 0, 0));
         logoutB.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         logoutB.setText("Logout");
@@ -224,7 +242,7 @@ public class MainView extends javax.swing.JFrame
         getContentPane().add(settingsLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
 
         oliSymbol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/main_logo.png"))); // NOI18N
-        getContentPane().add(oliSymbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, 150));
+        getContentPane().add(oliSymbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, 150));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -320,16 +338,20 @@ public class MainView extends javax.swing.JFrame
 	{
 		studentButton.setVisible(false);
 		studentIdString.setVisible(false);
+		studentPassString.setVisible(false);
                 oliSymbol.setVisible(false);
                 studentLoginLabel.setVisible(false);
+                studentPassLabel.setVisible(false);
 	} 
 	
 	public void showStudentOptions()
 	{
 		studentButton.setVisible(true);
 		studentIdString.setVisible(true);
+		studentPassString.setVisible(true);
                 oliSymbol.setVisible(true);
                 studentLoginLabel.setVisible(true);
+                studentPassLabel.setVisible(true);
 	}
 	
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
@@ -337,20 +359,20 @@ public class MainView extends javax.swing.JFrame
         setPrintersVisible(false);
 
         String idString = studentIdString.getText();//DB team this is to store String
-
-        if (idString.length() != 7)
+        String password = new String(studentPassString.getPassword());
+        if (idString.length() < 2)
         {
-            errorIdLabel.setText("USER ID must be 7 digits");
+            errorIdLabel.setText("USER ID must be at least 2 characters.");
         } else
         {
-            if (UtilController.userIDExist(idString))
+            if (UtilController.userIDExist(idString, password))
             {
                 errorIdLabel.setText("");
                 dispose();
                 studentSys.studentSubmissionStart(idString);
             } else
             {
-                errorIdLabel.setText("USER ID does not exist");
+                errorIdLabel.setText("Invalid TU ID or Password.");
             }
         }
     }//GEN-LAST:event_studentButtonActionPerformed
@@ -360,6 +382,10 @@ public class MainView extends javax.swing.JFrame
 
     }//GEN-LAST:event_studentIdStringActionPerformed
 
+    private void studentPassStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_studentIdStringActionPerformed
     private void userGuideButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideButtonActionPerformed
         UtilController.openAdminHelpPage();
     }//GEN-LAST:event_userGuideButtonActionPerformed
@@ -379,16 +405,18 @@ public class MainView extends javax.swing.JFrame
         setPrintersVisible(false);
 
         String idString = studentIdString.getText(); //DB team this is to store String
+        char[] password = studentPassString.getPassword();
+        String pw = new String(password);
         if (idString.length() != 7)
         {
             errorIdLabel.setText("USER ID must be 7 digits");
         } else
         {
-            if (UtilController.userIDExist(idString))
+            if (UtilController.userIDExist(idString, pw))
             {
                 errorIdLabel.setText("");
                 dispose();
-                updateStudentSys.UpdateStudentViewStart(idString);
+              //  updateStudentSys.UpdateStudentViewStart(idString);
             } else
             {
                 errorIdLabel.setText("USER ID does not exist");
@@ -398,7 +426,7 @@ public class MainView extends javax.swing.JFrame
 
     private void newStudentOptionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newStudentOptionActionPerformed
     {//GEN-HEADEREND:event_newStudentOptionActionPerformed
-        newStudentSys.NewStudentViewStart();
+       // newStudentSys.NewStudentViewStart();
         dispose();
     }//GEN-LAST:event_newStudentOptionActionPerformed
 
@@ -425,8 +453,10 @@ public class MainView extends javax.swing.JFrame
     {
 	studentButton.setVisible(!isVisible);
 	studentIdString.setVisible(!isVisible);
+	studentPassString.setVisible(!isVisible);
         oliSymbol.setVisible(!isVisible);
         studentLoginLabel.setVisible(!isVisible);
+        studentPassLabel.setVisible(!isVisible);
 	settingsButton.setVisible(isVisible);
 	settingsLabel.setVisible(isVisible);
 	openProjectsButton.setVisible(isVisible);
@@ -435,7 +465,7 @@ public class MainView extends javax.swing.JFrame
 	enterBuildLabel.setVisible(isVisible);
 	ReportsButton.setVisible(isVisible);
 	ReportsLabel.setVisible(isVisible);
-	statsButton.setVisible(isVisible);
+	//statsButton.setVisible(isVisible);
 	logoutB.setVisible(isVisible);
     }
 
@@ -500,7 +530,9 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JLabel settingsLabel;
     private javax.swing.JButton studentButton;
     private javax.swing.JTextField studentIdString;
+    private javax.swing.JPasswordField studentPassString;
     private javax.swing.JLabel studentLoginLabel;
+    private javax.swing.JLabel studentPassLabel;
     private javax.swing.JMenuItem updateStudentOption;
     private javax.swing.JMenuItem userGuideButton;
     private javax.swing.JMenu userOptionsMenu;

@@ -13,6 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -36,7 +42,7 @@ public class UtilController
     private static final boolean FAILURE = false;
 
     private static final String SOFTWARE_NAME = "OLI";
-    private static final String SOFTWARE_VERSION = "v1.1"; //Should be dynamic
+    private static final String SOFTWARE_VERSION = "v1.42"; //Should be dynamic
     
     /* Bug - Invalid URL, build 1.1 - Boyd, 2/10/2016 */
     private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
@@ -904,9 +910,47 @@ public class UtilController
         dbconn.closeDBConnection();
     }
 
-    public static boolean userIDExist(String studentId)
+    public static boolean userIDExist(String studentId, String studentPass)
     {
-        boolean flag = false;
+    	Hashtable<String, String> env = new Hashtable<String, String>();
+    	env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+    	env.put(Context.SECURITY_AUTHENTICATION, "simple");
+    	env.put(Context.PROVIDER_URL, "ldap://Towson.edu:389/");
+
+    	// The value of Context.SECURITY_PRINCIPAL must be the logon username with the domain name
+    	env.put(Context.SECURITY_PRINCIPAL, "TOWSONU\\" + studentId);
+
+    	// The value of the Context.SECURITY_CREDENTIALS should be the user's password
+    	env.put(Context.SECURITY_CREDENTIALS, studentPass);
+
+    	DirContext ctx;
+
+    	System.out.print("Attempting login with credentials: \n username: " + studentId + "\n password: " + studentPass);
+    	try {
+    	    // Authenticate the logon user
+    	    ctx = new InitialDirContext(env);
+    	    if(ctx != null)
+    	    {
+    	    	System.out.println("User is authenticated.");
+    	    }
+    	    
+    	    return true;
+
+    	} catch (NamingException ex) {
+    	    return false;
+    	}
+
+    	
+ 
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	// Old Method to verify student accounts
+    	/*boolean flag = false;
         SQLMethods dbconn = new SQLMethods();
         ResultSet usersCountQuery = dbconn.checkUserExists(studentId);
         try
@@ -918,10 +962,15 @@ public class UtilController
         }
 
         dbconn.closeDBConnection();
-        return flag;
+        return flag;*/
     }
 
-    public static int addUser(String studentId, String firstname, String lastname, String email)
+    
+    
+    // May not need to use this anymore because we'll just use the domain server to track user accounts
+    // ~ Alex 4/6/2016
+    
+ /*   public static int addUser(String studentId, String firstname, String lastname, String email)
     {
         if (userIDExist(studentId))
         {
@@ -932,9 +981,9 @@ public class UtilController
         dbconn.closeDBConnection();
 
         return flag;
-    }
+    } */
 
-    public static int updateUser(String studentId, String firstname, String lastname, String email)
+    /*public static int updateUser(String studentId, String firstname, String lastname, String email)
     {
         int flag = -1;
         if (userIDExist(studentId))
@@ -945,7 +994,7 @@ public class UtilController
             return flag;
         }
         return flag;
-    }
+    }*/
 
     public static ArrayList<ArrayList<Object>> returnApprovedStudentSubmissionsForDevice(String printerName)
     {
