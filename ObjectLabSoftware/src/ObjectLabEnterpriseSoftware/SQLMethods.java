@@ -29,11 +29,10 @@ public class SQLMethods
     private Connection conn;
     private ResultSet res;
     private PreparedStatement stmt;
-
     public SQLMethods()
     {
         /* To resolve hostname to an IP adr */
-        File f = new File("C:\\Sync\\computername.txt");
+        File f = new File(MainView.getStorageDir() + ":\\Sync\\computername.txt");
     	//File f = new File("/home/alex/Documents/School/Spring 2016/Software eng/Object-Lab-Interface/computername.txt");
         String line, ip = "";
 

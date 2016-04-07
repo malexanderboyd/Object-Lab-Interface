@@ -3,12 +3,17 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 
 public class MainView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Home";
+    private static final char SHARE_DRIVE_DIR = 'Z';
 
    // AddStudentView newStudentSys;
 	//UpdateStudentView updateStudentSys;
@@ -89,13 +94,16 @@ public class MainView extends javax.swing.JFrame
         AdminLogin = new javax.swing.JMenuItem();
         helpButton = new javax.swing.JMenu();
         userGuideButton = new javax.swing.JMenuItem();
-
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
+        
+        
+        
+        
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -108,7 +116,12 @@ public class MainView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(250, 370));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
+        
+        
+        
+        
+        
+        
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
@@ -294,7 +307,7 @@ public class MainView extends javax.swing.JFrame
         MenuBar.add(helpButton);
 
         setJMenuBar(MenuBar);
-
+        
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -478,7 +491,20 @@ public class MainView extends javax.swing.JFrame
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         */	
+        String mapDrive = "net use " + SHARE_DRIVE_DIR + ": \\\\customshare\\ObjectLabStorage  /user:TOWSONU\\mboyd8 6TgrAlienRazor9!"; // This is the command that mounts the drive.  
+        Process p = null;
+        
+        try
+        {
+           p = Runtime.getRuntime().exec(mapDrive);
+           System.out.println(p.toString());
+        }
+        catch(Exception e)
+        {
+            System.out.println("Something went wrong with trying to mount drive");    
+        }
+      
         try
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
@@ -505,6 +531,15 @@ public class MainView extends javax.swing.JFrame
             }
         });
     }
+    
+    
+    public static char getStorageDir()
+    {
+    	return SHARE_DRIVE_DIR;
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AdminLogin;
