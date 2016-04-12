@@ -492,7 +492,7 @@ public class SQLMethods
         try
         {
         	System.out.print("Trying to insert into db...~Alex debug");
-            stmt = conn.prepareStatement("INSERT INTO job (file_name, file_path, class_id, student_id, printer_name, submission_date," + " build_Name, status, comment) values (?,?,?,?,?,NOW(),null,'pending',null);");
+            stmt = conn.prepareStatement("INSERT INTO job (file_name, file_path, class_id, student_id, printer_name, submission_date, build_Name, status, comment) values (?,?,?,?,?,NOW(),null,'pending',null);");
             stmt.setString(1, filename);
             stmt.setString(2, filePath);
             stmt.setInt(3, class_id);

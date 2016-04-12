@@ -210,7 +210,7 @@ public class MainView extends javax.swing.JFrame
         
 
         studentLoginLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        studentLoginLabel.setText("Enter Your TU ID:");
+        studentLoginLabel.setText("Enter Your Net ID:");
         getContentPane().add(studentLoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 20));
         
         
@@ -267,14 +267,14 @@ public class MainView extends javax.swing.JFrame
                 userOptionsMenuActionPerformed(evt);
             }
         });
-
+        /*
         newStudentOption.setText("Add User");
         newStudentOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newStudentOptionActionPerformed(evt);
             }
         });
-        userOptionsMenu.add(newStudentOption);
+        userOptionsMenu.add(newStudentOption); 
 
         updateStudentOption.setText("Update User Login Info");
         updateStudentOption.addActionListener(new java.awt.event.ActionListener() {
@@ -282,7 +282,7 @@ public class MainView extends javax.swing.JFrame
                 updateStudentOptionActionPerformed(evt);
             }
         });
-        userOptionsMenu.add(updateStudentOption);
+        userOptionsMenu.add(updateStudentOption);*/
 
         AdminLogin.setText("Administrator Login");
         AdminLogin.addActionListener(new java.awt.event.ActionListener() {

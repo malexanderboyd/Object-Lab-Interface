@@ -50,7 +50,6 @@ public class JobsView extends javax.swing.JFrame
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view)
         {
-        
             if(UtilController.findAndVerifyFile((String)(row.toArray()[0]))){
                 pendingJobsView.addRow(row.toArray());
                // add(new Checkbox(Integer.toString(rowSelector), selectedGroup, false));

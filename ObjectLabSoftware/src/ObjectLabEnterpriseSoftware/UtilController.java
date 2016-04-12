@@ -15,9 +15,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.naming.Context;
+import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
+import javax.naming.ldap.LdapContext;
+import javax.security.auth.login.LoginContext;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,6 +35,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.DirContext;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -35,6 +49,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.sun.jndi.ldap.LdapName;
+
 public class UtilController
 {
 
@@ -42,7 +58,7 @@ public class UtilController
     private static final boolean FAILURE = false;
 
     private static final String SOFTWARE_NAME = "OLI";
-    private static final String SOFTWARE_VERSION = "v1.42"; //Should be dynamic
+    private static final String SOFTWARE_VERSION = "v1.43"; //Should be dynamic
     
     /* Bug - Invalid URL, build 1.1 - Boyd, 2/10/2016 */
     private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
@@ -924,23 +940,35 @@ public class UtilController
     	env.put(Context.SECURITY_CREDENTIALS, studentPass);
 
     	DirContext ctx;
-
     	System.out.print("Attempting login with credentials: \n username: " + studentId + "\n password: " + studentPass);
     	try {
     	    // Authenticate the logon user
     	    ctx = new InitialDirContext(env);
     	    if(ctx != null)
     	    {
-    	    	System.out.println("User is authenticated.");
+    	    	System.out.println("user is authenticated.");
+    	    	addUser(studentId);
+    	    	
+    	    	
+    	    Attributes matchAttrs = new BasicAttributes(true);
+    	    matchAttrs.put(new BasicAttribute("uid", studentId));
+    	    NamingEnumeration ans = ctx.search("ou=User", matchAttrs);
+    	    NamingEnumeration ans2 = ctx.search("ou=Users", matchAttrs);
+    	    NamingEnumeration ans3 = ctx.search("ou=People", matchAttrs);
+    	    NamingEnumeration ans4 = ctx.search("ou=student", matchAttrs);
+    	    NamingEnumeration ans5 = ctx.search("ou=students", matchAttrs);
+    	    
+    	    System.out.println(ans.toString() + " " + ans2.toString() + " 2 " + 
+    	    ans3.toString() + " 3 " + ans4.toString() + " 4 " + ans5.toString() + " 5 ");
+    	    	return true;
     	    }
     	    
     	    return true;
-
     	} catch (NamingException ex) {
     	    return false;
     	}
 
-    	
+    }
  
     	
     	
@@ -948,11 +976,44 @@ public class UtilController
     	
     	
     	
-    	
-    	// Old Method to verify student accounts
-    	/*boolean flag = false;
+    
+    
+    // May not need to use this anymore because we'll just use the domain server to track user accounts
+    // ~ Alex 4/6/2016
+    
+    public static int addUser(String studentId)
+    {
+        if (checkUser(studentId))
+        {
+            return -25;
+        }
         SQLMethods dbconn = new SQLMethods();
-        ResultSet usersCountQuery = dbconn.checkUserExists(studentId);
+        int flag = dbconn.insertIntoUsers(studentId, "Ftest", "Ltest", "Test@email.com");
+        dbconn.closeDBConnection();
+
+        return flag;
+    } 
+    
+    
+    public static int addUser(String studentId, String firstname, String lastname, String email)
+    {
+        if (checkUser(studentId))
+        {
+            return -25;
+        }
+        SQLMethods dbconn = new SQLMethods();
+        int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+        dbconn.closeDBConnection();
+
+        return flag;
+    } 
+    
+    public static boolean checkUser(String studentID)
+    {
+       	// Old Method to verify student accounts
+    	boolean flag = false;
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet usersCountQuery = dbconn.checkUserExists(studentID);
         try
         {
             flag = usersCountQuery.next();
@@ -962,26 +1023,16 @@ public class UtilController
         }
 
         dbconn.closeDBConnection();
-        return flag;*/
+        return flag;   
+    	
+    	
+    	
     }
-
     
     
-    // May not need to use this anymore because we'll just use the domain server to track user accounts
-    // ~ Alex 4/6/2016
     
- /*   public static int addUser(String studentId, String firstname, String lastname, String email)
-    {
-        if (userIDExist(studentId))
-        {
-            return -25;
-        }
-        SQLMethods dbconn = new SQLMethods();
-        int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
-        dbconn.closeDBConnection();
-
-        return flag;
-    } */
+    
+    
 
     /*public static int updateUser(String studentId, String firstname, String lastname, String email)
     {
