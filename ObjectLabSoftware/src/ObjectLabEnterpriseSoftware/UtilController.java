@@ -949,17 +949,6 @@ public class UtilController
     	    	System.out.println("user is authenticated.");
     	    	addUser(studentId);
     	    	
-    	    	
-    	    Attributes matchAttrs = new BasicAttributes(true);
-    	    matchAttrs.put(new BasicAttribute("uid", studentId));
-    	    NamingEnumeration ans = ctx.search("ou=User", matchAttrs);
-    	    NamingEnumeration ans2 = ctx.search("ou=Users", matchAttrs);
-    	    NamingEnumeration ans3 = ctx.search("ou=People", matchAttrs);
-    	    NamingEnumeration ans4 = ctx.search("ou=student", matchAttrs);
-    	    NamingEnumeration ans5 = ctx.search("ou=students", matchAttrs);
-    	    
-    	    System.out.println(ans.toString() + " " + ans2.toString() + " 2 " + 
-    	    ans3.toString() + " 3 " + ans4.toString() + " 4 " + ans5.toString() + " 5 ");
     	    	return true;
     	    }
     	    

@@ -3,11 +3,13 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 
 public class MainView extends javax.swing.JFrame
@@ -157,6 +159,7 @@ public class MainView extends javax.swing.JFrame
                 studentButtonActionPerformed(evt);
             }
         });
+        
         getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, 20));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
@@ -202,7 +205,28 @@ public class MainView extends javax.swing.JFrame
         
         ///
         
+        studentPassString.addKeyListener(new KeyListener() {
+        	 // press enter when you want to login ~testing Alex 4/13
+        	public void keyPressed(KeyEvent kevt) {
+                 if (kevt.getKeyCode() == kevt.VK_ENTER) {
+                	 ActionEvent evnt = new ActionEvent(null, (Integer) null, null);
+                	 studentButtonActionPerformed(evnt);
+                 }
+             }
 
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+		
+				
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+			
+				
+			}
+        	
+        });
         
         
         
@@ -222,7 +246,7 @@ public class MainView extends javax.swing.JFrame
 
         getContentPane().add(studentPassLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 140, 20));
         
-        
+   
         
         
         logoutB.setBackground(new java.awt.Color(0, 0, 0));
@@ -371,6 +395,8 @@ public class MainView extends javax.swing.JFrame
         // TODO add your handling code here:
         setPrintersVisible(false);
 
+        
+        
         String idString = studentIdString.getText();//DB team this is to store String
         String password = new String(studentPassString.getPassword());
         if (idString.length() < 2)

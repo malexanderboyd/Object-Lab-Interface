@@ -402,14 +402,14 @@ public class JobsView extends javax.swing.JFrame
     private void approveButtonMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_approveButtonMouseClicked
     {//GEN-HEADEREND:event_approveButtonMouseClicked
         int userSelectedRow = PendingTable.getSelectedRow();
-        int maxVolume = 10000; /* Will need to have this in a cfg file.... */
+        double maxVolume = 10000.0; /* Will need to have this in a cfg file.... */
 
         if (userSelectedRow > -1)
         {
             int rowDataLocation = getSelectedRowNum(allFileTableModel, userSelectedRow, 0);
-            double volume = getDouble("Enter volume (in cubic inches): ", 0, maxVolume); // couldn't enter values between 0 < x < 1 before - fixed, --Alex
+            double volume = getDouble("Enter volume (in cubic inches): ", 0.0, maxVolume);
 
-            if (volume >= 0.001)
+            if (volume >= 0.001) // fix for input 0 < x < 1
             {
                 /* Hand off the data in the selected row found in our tablemodel to this method so we can 
                  approve the correct file to be printed... -Nick 
