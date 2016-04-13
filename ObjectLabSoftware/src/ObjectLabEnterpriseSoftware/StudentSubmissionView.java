@@ -214,6 +214,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+        backButton.setFocusPainted(false);
         backButton.setContentAreaFilled(false);
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
