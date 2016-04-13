@@ -205,29 +205,18 @@ public class MainView extends javax.swing.JFrame
         
         ///
         
-        studentPassString.addKeyListener(new KeyListener() {
         	 // press enter when you want to login ~testing Alex 4/13
-        	public void keyPressed(KeyEvent kevt) {
-                 if (kevt.getKeyCode() == kevt.VK_ENTER) {
-                	 ActionEvent evnt = new ActionEvent(null, (Integer) null, null);
-                	 studentButtonActionPerformed(evnt);
-                 }
-             }
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-		
-				
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-			
-				
-			}
-        	
+        studentPassString.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char c = e.getKeyChar();
+                if(c == KeyEvent.VK_ENTER)
+                {
+                	attemptLogin();
+                }
+            }
         });
-        
         
         
         ////
@@ -389,6 +378,29 @@ public class MainView extends javax.swing.JFrame
                 oliSymbol.setVisible(true);
                 studentLoginLabel.setVisible(true);
                 studentPassLabel.setVisible(true);
+	}
+	
+	
+	private void attemptLogin()
+	{
+        setPrintersVisible(false);
+        String idString = studentIdString.getText();//DB team this is to store String
+        String password = new String(studentPassString.getPassword());
+        if (idString.length() < 2)
+        {
+            errorIdLabel.setText("USER ID must be at least 2 characters.");
+        } else
+        {
+            if (UtilController.userIDExist(idString, password))
+            {
+                errorIdLabel.setText("");
+                dispose();
+                studentSys.studentSubmissionStart(idString);
+            } else
+            {
+                errorIdLabel.setText("Invalid TU ID or Password.");
+            }
+        }
 	}
 	
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed

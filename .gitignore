@@ -2,3 +2,4 @@
 /ObjectLabSoftware/build/
 /ObjectLabSoftware/dist/
 *.bak
+/bin/
