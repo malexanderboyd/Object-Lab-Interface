@@ -346,19 +346,12 @@ public class MainView extends javax.swing.JFrame
         dispose();
     }//GEN-LAST:event_ReportsButtonActionPerformed
     
-    private void statsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportsButtonActionPerformed
-        // TODO add your handling code here:
-        AddStatsView stats = new AddStatsView();
-        stats.setLocationRelativeTo(this);
-        stats.AddStatsViewStart();
-        dispose();
-    }//GEN-LAST:event_ReportsButtonActionPerformed
-
 	public void resetAdminMode()
 	{
-            setPrintersVisible(true);
+			pendingSys.PendingJobsStart();
             hideStudentOptions();
-            setVisible(true);
+            setVisible(false);
+            dispose();
 	}
 	public void hideStudentOptions()
 	{

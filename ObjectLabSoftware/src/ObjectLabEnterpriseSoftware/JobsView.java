@@ -15,9 +15,14 @@ import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JMenu;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class JobsView extends javax.swing.JFrame
 {
@@ -32,7 +37,12 @@ public class JobsView extends javax.swing.JFrame
     private ArrayList<String> printers;
     private String selectedPrinter;
     private String[] completedHeaders = new String[]{"File Name","First Name","Last Name","Submission Date","Class","Section","Volume"};
-
+    // nav bar views ~Alex
+    private BuildView buildView;
+    private JobsView jobsView;
+    private ReportsView reportsView;	
+    private AdminSettingsView adminSettingsView;
+    //
     private static final MainView home = new MainView();
 
     private DefaultTableModel allFileTableModel;
@@ -89,6 +99,12 @@ public class JobsView extends javax.swing.JFrame
         printers = UtilController.getListOfAllDevices();
         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
+        // nav bar views ~Alex
+
+        initNavBar();
+        //
+        
+        
         allFileTableModel = (DefaultTableModel) PendingTable.getModel();
 
         addWindowListener(
@@ -99,7 +115,7 @@ public class JobsView extends javax.swing.JFrame
                     {
                         /* If they close the program then close out the window properly */
                         dispose();
-                        home.resetAdminMode();
+                        //home.resetAdminMode();
                     }
                 }
         );
@@ -162,8 +178,7 @@ public class JobsView extends javax.swing.JFrame
         printerBox = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+      
 
         
  ;	
@@ -174,6 +189,13 @@ public class JobsView extends javax.swing.JFrame
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        
+        
+        
+        
+        
+        
+        
         jScrollPane2.setViewportView(jList1);
 
         jTextArea1.setEditable(false);
@@ -294,24 +316,131 @@ public class JobsView extends javax.swing.JFrame
             jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -6, 790, 590));
 
-            jMenu2.setText("Help");
 
-            jMenuItem2.setText("Contents");
-            jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jMenuItem2ActionPerformed(evt);
-                }
-            });
-            jMenu2.add(jMenuItem2);
-
-            jMenuBar1.add(jMenu2);
-
-            setJMenuBar(jMenuBar1);
-
+            
+            
+            
+            
+            
+            
             pack();
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
 
+    private void initNavBar()
+    {
+
+        
+        setJMenuBar(jMenuBar1);
+        
+        navBtn_jobsMgr = new JButton("Jobs Manager");
+        navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
+
+        
+        
+        jMenuBar1.add(navBtn_jobsMgr);
+        
+        navBtn_build = new JButton("Enter Build");
+        navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
+        jMenuBar1.add(navBtn_build);
+        
+        navBtn_reports = new JButton("Reports");
+        navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
+        jMenuBar1.add(navBtn_reports);
+        
+        navBtn_settings = new JButton("Settings");
+        navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
+        jMenuBar1.add(navBtn_settings);
+
+        
+        navBtn_jobsMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_jobsMgrActionPerformed(evt);
+            }
+        });
+        
+        navBtn_build.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_buildActionPerformed(evt);
+            }
+        });
+        
+        navBtn_reports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_reportsActionPerformed(evt);
+            }
+        });
+        
+        navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	navBtn_settingsActionPerformed(evt);
+            }
+        }); 
+
+    }
+    
+    
+    private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	jobsView = new JobsView();
+        jobsView.PendingJobsStart();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	buildView = new BuildView();
+        buildView.startMakeBuildProcess();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_reportsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	reportsView = new ReportsView();
+        reportsView.ReportsPage();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	adminSettingsView = new AdminSettingsView();
+    	adminSettingsView.AdminSettingsViewStart();
+    	dispose();
+    	
+    }
+    
+    
+    
+    /////// Nav Bar ~Alex /////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This is probably something that should be in a general Utils class for
      * the front end or the various "views". I'm leaving this here for now
@@ -353,10 +482,12 @@ public class JobsView extends javax.swing.JFrame
         } while (true);
     }
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        UtilController.openAdminHelpPage();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    
 
+    
+    
+    
+    
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         dispose();
         home.resetAdminMode();
@@ -480,9 +611,7 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
@@ -493,5 +622,9 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JLabel rejectButton;
     private javax.swing.JLabel reviewFile;
     private CheckboxGroup selectedGroup;
+    private JButton navBtn_jobsMgr;
+    private JButton navBtn_build;
+    private JButton navBtn_reports;
+    private JButton navBtn_settings;
     // End of variables declaration//GEN-END:variables
 }
