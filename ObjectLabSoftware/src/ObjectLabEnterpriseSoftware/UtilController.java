@@ -187,10 +187,11 @@ public class UtilController
 
             ResultSetMetaData rsmd = queryResult.getMetaData();
             String[] headers = new String[rsmd.getColumnCount()];
+            String[] headername = new String[]{"File Name", "First Name","Last Name","Submission Date","Printer Name","Class Name","Class Section"};
             //System.out.println(rsmd.getColumnName(5));
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
             {
-                headers[i - 1] = rsmd.getColumnName(i);
+                headers[i - 1] = headername[i-1];
             }
 
             dbconn.closeDBConnection();
