@@ -3,6 +3,8 @@ package ObjectLabEnterpriseSoftware;
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -18,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JMenu;
@@ -37,7 +40,7 @@ public class JobsView extends javax.swing.JFrame
     private ArrayList<String> printers;
     private String selectedPrinter;
     private String[] completedHeaders = new String[]{"File Name","First Name","Last Name","Submission Date","Class","Section","Volume"};
-    // nav bar views ~Alex
+    // --nav bar views ~Alex
     private BuildView buildView;
     private JobsView jobsView;
     private ReportsView reportsView;	
@@ -99,7 +102,7 @@ public class JobsView extends javax.swing.JFrame
         printers = UtilController.getListOfAllDevices();
         /* Creates are PendingJobs UI window componet and grabs its data model for our uses */
         initComponents();
-        // nav bar views ~Alex
+        // --nav bar views ~Alex
 
         initNavBar();
         //
@@ -204,7 +207,7 @@ public class JobsView extends javax.swing.JFrame
         jTextArea1.setText("Art 101-001\nArt 201-002\nArt 401-004\nArt 501-005\nArt 601-006\nArt 701-007\nArt 801-009");
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -330,26 +333,34 @@ public class JobsView extends javax.swing.JFrame
     private void initNavBar()
     {
 
-        
+    	jMenuBar1.setPreferredSize(new Dimension(200, 75));
         setJMenuBar(jMenuBar1);
         
         navBtn_jobsMgr = new JButton("Jobs Manager");
         navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
-
+        navBtn_jobsMgr.setPreferredSize(new Dimension(100,75));
+        navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         
-        
+        jMenuBar1.add(Box.createRigidArea(new Dimension(100,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
         navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
+        
+        navBtn_build.setPreferredSize(new Dimension(100,100));
+        navBtn_build.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_build);
         
         navBtn_reports = new JButton("Reports");
         navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
+        navBtn_reports.setPreferredSize(new Dimension(100,100));
+        navBtn_reports.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_reports);
         
         navBtn_settings = new JButton("Settings");
         navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
+        navBtn_settings.setPreferredSize(new Dimension(100,100));
+        navBtn_settings.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_settings);
 
         
@@ -622,9 +633,11 @@ public class JobsView extends javax.swing.JFrame
     private javax.swing.JLabel rejectButton;
     private javax.swing.JLabel reviewFile;
     private CheckboxGroup selectedGroup;
+    // --nav bar vars ~Alex
     private JButton navBtn_jobsMgr;
     private JButton navBtn_build;
     private JButton navBtn_reports;
     private JButton navBtn_settings;
+    //
     // End of variables declaration//GEN-END:variables
 }

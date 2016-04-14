@@ -291,5 +291,6 @@ public class ReportsView extends javax.swing.JFrame
     private javax.swing.JButton searchBtn;
     private javax.swing.JComboBox searchFilter;
     private javax.swing.JTextField searchKey;
+    
     // End of variables declaration//GEN-END:variables
 }

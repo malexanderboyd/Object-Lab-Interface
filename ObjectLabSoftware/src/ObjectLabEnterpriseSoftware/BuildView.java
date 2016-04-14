@@ -5,6 +5,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,7 +21,12 @@ public class BuildView extends javax.swing.JFrame
     private static MainView home = new MainView();
     private static RemoveBuildView removeWindow = new RemoveBuildView();
     private static int countNumOfModels;
-
+    // --nav bar views ~Alex
+    private BuildView buildView;
+    private JobsView jobsView;
+    private ReportsView reportsView;	
+    private AdminSettingsView adminSettingsView;
+    //
     private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
     private static String[] errorTextColumnHeader =
     {
@@ -181,6 +190,11 @@ public class BuildView extends javax.swing.JFrame
     {
         inst = new FileManager();
         initComponents();
+        // --nav bar views ~Alex
+
+        initNavBar();
+        //
+        
         buildFileLocationErrorStatusText.setVisible(false);
         deviceInputTable.setVisible(false);
 
@@ -461,7 +475,7 @@ public class BuildView extends javax.swing.JFrame
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
             getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 780));
 
-            removeBuildOpen.setText("Remove Build");
+          /*  removeBuildOpen.setText("Remove Build");
             removeBuildOpen.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     removeBuildOpenActionPerformed(evt);
@@ -488,13 +502,137 @@ public class BuildView extends javax.swing.JFrame
             });
             helpMenu.add(userGuide);
 
-            jMenuBar1.add(helpMenu);
+            jMenuBar1.add(helpMenu); 
 
-            setJMenuBar(jMenuBar1);
-
+            setJMenuBar(jMenuBar1); */
+            setPreferredSize(new Dimension(975,875));
             pack();
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
+    
+
+    private void initNavBar()
+    {
+
+    	jMenuBar1.setPreferredSize(new Dimension(200, 75));
+        setJMenuBar(jMenuBar1);
+        
+        navBtn_jobsMgr = new JButton("Jobs Manager");
+        navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
+        navBtn_jobsMgr.setPreferredSize(new Dimension(100,75));
+        navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
+        
+        jMenuBar1.add(Box.createRigidArea(new Dimension(250,0)));
+        jMenuBar1.add(navBtn_jobsMgr);
+        
+        navBtn_build = new JButton("Enter Build");
+        navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
+        
+        navBtn_build.setPreferredSize(new Dimension(100,100));
+        navBtn_build.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
+        jMenuBar1.add(navBtn_build);
+        
+        navBtn_reports = new JButton("Reports");
+        navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
+        navBtn_reports.setPreferredSize(new Dimension(100,100));
+        navBtn_reports.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
+        jMenuBar1.add(navBtn_reports);
+        
+        navBtn_settings = new JButton("Settings");
+        navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
+        navBtn_settings.setPreferredSize(new Dimension(100,100));
+        navBtn_settings.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
+        jMenuBar1.add(navBtn_settings);
+
+        
+        navBtn_jobsMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_jobsMgrActionPerformed(evt);
+            }
+        });
+        
+        navBtn_build.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_buildActionPerformed(evt);
+            }
+        });
+        
+        navBtn_reports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_reportsActionPerformed(evt);
+            }
+        });
+        
+        navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	navBtn_settingsActionPerformed(evt);
+            }
+        }); 
+
+    }
+    
+    
+    private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	jobsView = new JobsView();
+        jobsView.PendingJobsStart();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	buildView = new BuildView();
+        buildView.startMakeBuildProcess();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_reportsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	reportsView = new ReportsView();
+        reportsView.ReportsPage();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	adminSettingsView = new AdminSettingsView();
+    	adminSettingsView.AdminSettingsViewStart();
+    	dispose();
+    	
+    }
+    
+    
+    
+    /////// Nav Bar ~Alex /////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
         if (!submit())
@@ -685,5 +823,11 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JTextField secondField;
     private javax.swing.JTable studentSubmissionApprovedTableList;
     private javax.swing.JMenuItem userGuide;
+    // --nav bar vars ~Alex
+    private JButton navBtn_jobsMgr;
+    private JButton navBtn_build;
+    private JButton navBtn_reports;
+    private JButton navBtn_settings;
+    //
     // End of variables declaration//GEN-END:variables
 }
