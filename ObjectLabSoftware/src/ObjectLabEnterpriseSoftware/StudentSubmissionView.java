@@ -251,9 +251,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         });
         /* Help Menu bar that doesn't work, but not sure the purpose of it either - Boyd 2/26/2016
       //  editMenu.add(jMenuItem1);
-
       //  jMenuBar1.add(editMenu);
-
       //  setJMenuBar(jMenuBar1);
 	  */
         pack();
@@ -317,7 +315,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file! Let your professor or lab assistant know you've submitted.");
             dispose();
-            new MainView().setVisible(true);
+			//Reset view after successful submission to allow for multiple submissions without having to login each time
+            Reset_StudentSubmissionFields();
         } else
         {
             dispose();
