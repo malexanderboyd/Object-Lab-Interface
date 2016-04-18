@@ -164,7 +164,8 @@ public class AddStudentView {
             }
         });
         getContentPane().add(emailEntry, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 170, -1));
-
+        
+	backButton.setFocusPainted(false);
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setToolTipText("Back");
         backButton.setBorderPainted(false);
