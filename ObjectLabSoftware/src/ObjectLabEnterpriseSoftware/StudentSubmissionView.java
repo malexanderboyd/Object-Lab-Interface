@@ -216,14 +216,15 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jLabel8_StudentSubmission.setText("Student Submission");
         getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
-        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
-        backButton.setContentAreaFilled(false);
+        backButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        backButton.setText("Logout");
+        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		backButtonActionPerformed(evt);
+        	}
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 23));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1.setText("Your user ID:");
