@@ -85,7 +85,7 @@ public class ReportsView extends javax.swing.JFrame
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -184,6 +184,7 @@ public class ReportsView extends javax.swing.JFrame
     jLabel5.setText("jLabel5");
     getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -18, 710, 430));
 
+    /*
     jMenu2.setText("Help");
 
     jMenuItem1.setText("User Guide");
@@ -197,6 +198,7 @@ public class ReportsView extends javax.swing.JFrame
     jMenuBar1.add(jMenu2);
 
     setJMenuBar(jMenuBar1);
+    */
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -291,5 +293,6 @@ public class ReportsView extends javax.swing.JFrame
     private javax.swing.JButton searchBtn;
     private javax.swing.JComboBox searchFilter;
     private javax.swing.JTextField searchKey;
+    
     // End of variables declaration//GEN-END:variables
 }

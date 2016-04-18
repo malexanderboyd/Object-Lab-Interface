@@ -1,6 +1,7 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class AddDeviceView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Add Printer");
+        jLabel1.setText("Add Device");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 440, 10));
         getContentPane().add(printerNameTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 124, -1));
@@ -123,7 +124,7 @@ public class AddDeviceView extends javax.swing.JFrame
 
         printerNameL.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         printerNameL.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        printerNameL.setText("Printer Name:");
+        printerNameL.setText("Device Name:");
         getContentPane().add(printerNameL, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         removeFieldButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -201,6 +202,7 @@ public class AddDeviceView extends javax.swing.JFrame
         jPanel.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 260));
 
+        /*
         EditMenu.setText("Help");
 
         jMenuItem1.setText("Users Guide");
@@ -214,7 +216,10 @@ public class AddDeviceView extends javax.swing.JFrame
         jMenuBar1.add(EditMenu);
 
         setJMenuBar(jMenuBar1);
-
+        */
+        
+        getContentPane().setPreferredSize(new Dimension(475, 125));
+        setSize(new Dimension(475, 125));
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents

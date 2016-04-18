@@ -8,7 +8,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
 	public RemoveClassPrinterView() {
 	}
     
-    private static final String NAME_OF_PAGE = "Remove Class/Printer";
+    private static final String NAME_OF_PAGE = "Remove Class/Device";
     private static SQLMethods sql = new SQLMethods();
     AdminSettingsView settings;
     public void removeClassPrinterStart() {
@@ -73,7 +73,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         getContentPane().add(classComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 200, -1));
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        titleLabel.setText("Remove Class/Printer");
+        titleLabel.setText("Remove Class/Device");
         getContentPane().add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 290, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 390, 10));
 
@@ -82,7 +82,7 @@ public class RemoveClassPrinterView extends javax.swing.JFrame {
         getContentPane().add(classLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 50, -1));
 
         printerLabel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        printerLabel.setText("Printer:");
+        printerLabel.setText("Device:");
         getContentPane().add(printerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 50, -1));
 
         printerComboBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N

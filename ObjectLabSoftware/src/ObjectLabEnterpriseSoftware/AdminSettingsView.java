@@ -5,16 +5,32 @@
  */
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 public class AdminSettingsView extends javax.swing.JFrame 
 {
+	public AdminSettingsView() {
+		
+	}
+	
 	private static final String NAME_OF_PAGE = "Settings";
 	private static final MainView home = new MainView();
-
+    // --nav bar views ~Alex
+    private BuildView buildView;
+    private JobsView jobsView;
+    private ReportsView reportsView;	
+    private AdminSettingsView adminSettingsView;
+    
+    //
     public void AdminSettingsViewStart() {
         initComponents();
+        initNavBar();
         setLocationRelativeTo(null);
           try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -45,7 +61,7 @@ public class AdminSettingsView extends javax.swing.JFrame
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -56,11 +72,12 @@ public class AdminSettingsView extends javax.swing.JFrame
         jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        help = new javax.swing.JMenu();
+        //help = new javax.swing.JMenu();
+        helpButton = new javax.swing.JButton();
         userGuide = new javax.swing.JMenuItem();
 
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        setResizable(false);
+
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
@@ -68,6 +85,7 @@ public class AdminSettingsView extends javax.swing.JFrame
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setFocusPainted(false);
+        jButton5.setVisible(false); // old backbutton still there but invis ~Alex
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -82,9 +100,10 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 140, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 320, 10));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 140, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, getContentPane().getWidth(), 10));
 
+        /*
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton1.setText("Archive");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +111,8 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 140, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 140, -1));
+        */
 
         addPrinterButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         addPrinterButton.setLabel("Add Device");
@@ -101,21 +121,22 @@ public class AdminSettingsView extends javax.swing.JFrame
                 addPrinterButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 140, -1));
+        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 140, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Settings");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 30));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jButton2.setText("Remove Class/Printer");
+        jButton2.setText("Remove Class/Device");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 140, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 140, -1));
 
+        /*
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton3.setText("Change Password");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -123,14 +144,25 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 140, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 140, -1));
+        */
 
-        jLabel2.setBackground(new java.awt.Color(40, 41, 40));
+        helpButton.setFont(new java.awt.Font("Segoe UI", 0, 11));
+        helpButton.setText("User Guide");
+        helpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userGuideActionPerformed(evt);
+            }
+        });
+        getContentPane().add(helpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 140, -1));
+        
+    	jLabel2.setBackground(new java.awt.Color(40, 41, 40));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel2.setOpaque(true);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 230));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 300));
+        
 
-        help.setText("Help");
+    /*    help.setText("Help");
 
         userGuide.setText("User Guide");
         userGuide.addActionListener(new java.awt.event.ActionListener() {
@@ -142,10 +174,108 @@ public class AdminSettingsView extends javax.swing.JFrame
 
         jMenuBar1.add(help);
 
-        setJMenuBar(jMenuBar1);
-
+        setJMenuBar(jMenuBar1);*/
+    
+        setPreferredSize(new Dimension(675,375));
+        setResizable(false);
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    
+    private void initNavBar()
+    {
+
+    	jMenuBar1.setPreferredSize(new Dimension(200, 75));
+        setJMenuBar(jMenuBar1);
+        
+        navBtn_jobsMgr = new JButton("Jobs Manager");
+        navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
+        navBtn_jobsMgr.setPreferredSize(new Dimension(100,75));
+        //spacing
+        jMenuBar1.add(Box.createRigidArea(new Dimension(35,0)));
+        //
+        jMenuBar1.add(navBtn_jobsMgr);
+        
+        navBtn_build = new JButton("Enter Build");
+        navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
+        
+        navBtn_build.setPreferredSize(new Dimension(100,100));
+        jMenuBar1.add(navBtn_build);
+        
+        navBtn_reports = new JButton("Reports");
+        navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
+        navBtn_reports.setPreferredSize(new Dimension(100,100));
+        jMenuBar1.add(navBtn_reports);
+        
+        navBtn_settings = new JButton("Settings");
+        navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
+        navBtn_settings.setPreferredSize(new Dimension(100,100));
+        jMenuBar1.add(navBtn_settings);
+
+        
+        navBtn_jobsMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_jobsMgrActionPerformed(evt);
+            }
+        });
+        
+        navBtn_build.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_buildActionPerformed(evt);
+            }
+        });
+        
+        navBtn_reports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_reportsActionPerformed(evt);
+            }
+        });
+        
+        navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	navBtn_settingsActionPerformed(evt);
+            }
+        }); 
+
+    }
+    
+    
+    private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	jobsView = new JobsView();
+        jobsView.PendingJobsStart();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	buildView = new BuildView();
+        buildView.startMakeBuildProcess();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_reportsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	reportsView = new ReportsView();
+        reportsView.ReportsPage();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	adminSettingsView = new AdminSettingsView();
+    	adminSettingsView.AdminSettingsViewStart();
+    	dispose();
+    	
+    }
+    
+    
+    
+    /////// Nav Bar ~Alex /////
+    
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -190,7 +320,8 @@ public class AdminSettingsView extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPrinterButton;
-    private javax.swing.JMenu help;
+    //private javax.swing.JMenu help;
+    private javax.swing.JButton helpButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -201,5 +332,9 @@ public class AdminSettingsView extends javax.swing.JFrame
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JMenuItem userGuide;
+    private JButton navBtn_jobsMgr;
+    private JButton navBtn_build;
+    private JButton navBtn_reports;
+    private JButton navBtn_settings;
     // End of variables declaration//GEN-END:variables
 }

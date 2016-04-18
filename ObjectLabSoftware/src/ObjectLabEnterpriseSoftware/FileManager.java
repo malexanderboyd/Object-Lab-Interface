@@ -22,8 +22,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class FileManager 
 {
-    private static final String drive = "C:\\Sync";    
-    private static final String drive2 = "C:\\Sync\\ObjectLabPrinters";    
+	
+    private static final String drive = MainView.getStorageDir() +":\\Sync";    
+    private static final String drive2 = MainView.getStorageDir() +":\\Sync\\ObjectLabPrinters";    
     private static final String submission = drive + "\\ObjectLabPrinters\\Submissions\\";
     private static final String rejected = drive + "\\ObjectLabPrinters\\Rejected\\";
     private static final String excelFilePath = drive + "\\Export\\";

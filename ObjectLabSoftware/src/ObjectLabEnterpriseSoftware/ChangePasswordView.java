@@ -107,6 +107,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 230));
 
+        /*
         EditMenu.setText("Help");
 
         usersGuideButton.setText("User Guide");
@@ -120,6 +121,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
         jMenuBar1.add(EditMenu);
 
         setJMenuBar(jMenuBar1);
+        */
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

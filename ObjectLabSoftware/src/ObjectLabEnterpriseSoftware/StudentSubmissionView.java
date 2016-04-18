@@ -17,16 +17,16 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Student Submission";
     private static final MainView home = new MainView();
     private String userID;
-
-    public void studentSubmissionStart(String id)
+    private String userName;
+    public void studentSubmissionStart(String id, String studentName)
     {
-        initComponents();
-        hideErrorFields();
-        
         /* set valid id passed in from MainView.java as our userID for submitting files... */
 		userID = id;
-        idOfUser.setText(userID);
-        
+      //  idOfUser.setText(studentName);
+        userName = studentName;
+        initComponents();
+        hideErrorFields();
+
         try
         {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
@@ -102,17 +102,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
         setMinimumSize(new java.awt.Dimension(430, 310));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        
-        
-        
-        
-        
-        
 
+        
         jLabel1_FileLocation.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1_FileLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1_FileLocation.setText("File Location:");
-        getContentPane().add(jLabel1_FileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 95, 20));
+        getContentPane().add(jLabel1_FileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 95, 20));
 
         fileLocation.setEditable(false);
         fileLocation.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -121,7 +116,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 fileLocationActionPerformed(evt);
             }
         });
-        getContentPane().add(fileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 200, 20));
+        getContentPane().add(fileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 200, 20));
 
         Browse.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Browse.setText("Browse");
@@ -136,32 +131,34 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 BrowseActionPerformed(evt);
             }
         });
-        getContentPane().add(Browse, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 73, 23));
+        getContentPane().add(Browse, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 73, 23));
 
-        projName.setEditable(false);
+        projName.setEditable(true);
         projName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         projName.setName("projName"); // NOI18N
+        projName.setVisible(false);
         projName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 projNameActionPerformed(evt);
             }
         });
-        getContentPane().add(projName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 200, -1));
+        getContentPane().add(projName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 200, -1));
 
         jLabel5_ProjName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel5_ProjName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5_ProjName.setText("Project Name:");
-        getContentPane().add(jLabel5_ProjName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 95, 20));
+        jLabel5_ProjName.setVisible(false);
+        getContentPane().add(jLabel5_ProjName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 95, 20));
 
         jLabel6_Class.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6_Class.setText("Class:");
-        getContentPane().add(jLabel6_Class, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 95, 20));
+        getContentPane().add(jLabel6_Class, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 95, 20));
 
         jLabel7_Printer.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel7_Printer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7_Printer.setText("Printer:");
+        jLabel7_Printer.setText("Device:");
         jLabel7_Printer.setToolTipText("");
-        getContentPane().add(jLabel7_Printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 95, 20));
+        getContentPane().add(jLabel7_Printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 95, 20));
 
         Student_Submit.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Student_Submit.setText("Submit");
@@ -176,12 +173,15 @@ public class StudentSubmissionView extends javax.swing.JFrame
         classBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         classBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableClasses()));
         classBox.setSelectedItem(null);
+
+        classBox.setEditable(false);
+        classBox.setName("projName");
         classBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 140, -1));
+        getContentPane().add(classBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 140, -1));
 
         printerBox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         printerBox.setModel(new javax.swing.DefaultComboBoxModel((String []) UtilController.returnAvailableDevicesStudentSubmissionRequired()));
@@ -191,44 +191,45 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 printerBoxActionPerformed(evt);
             }
         });
-        getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 140, -1));
+        getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 140, -1));
 
         error_NoFileLocationSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoFileLocationSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoFileLocationSelected.setText("Error Text");
-        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 70, 20));
+        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 70, 20));
 
         error_NoClassSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoClassSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoClassSelected.setText("Error Text");
-        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, -1, 20));
+        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
 
         error_NoPrinterSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoPrinterSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoPrinterSelected.setText("Error Text");
-        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 70, 20));
+        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 70, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 400, 10));
 
         jLabel8_StudentSubmission.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8_StudentSubmission.setText("Student Submission");
         getContentPane().add(jLabel8_StudentSubmission, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, -1, -1));
 
-        backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
-        backButton.setFocusPainted(false);
-        backButton.setContentAreaFilled(false);
+        backButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        backButton.setText("Logout");
+        backButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		backButtonActionPerformed(evt);
+        	}
         });
-        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+        getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 23));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel1.setText("Your user ID:");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 70, 30));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Hello, " + userName);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 150, 55));
 
         idOfUser.setEditable(false);
         idOfUser.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        idOfUser.setVisible(false);
         idOfUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idOfUserActionPerformed(evt);
@@ -247,12 +248,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        editMenu.add(jMenuItem1);
-
-        jMenuBar1.add(editMenu);
-
-        setJMenuBar(jMenuBar1);
-
+        
+        /* Help Menu bar that doesn't work, but not sure the purpose of it either - Boyd 2/26/2016
+      //  editMenu.add(jMenuItem1);
+      //  jMenuBar1.add(editMenu);
+      //  setJMenuBar(jMenuBar1);
+	  */
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -280,14 +281,14 @@ public class StudentSubmissionView extends javax.swing.JFrame
         if (classBox.getSelectedIndex() == -1)
         {
             error_NoClassSelected.setVisible(true);
-            error_NoClassSelected.setText("Select Option!");
+            error_NoClassSelected.setText("Please input a class!");
             isErr = true;
         }
 
         if (printerBox.getSelectedIndex() == -1)
         {
             error_NoPrinterSelected.setVisible(true);
-            error_NoPrinterSelected.setText("Select Option!");
+            error_NoPrinterSelected.setText("Please select a printer!");
             isErr = true;
         }
         return isErr;
@@ -312,9 +313,10 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
             UtilController.submitStudentFile(userID, fullFilePath, fileName, printer, classFK);
 
-            JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file!");
+            JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file! Let your professor or lab assistant know you've submitted.");
             dispose();
-            new MainView().setVisible(true);
+			//Reset view after successful submission to allow for multiple submissions without having to login each time
+            Reset_StudentSubmissionFields();
         } else
         {
             dispose();
@@ -327,8 +329,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
         setVisible(false);
         fileLocation.setText(null);
         projName.setText(null);
-        classBox.setSelectedItem(null);
-        printerBox.setSelectedItem(null);
+        //classBox.setSelectedItem(null);
+        //printerBox.setSelectedItem(null);
         setVisible(true);
     }//GEN-LAST:event_Student_SubmitActionPerformed
 
@@ -378,7 +380,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
     {//GEN-HEADEREND:event_backButtonActionPerformed
 		dispose();
-                home.setVisible(true);
+        home.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed

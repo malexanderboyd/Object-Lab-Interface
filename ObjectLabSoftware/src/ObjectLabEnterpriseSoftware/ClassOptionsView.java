@@ -295,6 +295,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 540, 550));
 
+        /*
         EditMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
@@ -308,6 +309,7 @@ public class ClassOptionsView extends javax.swing.JFrame
         jMenuBar1.add(EditMenu);
 
         setJMenuBar(jMenuBar1);
+        */
 
         pack();
         setLocationRelativeTo(null);

@@ -29,11 +29,11 @@ public class SQLMethods
     private Connection conn;
     private ResultSet res;
     private PreparedStatement stmt;
-
     public SQLMethods()
     {
         /* To resolve hostname to an IP adr */
-        File f = new File("C:\\Sync\\computername.txt");
+    	File f = new File(MainView.getStorageDir() + ":\\Sync\\computername.txt");
+    	//File f = new File("/home/alex/Documents/School/Spring 2016/Software eng/Object-Lab-Interface/computername.txt");
         String line, ip = "";
 
         try
@@ -55,8 +55,12 @@ public class SQLMethods
             System.out.println("Couldn't read file! IOException!");
             ex.printStackTrace();
         }
+       
+        ///////////////////////////////////
+        ip = "mysql1110.ixwebhosting.com";  ////////
+        ///////////////////////////////////
         url = "jdbc:mysql://" + ip + ":3306/";
-        connectToDatabase("com.mysql.jdbc.Driver", url + "jobsDB", "root", "password");
+        connectToDatabase("com.mysql.jdbc.Driver", url + "AAAlvxm_oli", "AAAlvxm_oliAdmin", "Password1");
     }
     
     private void connectToDatabase(String driver, String urlDatabaseName, String userName, String pw)
@@ -487,7 +491,8 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("INSERT INTO job (file_name, file_path, class_id, student_id, printer_name, submission_date," + " build_Name, status, comment) values (?,?,?,?,?,NOW(),null,'pending',null);");
+        	System.out.print("Trying to insert into db...~Alex debug");
+            stmt = conn.prepareStatement("INSERT INTO job (file_name, file_path, class_id, student_id, printer_name, submission_date, build_Name, status, comment) values (?,?,?,?,?,NOW(),null,'pending',null);");
             stmt.setString(1, filename);
             stmt.setString(2, filePath);
             stmt.setInt(3, class_id);

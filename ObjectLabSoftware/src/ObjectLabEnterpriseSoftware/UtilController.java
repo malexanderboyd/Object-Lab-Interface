@@ -1,8 +1,10 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
@@ -13,6 +15,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
+import javax.naming.directory.SearchControls;
+import javax.naming.directory.SearchResult;
+import javax.naming.ldap.LdapContext;
+import javax.security.auth.login.LoginContext;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,6 +36,13 @@ import org.apache.commons.io.FileUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
+import javax.naming.Context;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.DirContext;
 
 /* We want to move this into its own class. For making excel documents based on the DefaultTableModel */
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -29,6 +51,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import com.sun.jndi.ldap.LdapName;
+
 public class UtilController
 {
 
@@ -36,16 +60,41 @@ public class UtilController
     private static final boolean FAILURE = false;
 
     private static final String SOFTWARE_NAME = "OLI";
-    private static final String SOFTWARE_VERSION = "v1.1"; //Should be dynamic
+    private static final String SOFTWARE_VERSION = "v1.43"; //Should be dynamic
     
     /* Bug - Invalid URL, build 1.1 - Boyd, 2/10/2016 */
     private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
     /* ***************************************************************** */
 
+    private static String studentFname;
+	private static String studentLname;
+    
+    
     public static String getPageName(String pageName)
     {
         return SOFTWARE_NAME + " " + SOFTWARE_VERSION + " - " + pageName;
     }
+    
+    public static String getStudentFname()
+    {
+    	return studentFname;
+    }
+    
+    public static String getStudentLname()
+    {
+    	return studentLname;
+    }
+    
+    public static void setStudentFName(String firstName)
+    {
+    	studentFname = firstName;
+    }
+    
+    public static void setStudentLName(String lastName)
+    {
+    	studentLname = lastName;
+    }
+    
 
     private static void print(ArrayList<ArrayList<Object>> q)
     {
@@ -155,6 +204,39 @@ public class UtilController
         return null;
     }
 
+    
+
+    public static String[] getRealReportColumnHeaders(String printer_name)
+    {
+        try
+        {
+            SQLMethods dbconn = new SQLMethods();
+            ResultSet queryResult = dbconn.getReport(printer_name);
+            /* Must process results found in ResultSet before the connection is closed! */
+
+            ResultSetMetaData rsmd = queryResult.getMetaData();
+            String[] headers = new String[rsmd.getColumnCount()];
+            //System.out.println(rsmd.getColumnName(5));
+            for (int i = 1; i <= rsmd.getColumnCount(); i++)
+            {
+                headers[i - 1] = rsmd.getColumnName(i);
+            }
+
+            dbconn.closeDBConnection();
+            return headers;
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    
+    
+    
+    
+    
+    
     public static String[] getStatusJobsHeaders(String status)
     {
         try
@@ -165,10 +247,11 @@ public class UtilController
 
             ResultSetMetaData rsmd = queryResult.getMetaData();
             String[] headers = new String[rsmd.getColumnCount()];
+            String[] headername = new String[]{"File Name", "First Name","Last Name","Submission Date","Printer Name","Class Name","Class Section"};
             //System.out.println(rsmd.getColumnName(5));
             for (int i = 1; i <= rsmd.getColumnCount(); i++)
             {
-                headers[i - 1] = rsmd.getColumnName(i);
+                headers[i - 1] = headername[i-1];
             }
 
             dbconn.closeDBConnection();
@@ -440,7 +523,7 @@ public class UtilController
                     + "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
             //Backup email
             //TowsonOli@gmail.com passwordTowson
-            return new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
+            return true; //new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
         } catch (SQLException ex)
         {
             System.out.println("Program crashed in reject subm\n" + ex);
@@ -904,11 +987,109 @@ public class UtilController
         dbconn.closeDBConnection();
     }
 
-    public static boolean userIDExist(String studentId)
+    public static boolean userIDExist(String studentId, String studentPass)
     {
-        boolean flag = false;
+    	Hashtable<String, String> env = new Hashtable<String, String>();
+    	env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
+    	env.put(Context.SECURITY_AUTHENTICATION, "simple");
+    	env.put(Context.PROVIDER_URL, "ldap://Towson.edu:389/");
+
+    	// The value of Context.SECURITY_PRINCIPAL must be the logon username with the domain name
+    	env.put(Context.SECURITY_PRINCIPAL, "TOWSONU\\" + studentId);
+
+    	// The value of the Context.SECURITY_CREDENTIALS should be the user's password
+    	env.put(Context.SECURITY_CREDENTIALS, studentPass);
+
+    	DirContext ctx;
+    	System.out.print("Attempting login with credentials: \n username: " + studentId + "\n password: " + studentPass);
+    	try {
+    	    // Authenticate the logon user
+    	    ctx = new InitialDirContext(env);
+    	    if(ctx != null)
+    	    {
+    	    	System.out.println("user is authenticated. grabbing first/last name");
+    	    	/**
+    	    	 *
+    	    	 * @author Ryan
+    	    	 */
+    	    	String getUserInfo = "cmd /c net user "+studentId+" /domain |find /i \"full name\"";
+    	    	studentFname = "debug_failed_fname"; // if these are not overwritten then couldn't grab first / last name from server
+    	    	studentLname = "debug_failed_lname"; // but it shouldn't break the submit system ~Alex
+    	    	Process p = null;
+    	        
+    	        try
+    	        {
+    	           p = Runtime.getRuntime().exec(getUserInfo);
+    	           //System.out.println(p.toString());
+    	           
+    	        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    	        String s = null;
+    	        while ((s = stdInput.readLine()) != null) 
+    	        {
+    	            String delims ="[ ,]+";
+    	            String[] tokens = s.split(delims);
+    	            for (int i=2;i<tokens.length; i++)
+    	            {
+    	   	               System.out.println(tokens[i]);
+    	               setStudentLName(tokens[2]);
+    	               setStudentFName(tokens[3]);
+ 
+    	            }
+    	        }
+
+    	        
+    	        }
+    	        catch(Exception e)
+    	        {
+    	            System.out.println("Something went wrong ");    
+    	        }
+    	        
+    	        
+    	    	if(studentFname.equals("debug_failed_fname"))
+    	    	{
+    	    		System.out.println("Failed to grab student data.");
+    	    		return false;
+    	    	}
+    	    	else if(!checkUser(studentId)) // user isn't in db
+	    		{
+	    			addUser(studentId, studentFname, studentLname, studentId+"@students.towson.edu");
+	    			System.out.println("Added new student: " + studentFname  + " " + studentLname + "successfully.");
+	    			return true;
+	    		}
+	    		else // user already in db, can login and continue
+	    		{
+	    			System.out.println("Student: " + studentFname  + " " + studentLname + " already in database. Skipping entry and logging in.");
+	    			return true;
+	    		}
+    	    }
+
+    	} catch (NamingException ex) {
+    	    return false;
+    	}
+    	return false;
+    }
+ 
+
+    
+    public static int addUser(String studentId, String firstname, String lastname, String email)
+    {
+        if (checkUser(studentId))
+        {
+            return -25;
+        }
         SQLMethods dbconn = new SQLMethods();
-        ResultSet usersCountQuery = dbconn.checkUserExists(studentId);
+        int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+        dbconn.closeDBConnection();
+
+        return flag;
+    } 
+    
+    public static boolean checkUser(String studentID)
+    {
+       	// Old Method to verify student accounts
+    	boolean flag = false;
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet usersCountQuery = dbconn.checkUserExists(studentID);
         try
         {
             flag = usersCountQuery.next();
@@ -918,23 +1099,18 @@ public class UtilController
         }
 
         dbconn.closeDBConnection();
-        return flag;
+        return flag;   
+    	
+    	
+    	
     }
+    
+    
+    
+    
+    
 
-    public static int addUser(String studentId, String firstname, String lastname, String email)
-    {
-        if (userIDExist(studentId))
-        {
-            return -25;
-        }
-        SQLMethods dbconn = new SQLMethods();
-        int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
-        dbconn.closeDBConnection();
-
-        return flag;
-    }
-
-    public static int updateUser(String studentId, String firstname, String lastname, String email)
+    /*public static int updateUser(String studentId, String firstname, String lastname, String email)
     {
         int flag = -1;
         if (userIDExist(studentId))
@@ -945,7 +1121,7 @@ public class UtilController
             return flag;
         }
         return flag;
-    }
+    }*/
 
     public static ArrayList<ArrayList<Object>> returnApprovedStudentSubmissionsForDevice(String printerName)
     {

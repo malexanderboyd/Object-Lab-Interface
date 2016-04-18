@@ -8,6 +8,7 @@ public class RemoveBuildView extends javax.swing.JFrame
 {
 	
 	private static final String NAME_OF_PAGE = "Removes Build";
+	private static final BuildView buildView = new BuildView(); //contruct a build view to return from the RemoveBuildView
 
 	public static final String [] buildList = UtilController.listOfBuilds();
 	
@@ -23,6 +24,7 @@ public class RemoveBuildView extends javax.swing.JFrame
                         public void windowClosing(WindowEvent we)
                         {
                             dispose();
+                            buildView.startMakeBuildProcess();
                         }
                     }
 		);
@@ -52,7 +54,7 @@ public class RemoveBuildView extends javax.swing.JFrame
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(236, 244));
@@ -64,8 +66,14 @@ public class RemoveBuildView extends javax.swing.JFrame
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Remove Build");
 
+        backButton.setFocusPainted(false);
         backButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
         backButton.setContentAreaFilled(false);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Select Build:");
 
@@ -117,6 +125,7 @@ public class RemoveBuildView extends javax.swing.JFrame
                 .addContainerGap())
         );
 
+        /*
         jMenu1.setText("Help");
 
         jMenuItem1.setText("User Guide");
@@ -130,6 +139,7 @@ public class RemoveBuildView extends javax.swing.JFrame
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
+        */
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,6 +156,12 @@ public class RemoveBuildView extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
+    {//GEN-HEADEREND:event_backButtonActionPerformed
+	dispose();
+        buildView.startMakeBuildProcess();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
     {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
