@@ -160,7 +160,7 @@ public class MainView extends javax.swing.JFrame
             }
         });
         
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, 20));
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 110, -1, 20));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("");

@@ -17,15 +17,17 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private static final String NAME_OF_PAGE = "Student Submission";
     private static final MainView home = new MainView();
     private String userID;
-
+    private String userName;
     public void studentSubmissionStart(String id, String studentName)
     {
+        /* set valid id passed in from MainView.java as our userID for submitting files... */
+		userID = id;
+      //  idOfUser.setText(studentName);
+        userName = studentName;
         initComponents();
         hideErrorFields();
         
-        /* set valid id passed in from MainView.java as our userID for submitting files... */
-		userID = id;
-        idOfUser.setText(studentName);
+
         
         try
         {
@@ -141,6 +143,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         projName.setEditable(true);
         projName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         projName.setName("projName"); // NOI18N
+        projName.setVisible(false);
         projName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 projNameActionPerformed(evt);
@@ -151,6 +154,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jLabel5_ProjName.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel5_ProjName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5_ProjName.setText("Project Name:");
+        jLabel5_ProjName.setVisible(false);
         getContentPane().add(jLabel5_ProjName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 95, 20));
 
         jLabel6_Class.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -226,12 +230,13 @@ public class StudentSubmissionView extends javax.swing.JFrame
         });
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 23));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel1.setText("Hello, ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 70, 30));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Hello, " + userName);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 150, 55));
 
         idOfUser.setEditable(false);
         idOfUser.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        idOfUser.setVisible(false);
         idOfUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idOfUserActionPerformed(evt);

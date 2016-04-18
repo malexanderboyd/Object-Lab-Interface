@@ -409,6 +409,7 @@ public class BuildView extends javax.swing.JFrame
             backToMainMenu.setBorderPainted(false);
             backToMainMenu.setContentAreaFilled(false);
             backToMainMenu.setFocusPainted(false);
+            backToMainMenu.setVisible(false);
             backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
@@ -505,7 +506,7 @@ public class BuildView extends javax.swing.JFrame
             jMenuBar1.add(helpMenu); 
 
             setJMenuBar(jMenuBar1); */
-            setPreferredSize(new Dimension(975,875));
+            getContentPane().setPreferredSize(new Dimension(975,875));
             pack();
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
@@ -522,7 +523,7 @@ public class BuildView extends javax.swing.JFrame
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,75));
         navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(250,0)));
+        jMenuBar1.add(Box.createRigidArea(new Dimension(200,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");

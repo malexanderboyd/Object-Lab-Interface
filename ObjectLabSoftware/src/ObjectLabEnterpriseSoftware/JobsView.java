@@ -163,8 +163,8 @@ public class JobsView extends javax.swing.JFrame
     private void initComponents() {
 
     	
-    	setResizable(true);
-    	
+    	getContentPane().setPreferredSize(new Dimension(775,700));
+    	setResizable(false);
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -242,8 +242,10 @@ public class JobsView extends javax.swing.JFrame
             backToMainMenu.setBorderPainted(false);
             backToMainMenu.setContentAreaFilled(false);
             backToMainMenu.setFocusPainted(false);
+            backToMainMenu.setVisible(false);
             backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
+                	System.out.println("found old backbutton");
                     backToMainMenuActionPerformed(evt);
                 }
             });
@@ -261,7 +263,7 @@ public class JobsView extends javax.swing.JFrame
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 60, 20));
 
             jobStatus.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"All Jobs", "pending", "rejected", "approved", "completed"}));
+            jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"All Jobs", "Pending", "Rejected", "Approved", "Completed"}));
             jobStatus.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jobStatusActionPerformed(evt);
@@ -278,7 +280,7 @@ public class JobsView extends javax.swing.JFrame
                     openFileInDefaultProgram(evt);
                 }
             });
-            getContentPane().add(reviewFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 120, 50));
+            getContentPane().add(reviewFile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 130, 60));
 
             approveButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             approveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/accept_icon.png"))); // NOI18N
@@ -591,13 +593,13 @@ public class JobsView extends javax.swing.JFrame
                         desc
                 );
 
-                if (success)
+                if (success) // always rejects, commenting out email utlity for now ~Alex
                 {
-                    JOptionPane.showMessageDialog(new JFrame(), "Email sent succesfully!");
+                    JOptionPane.showMessageDialog(new JFrame(), "Rejected succesfully!");
                     updateView((String) jobStatus.getSelectedItem(), allFileTableModel, UtilController.updatePendingTableData((String) jobStatus.getSelectedItem()));
                 } else
                 {
-                    JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission failed!");
+                    JOptionPane.showMessageDialog(new JFrame(), "Rejection of student submission successful!");
                 }
             }
         } else

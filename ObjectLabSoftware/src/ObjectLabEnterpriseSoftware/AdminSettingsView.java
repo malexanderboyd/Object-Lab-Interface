@@ -73,7 +73,7 @@ public class AdminSettingsView extends javax.swing.JFrame
         userGuide = new javax.swing.JMenuItem();
 
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        
+
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
@@ -81,6 +81,7 @@ public class AdminSettingsView extends javax.swing.JFrame
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setFocusPainted(false);
+        jButton5.setVisible(false); // old backbutton still there but invis ~Alex
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -95,8 +96,8 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 70, 140, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 320, 10));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 140, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, getContentPane().getWidth(), 10));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton1.setText("Archive");
@@ -105,7 +106,7 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 130, 140, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 140, -1));
 
         addPrinterButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         addPrinterButton.setLabel("Add Device");
@@ -114,11 +115,11 @@ public class AdminSettingsView extends javax.swing.JFrame
                 addPrinterButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 100, 140, -1));
+        getContentPane().add(addPrinterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 140, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Settings");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 10, -1, 30));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 30));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton2.setText("Remove Class/Printer");
@@ -127,7 +128,7 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 160, 140, -1));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 140, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jButton3.setText("Change Password");
@@ -136,7 +137,7 @@ public class AdminSettingsView extends javax.swing.JFrame
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 190, 140, -1));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 140, -1));
 
         jLabel2.setBackground(new java.awt.Color(40, 41, 40));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
