@@ -261,7 +261,7 @@ public class JobsView extends javax.swing.JFrame
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 60, 20));
 
             jobStatus.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"All Jobs", "pending", "rejected", "approved", "completed"}));
+            jobStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"All Jobs", "Pending", "Rejected", "Approved", "Completed"}));
             jobStatus.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jobStatusActionPerformed(evt);
