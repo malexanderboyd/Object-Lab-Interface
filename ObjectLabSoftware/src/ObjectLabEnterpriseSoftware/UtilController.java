@@ -1,8 +1,10 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
@@ -947,10 +949,56 @@ public class UtilController
     	    ctx = new InitialDirContext(env);
     	    if(ctx != null)
     	    {
-    	    	System.out.println("user is authenticated.");
-    	    	addUser(studentId);
-    	    	
+    	    	System.out.println("user is authenticated. grabbing first/last name");
+    	    	/**
+    	    	 *
+    	    	 * @author Ryan
+    	    	 */
+    	    	//String getUserInfo = "cmd /c net user"+studentId+" "+studentPass+" /domain |find /i \"full name\"";
+    	    	String getUserInfo = "cmd /c net user "+studentId+" /domain |find /i \"full name\"";
+    	    	String studentFname = "debug_failed_fname"; // if these are not overwritten then couldn't grab first / last name from server
+    	    	String studentLname = "debug_failed_lname"; // but it shouldn't break the submit system ~Alex
+    	    	Process p = null;
+    	        
+    	        try
+    	        {
+    	           p = Runtime.getRuntime().exec(getUserInfo);
+    	           //System.out.println(p.toString());
+    	           
+    	        BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+    	        String s = null;
+    	        while ((s = stdInput.readLine()) != null) 
+    	        {
+    	            String delims ="[ ]+";
+    	            String[] tokens = s.split(delims);
+    	            for (int i=2;i<tokens.length; i++)
+    	            {
+    	   	               System.out.println(tokens[i]);
+    	               studentFname = tokens[2];
+    	               studentLname = tokens[3];
+ 
+    	            }
+    	        }
+
+    	        
+    	        }
+    	        catch(Exception e)
+    	        {
+    	            System.out.println("Something went wrong ");    
+    	        }
+    	        
+    	        
+    	    	if(studentFname.equals("debug_failed_fname"))
+    	    	{
+    	    		System.out.println("Failed to grab student data.");
+    	    		return false;
+    	    	}
+    	    	else
+    	    	{
+    	        addUser(studentId, studentFname, studentLname, studentId+"@students.towson.edu");
+    	        System.out.println("Added new student: " + studentFname  + " " + studentLname + "successfully.");
     	    	return true;
+    	    	}
     	    }
     	    
     	    return true;
