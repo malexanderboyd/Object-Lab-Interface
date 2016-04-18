@@ -17,7 +17,7 @@ public class AdminSettingsView extends javax.swing.JFrame
 {
 	public AdminSettingsView() {
 	}
-	private static final String NAME_OF_PAGE = "Settings";
+	private static final String NAME_OF_PAGE = "\tSettings";
 	private static final MainView home = new MainView();
     // --nav bar views ~Alex
     private BuildView buildView;
@@ -58,7 +58,7 @@ public class AdminSettingsView extends javax.swing.JFrame
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+    	 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         jButton5 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -122,7 +122,7 @@ public class AdminSettingsView extends javax.swing.JFrame
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, -1, 30));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jButton2.setText("Remove Class/Printer");
+        jButton2.setText("Remove Class/Device");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
