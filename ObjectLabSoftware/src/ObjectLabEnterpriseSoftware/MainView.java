@@ -388,7 +388,7 @@ public class MainView extends javax.swing.JFrame
             {
                 errorIdLabel.setText("");
                 dispose();
-                studentSys.studentSubmissionStart(idString);
+                studentSys.studentSubmissionStart(idString, UtilController.getStudentFname());
             } else
             {
                 errorIdLabel.setText("Invalid TU ID or Password.");
@@ -413,7 +413,7 @@ public class MainView extends javax.swing.JFrame
             {
                 errorIdLabel.setText("");
                 dispose();
-                studentSys.studentSubmissionStart(idString);
+                studentSys.studentSubmissionStart(idString, UtilController.getStudentFname());
             } else
             {
                 errorIdLabel.setText("Invalid TU ID or Password.");

@@ -162,6 +162,9 @@ public class JobsView extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+    	
+    	setResizable(true);
+    	
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();

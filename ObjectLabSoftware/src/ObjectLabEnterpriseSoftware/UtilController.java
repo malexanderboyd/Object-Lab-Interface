@@ -66,10 +66,35 @@ public class UtilController
     private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";
     /* ***************************************************************** */
 
+    private static String studentFname;
+	private static String studentLname;
+    
+    
     public static String getPageName(String pageName)
     {
         return SOFTWARE_NAME + " " + SOFTWARE_VERSION + " - " + pageName;
     }
+    
+    public static String getStudentFname()
+    {
+    	return studentFname;
+    }
+    
+    public static String getStudentLname()
+    {
+    	return studentLname;
+    }
+    
+    public static void setStudentFName(String firstName)
+    {
+    	studentFname = firstName;
+    }
+    
+    public static void setStudentLName(String lastName)
+    {
+    	studentLname = lastName;
+    }
+    
 
     private static void print(ArrayList<ArrayList<Object>> q)
     {
@@ -954,10 +979,9 @@ public class UtilController
     	    	 *
     	    	 * @author Ryan
     	    	 */
-    	    	//String getUserInfo = "cmd /c net user"+studentId+" "+studentPass+" /domain |find /i \"full name\"";
     	    	String getUserInfo = "cmd /c net user "+studentId+" /domain |find /i \"full name\"";
-    	    	String studentFname = "debug_failed_fname"; // if these are not overwritten then couldn't grab first / last name from server
-    	    	String studentLname = "debug_failed_lname"; // but it shouldn't break the submit system ~Alex
+    	    	studentFname = "debug_failed_fname"; // if these are not overwritten then couldn't grab first / last name from server
+    	    	studentLname = "debug_failed_lname"; // but it shouldn't break the submit system ~Alex
     	    	Process p = null;
     	        
     	        try
@@ -969,13 +993,13 @@ public class UtilController
     	        String s = null;
     	        while ((s = stdInput.readLine()) != null) 
     	        {
-    	            String delims ="[ ]+";
+    	            String delims ="[ ,]+";
     	            String[] tokens = s.split(delims);
     	            for (int i=2;i<tokens.length; i++)
     	            {
     	   	               System.out.println(tokens[i]);
-    	               studentFname = tokens[2];
-    	               studentLname = tokens[3];
+    	               setStudentLName(tokens[2]);
+    	               setStudentFName(tokens[3]);
  
     	            }
     	        }
@@ -993,45 +1017,26 @@ public class UtilController
     	    		System.out.println("Failed to grab student data.");
     	    		return false;
     	    	}
-    	    	else
-    	    	{
-    	        addUser(studentId, studentFname, studentLname, studentId+"@students.towson.edu");
-    	        System.out.println("Added new student: " + studentFname  + " " + studentLname + "successfully.");
-    	    	return true;
-    	    	}
+    	    	else if(!checkUser(studentId)) // user isn't in db
+	    		{
+	    			addUser(studentId, studentFname, studentLname, studentId+"@students.towson.edu");
+	    			System.out.println("Added new student: " + studentFname  + " " + studentLname + "successfully.");
+	    			return true;
+	    		}
+	    		else // user already in db, can login and continue
+	    		{
+	    			System.out.println("Student: " + studentFname  + " " + studentLname + " already in database. Skipping entry and logging in.");
+	    			return true;
+	    		}
     	    }
-    	    
-    	    return true;
+
     	} catch (NamingException ex) {
     	    return false;
     	}
-
+    	return false;
     }
  
-    	
-    	
-    	
-    	
-    	
-    	
-    
-    
-    // May not need to use this anymore because we'll just use the domain server to track user accounts
-    // ~ Alex 4/6/2016
-    
-    public static int addUser(String studentId)
-    {
-        if (checkUser(studentId))
-        {
-            return -25;
-        }
-        SQLMethods dbconn = new SQLMethods();
-        int flag = dbconn.insertIntoUsers(studentId, "Ftest", "Ltest", "Test@email.com");
-        dbconn.closeDBConnection();
 
-        return flag;
-    } 
-    
     
     public static int addUser(String studentId, String firstname, String lastname, String email)
     {

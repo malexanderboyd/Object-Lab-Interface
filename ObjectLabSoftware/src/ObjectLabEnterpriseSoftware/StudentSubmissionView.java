@@ -18,14 +18,14 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private static final MainView home = new MainView();
     private String userID;
 
-    public void studentSubmissionStart(String id)
+    public void studentSubmissionStart(String id, String studentName)
     {
         initComponents();
         hideErrorFields();
         
         /* set valid id passed in from MainView.java as our userID for submitting files... */
 		userID = id;
-        idOfUser.setText(userID);
+        idOfUser.setText(studentName);
         
         try
         {
@@ -159,7 +159,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         jLabel7_Printer.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel7_Printer.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7_Printer.setText("Printer:");
+        jLabel7_Printer.setText("Device:");
         jLabel7_Printer.setToolTipText("");
         getContentPane().add(jLabel7_Printer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 95, 20));
 
@@ -227,7 +227,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         getContentPane().add(backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 23));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel1.setText("Your user ID:");
+        jLabel1.setText("Hello, ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 70, 30));
 
         idOfUser.setEditable(false);
