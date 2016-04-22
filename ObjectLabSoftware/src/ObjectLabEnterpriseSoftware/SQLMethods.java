@@ -170,6 +170,26 @@ public class SQLMethods
         return res;
     }
     
+    public ResultSet searchAllJobsStatusPrinter(String printer) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
+    {
+        res = null;
+        try
+        {
+            stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
+					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+					+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
+					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
+            stmt.setString(1, "pending");
+            stmt.setString(2, printer);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return res;
+    }
+    
     public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;
@@ -189,6 +209,11 @@ public class SQLMethods
 
         return res;
     }
+    
+    
+    
+    
+    
 
     public ResultSet searchPrintersByBuildName(int buildId)
     {
@@ -1612,4 +1637,9 @@ public class SQLMethods
         }
         return res;
     }
+
+	public ResultSet findJobsforDevice(String selectedDevice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

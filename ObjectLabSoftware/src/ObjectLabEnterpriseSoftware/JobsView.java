@@ -398,10 +398,10 @@ public class JobsView extends javax.swing.JFrame
     
     private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	jobsView = new JobsView();
-        jobsView.PendingJobsStart();
+    	newJobsMgr njm = new newJobsMgr();
+        njm.setVisible(true);
     	dispose();
-    	
+
     }
     
     private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)

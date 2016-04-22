@@ -523,7 +523,9 @@ public class MainView extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */	
-        String mapDrive = "net use " + SHARE_DRIVE_DIR + ": \\\\customshare\\ObjectLabStorage  /user:TOWSONU\\mboyd8 6TgrAlienRazor9!"; // This is the command that mounts the drive.  
+    	
+    	
+    	String mapDrive = "net use " + SHARE_DRIVE_DIR + ": \\\\customshare\\ObjectLabStorage  /user:TOWSONU\\mboyd8 6TgrAlienRazor9!"; // This is the command that mounts the drive.  
         Process p = null;
         
         try
