@@ -30,7 +30,7 @@ public class MainView extends javax.swing.JFrame
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
-        pendingSys = new JobsView();
+        njm = new newJobsMgr();
         studentSys = new StudentSubmissionView();
       //  newStudentSys = new AddStudentView();
 	//updateStudentSys = new UpdateStudentView();
@@ -334,7 +334,8 @@ public class MainView extends javax.swing.JFrame
 
     private void openProjectsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectsButtonActionPerformed
         // TODO add your handling code here:
-        pendingSys.PendingJobsStart();
+        //pendingSys.PendingJobsStart();
+    		njm.setVisible(true);
         dispose();
     }//GEN-LAST:event_openProjectsButtonActionPerformed
 
@@ -348,7 +349,7 @@ public class MainView extends javax.swing.JFrame
     
 	public void resetAdminMode()
 	{
-			pendingSys.PendingJobsStart();
+			njm.setVisible(true);
             hideStudentOptions();
             setVisible(false);
             dispose();
@@ -604,5 +605,6 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JMenuItem updateStudentOption;
     private javax.swing.JMenuItem userGuideButton;
     private javax.swing.JMenu userOptionsMenu;
+    private  newJobsMgr njm;
     // End of variables declaration//GEN-END:variables
 }

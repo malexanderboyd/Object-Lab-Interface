@@ -584,6 +584,79 @@ public class UtilController
         }
     }
 
+    public static void approveStudentSubmission(String fileName, String stat1, String stat2)
+    {
+        /* Make the connection to our DB and query for the PK of pendingjobs which is a combination of
+         all the fields input in the searchID method call
+         */
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet result = dbconn.searchID((fileName));
+        FileManager cloudStorageOperations = new FileManager();
+
+        String ID;
+
+        try
+        {
+            /* 
+             If the row exist, then query for the PK and then use that to update 
+             the pendingjobs table fileLocation. -Nick 
+             */
+            if (result.next())
+            {
+                ID = result.getString("job_id");
+                String printer = result.getString("printer_name");
+                String updatedDirectoryLocation = cloudStorageOperations.getDrive() + "\\ObjectLabPrinters\\" + printer + "\\ToPrint\\";
+                String currentFileLocation = cloudStorageOperations.getSubmission() + fileName;
+
+                /* This moves the file from the submissions folder to the toPrint folder in folder specified by 
+                 *  the printer variable -Nick
+                 */
+                FileUtils.moveFileToDirectory(new File(currentFileLocation), new File(updatedDirectoryLocation), true);
+
+                /* In order to properly update the file location we need to gurantee there are '\\' seperating
+                 *  the dir names.
+                 *  If ther are no double backslashes than the character will not be escaped properly, and
+                 *  the DB will not contain the correct file location.
+                 *   - Nick
+                 */
+                dbconn.updateStats(Integer.parseInt(ID), stat1, stat2);
+
+                /* update full file path */
+                updatedDirectoryLocation += fileName;
+                dbconn.updateJobFLocation(Integer.parseInt(ID), updatedDirectoryLocation.replace("\\", "\\\\"));
+                dbconn.changeJobStatus(Integer.parseInt(ID), "approved");
+                dbconn.closeDBConnection();
+            }
+        } catch (SQLException | IOException ex)
+        {
+            Logger.getLogger(UtilController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /* This function has the params that make up the primary key in pending currentJob.
      It returns the filePath found in the DB where all the parameters specify the file
      that is associated for that users submission.
@@ -1043,7 +1116,7 @@ public class UtilController
     	        {
     	            System.out.println("Something went wrong ");    
     	        }
-    	        
+
     	        
     	    	if(studentFname.equals("debug_failed_fname"))
     	    	{

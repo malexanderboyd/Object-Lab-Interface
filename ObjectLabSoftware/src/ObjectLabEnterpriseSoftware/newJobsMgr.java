@@ -16,6 +16,7 @@ import ObjectLabEnterpriseSoftware.SQLMethods;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JScrollPane;
@@ -41,32 +42,66 @@ import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+
+/*
+ * 
+ *  Jobs Manager V2
+ *  @Author=M. Alex Boyd
+ * 	@Date=4/22/16
+ * 
+ * 	To-Dos
+ * 	- Add check to make sure jobs are not already approved before approving
+ *	- Add Error text for missing stat input
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class newJobsMgr extends JFrame {
 	// --nav bar views ~Alex
 	private BuildView buildView;
-	private JobsView jobsView;
+	private newJobsMgr jobsView;
 	private ReportsView reportsView;	
 	private AdminSettingsView adminSettingsView;
 	//
 	public newJobsMgr() {
 		setTitle("Administration Panel");
 		setPreferredSize(new Dimension(635,605));
-		setAlwaysOnTop(true);
+		setAlwaysOnTop(false);
 		initWindow();
 		setLocationRelativeTo(null);
 	}
 
 	private void initWindow()
 	{
+		
 		JMenuBar jMenuBar1 = new JMenuBar();
 		setJMenuBar(jMenuBar1);
 
-		jMenuBar1.setPreferredSize(new Dimension(200, 75));
+		jMenuBar1.setPreferredSize(new Dimension(200, 30));
 		setJMenuBar(jMenuBar1);
 
 		navBtn_jobsMgr = new JButton("Jobs Manager");
 		navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
-		navBtn_jobsMgr.setPreferredSize(new Dimension(100,75));
+		navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
 
 
 		jMenuBar1.add(Box.createRigidArea(new Dimension(83, 12)));
@@ -75,19 +110,19 @@ public class newJobsMgr extends JFrame {
 		navBtn_build = new JButton("Enter Build");
 		navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
 
-		navBtn_build.setPreferredSize(new Dimension(100,100));
+		navBtn_build.setPreferredSize(new Dimension(100,24));
 
 		jMenuBar1.add(navBtn_build);
 
 		navBtn_reports = new JButton("Reports");
 		navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
-		navBtn_reports.setPreferredSize(new Dimension(100,100));
+		navBtn_reports.setPreferredSize(new Dimension(100,24));
 
 		jMenuBar1.add(navBtn_reports);
 
 		navBtn_settings = new JButton("Settings");
 		navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
-		navBtn_settings.setPreferredSize(new Dimension(100,100));
+		navBtn_settings.setPreferredSize(new Dimension(100,24));
 
 		jMenuBar1.add(navBtn_settings);
 		getContentPane().setLayout(null);
@@ -130,21 +165,38 @@ public class newJobsMgr extends JFrame {
 				String selectedDevice = (String) cb.getSelectedItem();
 				System.out.println(selectedDevice);
 				updateJobWindow(selectedDevice);
+				if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("approved")) // hide approve/reject/review buttons and panel
+				{
+					toggleButtons(false);
+				}
+				else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("pending")) // hide approve/reject/review buttons and panel
+				{
+					toggleButtons(true);
+				}
+			
 			}
 
 		});
 
-			jobStatusCombo.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e)
+		jobStatusCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				if(deviceCombo.getSelectedItem().toString() != "")
 				{
-					if(deviceCombo.getSelectedItem().toString() != "")
-					{
 					String selectedDevice = (String) deviceCombo.getSelectedItem();
 					System.out.println(selectedDevice);
 					updateJobWindow(selectedDevice);
+					if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("approved")) // hide approve/reject/review buttons and panel
+					{
+						toggleButtons(false);
+					}
+					else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("pending")) // hide approve/reject/review buttons and panel
+					{
+						toggleButtons(true);
 					}
 				}
-			});
+			}
+		});
 
 		getContentPane().add(deviceCombo);
 
@@ -170,9 +222,9 @@ public class newJobsMgr extends JFrame {
 		};
 		jobsModel.setColumnCount(7);
 		jobsModel.setColumnIdentifiers(new String[] {
-						"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"
-				});
-		
+				"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"
+		});
+
 		jobsTable.setModel(jobsModel);
 		jobListingsPane.setViewportView(jobsTable);
 
@@ -193,27 +245,29 @@ public class newJobsMgr extends JFrame {
 		logoutButton.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(logoutButton);
 
-		JButton approveButton = new JButton("Approve");
+		approveButton = new JButton("Approve");
 		approveButton.setBounds(331, 459, 89, 23);
 		approveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				approveJobs();
 			}
 		});
 		approveButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		getContentPane().add(approveButton);
 
-		JButton rejectButton = new JButton("Reject");
+		rejectButton = new JButton("Reject");
 		rejectButton.setBounds(426, 459, 89, 23);
 		rejectButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				rejectJobs();
 			}
 		});
 		rejectButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		getContentPane().add(rejectButton);
 
-		JButton reviewButton = new JButton("Review");
+		reviewButton = new JButton("Review");
 		reviewButton.setBounds(519, 459, 89, 23);
 		reviewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -291,9 +345,160 @@ public class newJobsMgr extends JFrame {
 		pack();
 	}
 
-	protected void openInDefaultProgram(MouseEvent evt) {
-		// TODO Auto-generated method stub
+	
+	protected void rejectJobs() {
+		ArrayList<Integer> selectedDevices = new ArrayList<Integer>();
+		for(int j = 0; j < jobsTable.getRowCount(); j++)
+		{
+			if(jobsTable.getValueAt(j, 0).toString().equalsIgnoreCase("true")) // get all the selected rows
+			{
+				selectedDevices.add(j); // adds row # for all selected rows.
+			}
+		}
+        if (selectedDevices.size() >= 0)
+        {
+        	System.out.println("Test");
+         //   String desc = JOptionPane.showInputDialog("Please enter why you're rejecting the submission: ");
 
+                /* Hand off the data in the selected row found in our tablemodel to this method so we can 
+                 * reject the correct file -Nick 
+                 */
+                boolean success = UtilController.rejectStudentSubmission(
+                        (String) jobsModel.getValueAt(selectedDevices.get(0), 1),
+                        "Rejected"
+                );
+
+                if (success) // always rejects, commenting out email utlity for now ~Alex
+                {
+                   JOptionPane op = new JOptionPane("Submission successfully rejected.", JOptionPane.INFORMATION_MESSAGE);
+                   JDialog dialog = op.createDialog("Job Manager: Submission Rejected");
+                   dialog.setAlwaysOnTop(true);
+                   dialog.setModal(true);
+                   dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                   dialog.setVisible(true);
+                   
+                    jobsModel.fireTableDataChanged();
+        			jobStatusCombo.setSelectedIndex(1);
+        			jobsTable.repaint();
+               
+                } else
+                {
+                    JOptionPane.showMessageDialog(new JFrame(), "Something went wrong! You shouldn't see this, ever!");
+                }
+            }
+         else
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
+        }
+	}
+
+	private void toggleButtons(boolean status) // toggles the approve,reject,review buttons along with stat panel so you can't approve the already approved
+	{
+		jobStatPanel.setVisible(status);
+		lblFillInData.setVisible(status);
+		approveButton.setVisible(status);
+		rejectButton.setVisible(status);
+		reviewButton.setVisible(status);
+	}
+	
+	
+	
+	protected void approveJobs() { // handles the approveButton
+
+		ArrayList<Integer> selectedDevices = new ArrayList<Integer>();
+		for(int j = 0; j < jobsTable.getRowCount(); j++)
+		{
+			if(jobsTable.getValueAt(j, 0).toString().equalsIgnoreCase("true")) // get all the selected rows
+			{
+				selectedDevices.add(j); // adds row # for all selected rows.
+			}
+		}
+
+		if(trackingStatInput1.getText().isEmpty())
+		{
+			System.out.println("Missing stat 1");
+		}
+		else if(trackingStatInput2.getText().isEmpty())
+		{
+			System.out.println("Missing stat 2");
+		}
+		else
+		{
+
+
+			int rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
+
+
+			/* Hand off the data in the selected row found in our tablemodel to this method so we can 
+			                 approve the correct file to be printed... -Nick 
+			 */
+			UtilController.approveStudentSubmission(
+					(String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
+
+			trackingStatInput1.setText("");
+			trackingStatInput2.setText("");
+			jobsModel.fireTableDataChanged();
+			jobStatusCombo.setSelectedIndex(2);
+			jobsTable.repaint();
+		}
+
+		jobsModel.fireTableDataChanged();
+		jobsTable.repaint();
+	}
+
+	public static int getSelectedRowNum(DefaultTableModel dm, int selectedRow, int column)
+	{
+		if (selectedRow < 0)
+		{
+			return -1;
+		}
+
+		for (int i = 0; i < dm.getRowCount(); i++)
+		{
+			if (dm.getValueAt(i, column).equals(dm.getValueAt(selectedRow, column)))
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+
+	protected void openInDefaultProgram(MouseEvent evt) {
+		ArrayList<Integer> selectedDevices = new ArrayList<Integer>();
+		for(int j = 0; j < jobsTable.getRowCount(); j++)
+		{
+			if(jobsTable.getValueAt(j, 0).toString().equalsIgnoreCase("true")) // get all the selected rows
+			{
+				selectedDevices.add(j); // adds row # for all selected rows.
+			}
+		}
+
+	        if (selectedDevices.size() > -1)
+	        {
+	            int rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
+
+	
+	            File fileLocation = UtilController.getFilePath(
+	                    (String) jobsModel.getValueAt(rowDataLocation, 2),
+	                    (String) jobsModel.getValueAt(rowDataLocation, 3),
+	                    (String) jobsModel.getValueAt(rowDataLocation, 1),
+	                    (String) jobsModel.getValueAt(rowDataLocation, 4)
+	            );//jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection });
+	            
+	            UtilController.checkFileExists(fileLocation.getPath());
+	            try
+	            {
+	                Desktop.getDesktop().open(fileLocation);
+	            } catch (IOException ex)
+	            {
+	                Logger.getLogger(JobsView.class.getName()).log(Level.SEVERE, null, ex);
+	            }
+	        } else
+	        {
+	            JOptionPane.showMessageDialog(new JFrame(), "Please select a file to review!");
+	        }
 	}
 
 	protected void updateJobWindow(String selectedDevice) { // used to display all jobs according to device
@@ -317,7 +522,7 @@ public class newJobsMgr extends JFrame {
 					} else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Approved"))
 					{
 						queryResult = dbconn.searchJobsStatusPrinter("approved", selectedDevice);	
-						
+
 					} else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Pending"))
 					{
 						queryResult = dbconn.searchJobsStatusPrinter("pending", selectedDevice);
@@ -341,7 +546,7 @@ public class newJobsMgr extends JFrame {
 					}
 					jobsTable.setModel(jobsModel);
 					jobsTable.repaint();
-
+					dbconn.closeDBConnection();
 				} catch(Exception e)
 				{
 					System.out.println("Error: " + e);
@@ -357,94 +562,99 @@ public class newJobsMgr extends JFrame {
 					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;*/
 
 
-private void showDeviceStats(String selectedDevice) { // used to update 
+	private void showDeviceStats(String selectedDevice) { // used to update 
 
-	jobStatPanel.setVisible(true);
-	lblFillInData.setVisible(true);
-	deviceNameLabel.setText(selectedDevice);
+		jobStatPanel.setVisible(true);
+		lblFillInData.setVisible(true);
+		deviceNameLabel.setText(selectedDevice);
 
-	if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
-		trackingStatLabel1.setText("Build material (grams)");
-		trackingStatLabel2.setText("Support material (grams)");
+		if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
+			trackingStatLabel1.setText("Build material (grams)");
+			trackingStatLabel2.setText("Support material (grams)");
+		}
+		else if(selectedDevice.equals("Solidscape R66+"))
+		{
+			trackingStatLabel1.setText("Build Time");
+			trackingStatLabel2.setText("Resolution");
+		}
+		else if(selectedDevice.equals("Z Printer 250"))
+		{
+			trackingStatLabel1.setText("Volume (cubic in)");
+			trackingStatLabel2.setText("Color");
+		}
+		else if(selectedDevice.equals(" ") || selectedDevice.equals(""))
+		{
+			jobStatPanel.setVisible(false);
+			lblFillInData.setVisible(false);
+		}
+
+
+
 	}
-	else if(selectedDevice.equals("Solidscape R66+"))
+
+	private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		trackingStatLabel1.setText("Build Time");
-		trackingStatLabel2.setText("Resolution");
+		jobsView = new newJobsMgr();
+		jobsView.setVisible(true);
+		dispose();
+
 	}
-	else if(selectedDevice.equals("Z Printer 250"))
+
+	private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		trackingStatLabel1.setText("Volume (cubic in)");
-		trackingStatLabel2.setText("Color");
+		buildView = new BuildView();
+		buildView.startMakeBuildProcess();
+		dispose();
+
 	}
-	else if(selectedDevice.equals(" ") || selectedDevice.equals(""))
+
+	private void navBtn_reportsActionPerformed(java.awt.event.ActionEvent evt)
 	{
-		jobStatPanel.setVisible(false);
-		lblFillInData.setVisible(false);
+		reportsView = new ReportsView();
+		reportsView.ReportsPage();
+		dispose();
+
+	}
+
+	private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		adminSettingsView = new AdminSettingsView();
+		adminSettingsView.AdminSettingsViewStart();
+		dispose();
+
+	}
+
+	private void logout()
+	{
+		MainView mv = new MainView();
+		mv.setVisible(true);
+		dispose();
 	}
 
 
 
-}
+	/////// Nav Bar ~Alex /////
+	// --nav bar vars ~Alex
+	private JButton navBtn_jobsMgr;
+	private JButton navBtn_build;
+	private JButton navBtn_reports;
+	private JButton navBtn_settings;
 
-private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
-{
-	jobsView = new JobsView();
-	jobsView.PendingJobsStart();
-	dispose();
-
-}
-
-private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)
-{
-	buildView = new BuildView();
-	buildView.startMakeBuildProcess();
-	dispose();
-
-}
-
-private void navBtn_reportsActionPerformed(java.awt.event.ActionEvent evt)
-{
-	reportsView = new ReportsView();
-	reportsView.ReportsPage();
-	dispose();
-
-}
-
-private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
-{
-	adminSettingsView = new AdminSettingsView();
-	adminSettingsView.AdminSettingsViewStart();
-	dispose();
-
-}
-
-private void logout()
-{
-	dispose();
-}
-
-
-
-/////// Nav Bar ~Alex /////
-// --nav bar vars ~Alex
-private JButton navBtn_jobsMgr;
-private JButton navBtn_build;
-private JButton navBtn_reports;
-private JButton navBtn_settings;
-
-///
-// etc vars
-// 
-private  JPanel jobStatPanel;
-private  JPanel jobListingsPane;
-private JTextField trackingStatInput1;
-private JTextField trackingStatInput2;
-private JLabel trackingStatLabel1;
-private JLabel trackingStatLabel2;
-private JLabel deviceNameLabel;
-private JLabel lblFillInData;
-private JTable jobsTable;
-private DefaultTableModel jobsModel;
-private JComboBox jobStatusCombo;
+	///
+	// etc vars
+	// 
+	private  JPanel jobStatPanel;
+	private  JPanel jobListingsPane;
+	private JTextField trackingStatInput1;
+	private JTextField trackingStatInput2;
+	private JLabel trackingStatLabel1;
+	private JLabel trackingStatLabel2;
+	private JLabel deviceNameLabel;
+	private JLabel lblFillInData;
+	private JTable jobsTable;
+	private DefaultTableModel jobsModel;
+	private JComboBox jobStatusCombo;
+	private JButton approveButton;
+	private JButton rejectButton;
+	private JButton reviewButton;
 }

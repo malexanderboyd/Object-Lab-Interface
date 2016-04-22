@@ -177,9 +177,9 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
 					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
-					+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
+					+ "FROM job, users , class " + "WHERE job.status <> ? AND printer_name = ? "
 					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
-            stmt.setString(1, "pending");
+            stmt.setString(1, "rejected");
             stmt.setString(2, printer);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -524,11 +524,49 @@ public class SQLMethods
             stmt.setString(4, user_id);
             stmt.setString(5, printer);
             stmt.executeUpdate();
+            
+            
+            
+            // Adding stat tracking
+            
+            
+            stmt = conn.prepareStatement
+        			(
+        					"SELECT job_id FROM job WHERE  student_id =  ? AND  file_name =  ?"
+        			);
+        			
+        	stmt.setString(1, user_id);
+            stmt.setString(2, filename);
+            
+            System.out.println(stmt.toString());
+            ResultSet res = stmt.executeQuery();
+            res.next();
+            insertIntoJobStats(res.getInt(1), null, null);
+            
+            
         } catch (Exception e)
         {
             e.printStackTrace();
         }
     }
+    
+    
+    public void insertIntoJobStats(int id, String stat1, String stat2)
+    {
+    	try {
+    	 stmt = conn.prepareStatement("INSERT INTO job_stats (job_id, stat1, stat2) values (?,NULL,NULL);");
+         stmt.setInt(1, id);
+         stmt.executeUpdate();
+    	  } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    
+    
+    
 
     public void insertIntoPrinter(String printer, boolean submit)
     {
@@ -715,6 +753,21 @@ public class SQLMethods
             Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
+    }
+    
+    
+    public void updateStats(int id, String stat1, String stat2)
+    {
+    	try {
+    		stmt = this.conn.prepareStatement("UPDATE `job_stats` SET `stat1`=?,`stat2`=? WHERE `job_id`=?");
+    		stmt.setString(1, stat1);
+    		stmt.setString(2, stat2);
+    		stmt.setInt(3, id);
+    		stmt.executeUpdate();
+    	} catch(SQLException ex) {
+    	       Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
+                       null, ex);
+    	}
     }
 
     public void updateJobBuildName(String build, int jobid)//SEAN USE THIS/
@@ -1574,9 +1627,12 @@ public class SQLMethods
 	public ResultSet getDeviceNamesCurrentOption(boolean current)
     {
         res = null;
+    	Thread runner = new Thread() {
+			public void run()
+			{
         try
         {
-            stmt = this.conn.prepareStatement(
+            stmt = conn.prepareStatement(
                     "SELECT printer_name "
                     + "FROM printer "
 		    + "WHERE current = ?;"
@@ -1590,7 +1646,11 @@ public class SQLMethods
         {
             e.printStackTrace();
         }
-        return res;
+        
+    }
+    	};
+    	runner.run();
+    	return res;
     }
 	
 	public ResultSet getTrackedDevices()
