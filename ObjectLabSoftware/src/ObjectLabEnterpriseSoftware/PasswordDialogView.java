@@ -1,7 +1,5 @@
 package ObjectLabEnterpriseSoftware;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -75,9 +73,10 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 20));
 
         SubmitButton.setText("Submit");
+
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitButtonActionPerformed(evt);
+                SubmitButtonActionPerformed();
             }
         });
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, 20));
@@ -90,11 +89,21 @@ public class PasswordDialogView extends javax.swing.JFrame
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 130));
-
+        Password.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char c = e.getKeyChar();
+                if(c == KeyEvent.VK_ENTER)
+                {
+                	SubmitButtonActionPerformed();
+                }
+            }
+        });
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
+    private void SubmitButtonActionPerformed() {//GEN-FIRST:event_SubmitButtonActionPerformed
         /*Hashes the predefined password and the password entered into the
          *JPasswordField and then compares the two
          */
