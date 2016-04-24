@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JComboBox;
 import javax.swing.JList;
@@ -35,14 +36,36 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
+import javax.swing.AbstractListModel;
+import java.awt.Toolkit;
 
+
+/*
+ * 
+ * Device Manager
+ * @author=M. Alex Boyd
+ * 
+ * TO DOS
+ * 1. Add error text for empty textfields when adding device
+ */
 public class DeviceMgr extends JFrame {
 
 
     //Current count of labels and fields
+	ArrayList<String> currentDevices = UtilController.getListOfCurrentDevices();
+	ListModel removeTable;
     private int count = 0;
     private boolean trackingSelected = true;
+
+
+	private DefaultListModel allClassListModel;
+	private DefaultListModel currentClassListModel;
+	private DefaultListModel removeClassListModel = new DefaultListModel();
+	private DefaultListModel currentDeviceListModel = new DefaultListModel();
+    newSettingsMenu settings;
+	private static FileManager inst = null;
 	public DeviceMgr() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DeviceMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setPreferredSize(new Dimension(550, 370));
 		setResizable(false);
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -50,7 +73,25 @@ public class DeviceMgr extends JFrame {
 		initWindow();
 		updateView();
 
-
+		   addWindowListener(
+	                new WindowAdapter()
+	                {
+	                    @Override
+	                    public void windowClosing(WindowEvent we)
+	                    {
+	                    	settings = new newSettingsMenu();
+	                    	settings.setVisible(true);
+	                    	dispose();
+	                    }
+	                 }
+	                );
+		   
+		   for(int i = 0; i < currentDevices.size(); i++)
+		   {
+		   currentDeviceListModel.addElement(currentDevices.get(i));
+		   }
+		   
+		   
 	} // end of constructor
 	
 	private void initWindow()
@@ -135,6 +176,12 @@ public class DeviceMgr extends JFrame {
 		addDevicePanel.add(addFieldButton);
 		
 		saveButton = new JButton("Add Device");
+		saveButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				addDevice();
+			}
+		});
 		saveButton.setBounds(332, 259, 89, 23);
 		addDevicePanel.add(saveButton);
 		
@@ -152,7 +199,7 @@ public class DeviceMgr extends JFrame {
 		removeClassPanel.add(removePrinterButton);
 		
 		lblAvailableClasses = new JLabel();
-		lblAvailableClasses.setText("Available Classes");
+		lblAvailableClasses.setText("Available Devices");
 		lblAvailableClasses.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		lblAvailableClasses.setBounds(10, 25, 110, 19);
 		removeClassPanel.add(lblAvailableClasses);
@@ -162,6 +209,7 @@ public class DeviceMgr extends JFrame {
 		removeClassPanel.add(spAvaiableClassesRC);
 		
 		currentClassListRC = new JList();
+		currentClassListRC.setModel(currentDeviceListModel);
 		spAvaiableClassesRC.setViewportView(currentClassListRC);
 		
 		addArrowRC = new JButton();
@@ -195,7 +243,7 @@ public class DeviceMgr extends JFrame {
 		spToBeRemovedRC.setViewportView(removeClassList);
 		
 		JLabel lblClassesToRemove = new JLabel();
-		lblClassesToRemove.setText("Classes to remove");
+		lblClassesToRemove.setText("Devices to remove");
 		lblClassesToRemove.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		lblClassesToRemove.setBounds(259, 28, 129, 19);
 		removeClassPanel.add(lblClassesToRemove);
@@ -210,7 +258,7 @@ public class DeviceMgr extends JFrame {
 			}
 		});
 		backButton.setIcon(new ImageIcon(DeviceMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png")));
-		backButton.setBounds(21, 11, 32, 33);
+		backButton.setBounds(21, 11, 45, 37);
 		getContentPane().add(backButton);
         
         fieldL0Label = new JLabel("Field name 1:");
@@ -305,11 +353,136 @@ public class DeviceMgr extends JFrame {
 	}
 
 
-	private DefaultListModel allClassListModel;
-	private DefaultListModel currentClassListModel;
-	private DefaultListModel removeClassListModel = new DefaultListModel();
-    newSettingsMenu settings;
-	private static FileManager inst = null;
+	protected void addDevice() { // this is quick and dirty and ugly, validation should be seperated into seperate methods ~Alex
+		
+		String deviceName = null;
+		String fileExt = null;
+		ArrayList<String> fields = new ArrayList<String>();
+		int[] boxes = new int[5];
+		if(!deviceNameInput.getText().isEmpty())
+		{
+			deviceName = deviceNameInput.getText();
+		}
+		else
+		{
+			System.out.println("Device name empty! ADD ERROR TXT");
+		}
+		
+		if(!fileExtInput.getText().isEmpty())
+		{
+			fileExt = fileExtInput.getText();
+		}
+		else
+		{
+			System.out.println("File extension field empty! ADD ERROR TXT");
+		}
+		
+		
+		if(count >= 0) // count keeps track of visible fields (see removeFieldButton)
+		{
+			if(!fieldL0.getText().isEmpty())
+			{
+				fields.add(fieldL0.getText());
+				if(numberValCheck0.isSelected())
+				{
+					boxes[0] = 1;// 1 = selected numerical value
+				}
+			}
+			else // field 0 will always be visible because remove button doesn't allow for it to be removed. (Need at least 1 field).
+			{
+				System.out.println("Field 1 Empty!");
+			}
+
+
+			if(!field1.getText().isEmpty())
+			{
+				fields.add(field1.getText());
+				if(numberValCheck1.isSelected())
+				{
+					boxes[1] = 1;// 1 = selected numerical value
+				}
+			}
+			else if( field1.isVisible() )
+			{
+				System.out.println("Field 2 Empty!");
+			}
+			
+			if(!field2.getText().isEmpty())
+			{
+				fields.add(field2.getText());
+				if(numberValCheck2.isSelected())
+				{
+					boxes[2] = 1;// 1 = selected numerical value
+				}
+			}
+			else if( field2.isVisible() )
+			{
+				System.out.println("Field 3 Empty!");
+			}			
+			
+			if(!field3.getText().isEmpty())
+			{
+				fields.add(field3.getText());
+				if(numberValCheck3.isSelected())
+				{
+					boxes[3] = 1;// 1 = selected numerical value
+				}
+			}
+			else if( field3.isVisible() )
+			{
+				System.out.println("Field 4 Empty!");
+			}
+			
+			if(!field4.getText().isEmpty())
+			{
+				fields.add(field4.getText());
+				if(numberValCheck4.isSelected())
+				{
+					boxes[4] = 1;// 1 = selected numerical value
+				}
+			}
+			else if( field4.isVisible() )
+			{
+				System.out.println("Field 5 Empty!");
+			}
+			
+		}
+		
+		if(!deviceName.equals(null) && !fileExt.equals(null)) 
+		{
+			device = new Device(deviceName,
+					new ArrayList(Arrays.asList(fileExt.split(" "))), trackingSelected);
+
+			for(int i = 0; i < fields.size(); i++)
+			{
+				if(boxes[i] == 1) // numerical value field
+				{
+					device.addField(fields.get(i), new Double("0"));
+				}
+				else
+				{
+					device.addField(fields.get(i), "");
+				}
+			}
+
+			if (currentDevices.contains(device.getDeviceName()))
+			{
+				JOptionPane.showMessageDialog(this, "Could not save! Device '" + device.getDeviceName() + "' already exists!");
+			} else if (UtilController.addDevice(device) == true)
+			{
+				JOptionPane.showMessageDialog(this, "Device '" + device.getDeviceName() + "' was saved and added to the printer list!");
+				repaint();
+			} else
+			{
+				JOptionPane.showMessageDialog(this, "There was an error while saving the printer.");
+			}
+		}
+
+
+	} // end of addDevice()
+
+		
+
 
 	private void updateView()
 	{
@@ -321,8 +494,9 @@ public class DeviceMgr extends JFrame {
             
             allClassListModel = new javax.swing.DefaultListModel(); /* false */
             currentClassListModel = UtilController.returnCurrentClasses();
-            currentClassListRC.setModel(allClassListModel);
             removeClassList.setModel(removeClassListModel);
+            currentClassListRC.setModel(currentDeviceListModel);
+            
 	}
     
     private void addArrowRCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addArrowActionPerformed
@@ -339,7 +513,7 @@ public class DeviceMgr extends JFrame {
 		else
 		{
 			removeClassListModel.addElement(currentClassListRC.getSelectedValue());
-			allClassListModel.removeElement(currentClassListRC.getSelectedValue());
+			currentDeviceListModel.removeElement(currentClassListRC.getSelectedValue());
 			
 			removeClassList.setModel(removeClassListModel);
 			
@@ -355,7 +529,7 @@ public class DeviceMgr extends JFrame {
 		{
 			if (removeClassListModel.elementAt(i).equals(removeClassList.getSelectedValue()))
 			{
-				allClassListModel.addElement(removeClassListModel.elementAt(i));
+				currentDeviceListModel.addElement(removeClassListModel.elementAt(i));
 				removeClassListModel.removeElementAt(i);
 			}
 		}
@@ -365,16 +539,24 @@ public class DeviceMgr extends JFrame {
     
     private void removeClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeClassButtonActionPerformed
 
-            if(JOptionPane.showConfirmDialog(null, "Continue? If you delete this class you will no longer be able "
-                    + "to select this class when building jobs.\nFiles associated with this class will not be deleted "
-                    + "but they will no longer be associated with this class. Click 'YES' to CONFIRM DELETION this is permanent!","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
+            if(JOptionPane.showConfirmDialog(null, "Continue? If you delete this device you will no longer be able "
+                    + "to select this device when building jobs.\nFiles associated with this device will not be deleted "
+                    + "but they will no longer be associated with this device. \n Click 'YES' to CONFIRM DELETION this is permanent!","Warning",JOptionPane.YES_OPTION)==JOptionPane.YES_OPTION){
             	for (int i = 0; i < removeClassListModel.getSize(); i++)
         		{
         				String selected = (String) removeClassListModel.elementAt(i);
-        				System.out.println(selected);
-        				int id = Integer.parseInt(selected.split(" ")[0]);
-        				System.out.println(id);
-        		        UtilController.removeClass(id);
+        				String id = selected;
+        				Thread runner = new Thread() {
+
+        					public void run()
+        					{
+        						UtilController.removeDevice(id);
+        					}
+        				};
+        				
+        				runner.run();
+        				
+        				
         		}     
             	removeClassListModel.clear();
             	updateView();

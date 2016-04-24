@@ -41,6 +41,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Toolkit;
 
 
 /*
@@ -83,6 +84,7 @@ public class newJobsMgr extends JFrame {
 	private newSettingsMenu adminSettingsView;
 	//
 	public newJobsMgr() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(newJobsMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setTitle("Administration Panel");
 		setPreferredSize(new Dimension(635,605));
 		setAlwaysOnTop(false);

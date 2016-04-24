@@ -30,6 +30,7 @@ import javax.swing.JDesktopPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 public class ClassMgr extends JFrame {
 	public static final String [] arrayOfTowsonDepartments = {"AFST","AHLT","AMST","ANTH",
@@ -47,6 +48,7 @@ public class ClassMgr extends JFrame {
 	
 
 	public ClassMgr() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ClassMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setPreferredSize(new Dimension(550, 370));
 		setResizable(false);
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));

@@ -25,7 +25,7 @@ public class BuildView extends javax.swing.JFrame
     private BuildView buildView;
     private newJobsMgr jobsView;
     private ReportsView reportsView;	
-    private AdminSettingsView adminSettingsView;
+    private newSettingsMenu adminSettingsView;
     //
     private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
     private static String[] errorTextColumnHeader =
@@ -599,8 +599,8 @@ public class BuildView extends javax.swing.JFrame
     
     private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	adminSettingsView = new AdminSettingsView();
-    	adminSettingsView.AdminSettingsViewStart();
+    	adminSettingsView = new newSettingsMenu();
+    	adminSettingsView.setVisible(true);
     	dispose();
     	
     }

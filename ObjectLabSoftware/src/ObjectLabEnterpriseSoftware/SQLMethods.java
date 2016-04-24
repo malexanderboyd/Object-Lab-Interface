@@ -572,9 +572,10 @@ public class SQLMethods
     {
         try
         {
-            stmt = conn.prepareStatement("INSERT INTO printer (printer_name, student_submission) values (?, ?);");
+            stmt = conn.prepareStatement("INSERT INTO printer (printer_name, student_submission, current) values (?, ?, ?);");
             stmt.setString(1, printer);
             stmt.setBoolean(2, submit);
+            stmt.setInt(3, 1);
             stmt.executeUpdate();
         } catch (Exception e)
         {
