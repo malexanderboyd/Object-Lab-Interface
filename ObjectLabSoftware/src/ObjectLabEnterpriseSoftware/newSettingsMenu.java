@@ -34,7 +34,7 @@ public class newSettingsMenu extends JFrame {
 
 		//
 	public newSettingsMenu() {
-		setPreferredSize(new Dimension(440, 300));
+		setPreferredSize(new Dimension(465, 300));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(newSettingsMenu.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setResizable(false);
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -53,11 +53,13 @@ public class newSettingsMenu extends JFrame {
 			setJMenuBar(jMenuBar1);
 
 			navBtn_jobsMgr = new JButton("Jobs Manager");
+			navBtn_jobsMgr.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
 			navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
 			jMenuBar1.add(navBtn_jobsMgr);
 
 			navBtn_build = new JButton("Enter Build");
+			navBtn_build.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
 
 			navBtn_build.setPreferredSize(new Dimension(100,24));
