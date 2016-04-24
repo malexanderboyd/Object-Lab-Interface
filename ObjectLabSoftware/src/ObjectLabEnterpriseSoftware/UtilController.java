@@ -60,7 +60,7 @@ public class UtilController
     private static final boolean FAILURE = false;
 
     private static final String SOFTWARE_NAME = "OLI";
-    private static final String SOFTWARE_VERSION = "v1.43"; //Should be dynamic
+    private static final String SOFTWARE_VERSION = "v1.44"; //Should be dynamic
     
     /* Bug - Invalid URL, build 1.1 - Boyd, 2/10/2016 */
     private static final String USER_GUIDE_URL = "http://triton.towson.edu/~jirani2/adminHelp.pdf";

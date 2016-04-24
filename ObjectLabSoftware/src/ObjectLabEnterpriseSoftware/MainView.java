@@ -21,7 +21,6 @@ public class MainView extends javax.swing.JFrame
 	//UpdateStudentView updateStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
-    AddStatsView statsSys;
     boolean show;
     String PASS = "ForwardMotion";
 
@@ -34,7 +33,7 @@ public class MainView extends javax.swing.JFrame
         studentSys = new StudentSubmissionView();
       //  newStudentSys = new AddStudentView();
 	//updateStudentSys = new UpdateStudentView();
-	statsSys = new AddStatsView();
+	
 				
         //Allows only integers for student ID
         studentIdString.addKeyListener(new KeyAdapter()

@@ -267,7 +267,7 @@ public class AddDeviceView extends javax.swing.JFrame
             fields.add(tfield);
             tlabel = new JLabel();
             tlabel.setName("fieldL" + (count - 1));
-            tlabel.setText("Field #" + (count - 1));
+            tlabel.setText("Field Name " + (count - 1));
             labels.add(tlabel);
             cbox = new JCheckBox();
             cbox.setName("numberCB" + (count - 2));
