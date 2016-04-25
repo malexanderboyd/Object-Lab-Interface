@@ -14,7 +14,7 @@ public class ReportsView extends javax.swing.JFrame
     private FileManager inst;
     private String selectedPrinter;
     private UtilController controller;
-    private String[] headers;
+    private String[] headers = {"Test 1", "Test 2", "Test 3", "Test 4"};
     private ArrayList<String> printers;
     
 
@@ -23,8 +23,10 @@ public class ReportsView extends javax.swing.JFrame
         this.controller = new UtilController();
         printers = UtilController.getListOfAllDevices();
         if(printers.size() > 0){
-            selectedPrinter = printers.get(0);
-            headers = UtilController.getReportColumnHeaders(selectedPrinter);
+            selectedPrinter = printers.get(1);
+          //* THIS IS THE PROBLEM WITH THE REPORTS NOT OPENING, THIS FEEDS THEM THE WRONG HEADERS NOW - used to be sql error. *\\\
+          //  headers = UtilController.getReportColumnHeaders(selectedPrinter);
+
         }
         else{
             headers = new String[1];

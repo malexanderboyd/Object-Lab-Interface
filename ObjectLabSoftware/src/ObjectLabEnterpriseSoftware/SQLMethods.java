@@ -1126,9 +1126,14 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement(
+          /*  stmt = this.conn.prepareStatement(
                     "call report('" + printer_name + "');"
-            );
+            );*/
+        	// temp fix to get reports view working
+        	   stmt = this.conn.prepareStatement(
+                       "SELECT * FROM custom_printer_column_names WHERE printer_name = ?"
+               );
+               stmt.setString(1, printer_name);
 
             res = stmt.executeQuery();
         } catch (Exception e)
