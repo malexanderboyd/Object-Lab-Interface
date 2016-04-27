@@ -570,7 +570,11 @@ public class newJobsMgr extends JFrame {
 		lblFillInData.setVisible(true);
 		deviceNameLabel.setText(selectedDevice);
 
-		if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
+		if(selectedDevice.equals("Laser Printer")) { // hard coding these quick and dirttay
+			trackingStatLabel1.setText("Material");
+			trackingStatLabel2.setText("Cut Time (H:M:S)");
+		}
+		else if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
 			trackingStatLabel1.setText("Build material (grams)");
 			trackingStatLabel2.setText("Support material (grams)");
 		}
