@@ -240,7 +240,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 260));
 
-        editMenu.setText("Help");
+        //editMenu.setText("Help");
 
         jMenuItem1.setText("Contents");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
