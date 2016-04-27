@@ -142,7 +142,7 @@ public class newJobsMgr extends JFrame {
 		lblJobStatus.setLabelFor(jobStatusCombo);
 		getContentPane().add(lblJobStatus);
 
-		JComboBox deviceCombo = new JComboBox();
+		final JComboBox deviceCombo = new JComboBox();
 		deviceCombo.setBounds(342, 63, 125, 20);
 		deviceCombo.addItem(" ");
 		/// Adds tracked devices to comboBox dropdown window
@@ -503,7 +503,7 @@ public class newJobsMgr extends JFrame {
 	        }
 	}
 
-	protected void updateJobWindow(String selectedDevice) { // used to display all jobs according to device
+	protected void updateJobWindow(final String selectedDevice) { // used to display all jobs according to device
 
 		showDeviceStats(selectedDevice); // used to display stat tracking relating to device.
 

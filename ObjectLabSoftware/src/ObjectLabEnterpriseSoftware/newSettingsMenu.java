@@ -160,7 +160,7 @@ public class newSettingsMenu extends JFrame {
 		getContentPane().add(btnUserGuide);
 		pack();
 		setLocationRelativeTo(null);
-		newJobsMgr njm = new newJobsMgr();
+		final newJobsMgr njm = new newJobsMgr();
 		   addWindowListener(
 	                new WindowAdapter()
 	                {

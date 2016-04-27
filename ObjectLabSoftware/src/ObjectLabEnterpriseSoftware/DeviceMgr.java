@@ -545,7 +545,7 @@ public class DeviceMgr extends JFrame {
             	for (int i = 0; i < removeClassListModel.getSize(); i++)
         		{
         				String selected = (String) removeClassListModel.elementAt(i);
-        				String id = selected;
+        				final String id = selected;
         				Thread runner = new Thread() {
 
         					public void run()

@@ -1630,7 +1630,7 @@ public class SQLMethods
 		return getDeviceNamesCurrentOption(true);
 	}
 	
-	public ResultSet getDeviceNamesCurrentOption(boolean current)
+	public ResultSet getDeviceNamesCurrentOption(final boolean current)
     {
         res = null;
     	Thread runner = new Thread() {
