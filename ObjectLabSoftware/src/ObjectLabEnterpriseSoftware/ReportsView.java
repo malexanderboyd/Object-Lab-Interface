@@ -186,6 +186,7 @@ public class ReportsView extends javax.swing.JFrame
     jLabel5.setText("jLabel5");
     getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -18, 710, 430));
 
+    /*
     jMenu2.setText("Help");
 
     jMenuItem1.setText("User Guide");
@@ -199,6 +200,7 @@ public class ReportsView extends javax.swing.JFrame
     jMenuBar1.add(jMenu2);
 
     setJMenuBar(jMenuBar1);
+    */
 
     pack();
     }// </editor-fold>//GEN-END:initComponents
