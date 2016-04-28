@@ -271,7 +271,7 @@ public class MainView extends javax.swing.JFrame
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 230));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 325));
 
         userOptionsMenu.setText("User Options");
         userOptionsMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +306,7 @@ public class MainView extends javax.swing.JFrame
 
         MenuBar.add(userOptionsMenu);
 
+	/*
         helpButton.setText("Help");
 
         userGuideButton.setText("User Guide");
@@ -317,6 +318,7 @@ public class MainView extends javax.swing.JFrame
         helpButton.add(userGuideButton);
 
         MenuBar.add(helpButton);
+        */
 
         setJMenuBar(MenuBar);
         
