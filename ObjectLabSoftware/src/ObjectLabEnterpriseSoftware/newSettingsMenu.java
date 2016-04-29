@@ -34,6 +34,7 @@ public class newSettingsMenu extends JFrame {
 
 		//
 	public newSettingsMenu() {
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(465, 300));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(newSettingsMenu.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setResizable(false);
