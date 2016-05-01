@@ -65,6 +65,7 @@ public class DeviceMgr extends JFrame {
     newSettingsMenu settings;
 	private static FileManager inst = null;
 	public DeviceMgr() {
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DeviceMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setPreferredSize(new Dimension(550, 370));
 		setResizable(false);
