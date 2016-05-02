@@ -33,6 +33,7 @@ public class PasswordDialogView extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
+            	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                dispose();
                home.setPrintersVisible(false);
                home.showStudentOptions();
@@ -57,7 +58,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         passwordError = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
