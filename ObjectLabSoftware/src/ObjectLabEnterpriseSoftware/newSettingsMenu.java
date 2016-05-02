@@ -223,7 +223,7 @@ public class newSettingsMenu extends JFrame {
 	private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_logoutButtonActionPerformed
         //GEN-HEADEREND:event_logoutButtonActionPerformed
     		dispose();
-            home.setVisible(true);
+          //  home.setVisible(true);
 	 }//GEN-LAST:event_logoutButtonActionPerformed
 	 
 	
