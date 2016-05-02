@@ -159,6 +159,18 @@ public class newSettingsMenu extends JFrame {
 		btnUserGuide.setFont(new Font("Segoe UI Light", Font.PLAIN, 12));
 		btnUserGuide.setBounds(169, 145, 121, 23);
 		getContentPane().add(btnUserGuide);
+		
+		/*
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.setFont(new Font("Segoe UI Light", Font.PLAIN, 12));
+		btnLogout.setBounds(10, 200, 121, 23);
+		getContentPane().add(btnLogout);
+		btnLogout.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				logoutButtonActionPerformed(evt);
+			}
+        	});*/
+        	
 		pack();
 		setLocationRelativeTo(null);
 		final newJobsMgr njm = new newJobsMgr();
@@ -207,6 +219,12 @@ public class newSettingsMenu extends JFrame {
 
 	}
 	
-	
+	/*
+	private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_logoutButtonActionPerformed
+        //GEN-HEADEREND:event_logoutButtonActionPerformed
+    		dispose();
+            home.setVisible(true);
+	 }//GEN-LAST:event_logoutButtonActionPerformed
+	 */
 	
 }
