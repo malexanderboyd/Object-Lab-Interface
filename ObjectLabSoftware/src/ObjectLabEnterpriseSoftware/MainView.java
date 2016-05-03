@@ -1,5 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -26,6 +27,7 @@ public class MainView extends javax.swing.JFrame
 
     public MainView()
     {
+    	getContentPane().setBackground(Color.WHITE);
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
@@ -87,7 +89,6 @@ public class MainView extends javax.swing.JFrame
         ReportsLabel = new javax.swing.JLabel();
         settingsLabel = new javax.swing.JLabel();
         oliSymbol = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         userOptionsMenu = new javax.swing.JMenu();
         newStudentOption = new javax.swing.JMenuItem();
@@ -126,7 +127,7 @@ public class MainView extends javax.swing.JFrame
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 130, 20));
+        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 195, 20));
 
         studentIdString.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         studentIdString.setToolTipText("Enter your student ID.");
@@ -159,7 +160,7 @@ public class MainView extends javax.swing.JFrame
             }
         });
         
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 110, -1, 20));
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 120, -1, 20));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("");
@@ -269,10 +270,6 @@ public class MainView extends javax.swing.JFrame
         oliSymbol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/main_logo.png"))); // NOI18N
         getContentPane().add(oliSymbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, 150));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 325));
-
         userOptionsMenu.setText("User Options");
         userOptionsMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +284,6 @@ public class MainView extends javax.swing.JFrame
             }
         });
         userOptionsMenu.add(newStudentOption); 
-
         updateStudentOption.setText("Update User Login Info");
         updateStudentOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -308,7 +304,6 @@ public class MainView extends javax.swing.JFrame
 
 	/*
         helpButton.setText("Help");
-
         userGuideButton.setText("User Guide");
         userGuideButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,7 +311,6 @@ public class MainView extends javax.swing.JFrame
             }
         });
         helpButton.add(userGuideButton);
-
         MenuBar.add(helpButton);
         */
 
@@ -586,7 +580,6 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JLabel enterBuildLabel;
     private javax.swing.JLabel errorIdLabel;
     private javax.swing.JMenu helpButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
