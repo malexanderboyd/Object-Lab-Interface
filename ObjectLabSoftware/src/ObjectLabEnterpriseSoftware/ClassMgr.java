@@ -53,6 +53,7 @@ public class ClassMgr extends JFrame {
 		setResizable(false);
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		setTitle("Class Manager");
+		getContentPane().setBackground(Color.WHITE);
 		initWindow();
 		updateView();
 	} // end of constructor
