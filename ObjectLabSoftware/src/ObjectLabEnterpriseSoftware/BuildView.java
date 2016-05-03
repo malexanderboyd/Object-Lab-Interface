@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.MutableComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class BuildView extends javax.swing.JFrame
@@ -23,9 +24,9 @@ public class BuildView extends javax.swing.JFrame
     private static int countNumOfModels;
     // --nav bar views ~Alex
     private BuildView buildView;
-    private JobsView jobsView;
+    private newJobsMgr jobsView;
     private ReportsView reportsView;	
-    private AdminSettingsView adminSettingsView;
+    private newSettingsMenu adminSettingsView;
     //
     private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
     private static String[] errorTextColumnHeader =
@@ -37,8 +38,9 @@ public class BuildView extends javax.swing.JFrame
     private ArrayList<String> trackableFields;
     private DefaultTableModel deviceDataModel; /* Used to hold data entered in by the user for the build to display */
 
-    private DefaultTableModel fileTableModel; /* Used to hold accepted files (student submissions) that are to be displayed in the first table */
-
+    private DefaultTableModel fileTableModel; /* Used to hold available files (student submissions) displayed in the first table */
+    private DefaultTableModel fileTableModel2; /*Used to hold current files which the add/remove come into play */
+    
     private Device deviceModel = null;
 
     FileManager inst;
@@ -54,7 +56,7 @@ public class BuildView extends javax.swing.JFrame
         /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
         for (ArrayList<Object> row : view)
         {
-            /* We need to account for the checkbox by adding in a boolean value = false as the first value. */
+            /* We need to account for the check box by adding in a boolean value = false as the first value. */
             if(UtilController.findAndVerifyFile((String)(row.get(1)))){
                 row.add(0, (Boolean) false);
                 model.addRow(row.toArray());
@@ -87,17 +89,17 @@ public class BuildView extends javax.swing.JFrame
             /* filepathToSelectedDeviceBuild is the file location to the build file */
             if (filepathToSelectedDeviceBuild.getText().isEmpty())
             {
-                ErrorText.setText("Choose a build file below!");
+                ErrorText.setText("Choose a build file from Current Jobs!");
                 ErrorText.setVisible(true);
                 return false;
             } else
             {
-                //checks to see if any sleections in table exist to prevent no file submit case
-                for (int z = 0; z < fileTableModel.getRowCount(); z++)
+                //checks to see if any selections in table exist to prevent no file submit case
+                for (int z = 0; z < fileTableModel2.getRowCount(); z++) //changed to model2 so it has to be in this table in order to validate
                 {
-                    if ((Boolean) fileTableModel.getValueAt(z, 0))
+                    if ((Boolean) fileTableModel2.getValueAt(z, 0))
                     {
-                        filesSelected = true; /* Atleast one file was checked off for being part of the build*/
+                        filesSelected = true; /* At least one file was checked off for being part of the build*/
 
                         break;
                     }
@@ -172,11 +174,11 @@ public class BuildView extends javax.swing.JFrame
                 selectedJobID = new ArrayList<>();
 
                 /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
-                for (int row = 0; row < fileTableModel.getRowCount(); row++)
+                for (int row = 0; row < fileTableModel2.getRowCount(); row++)
                 {
-                    if ((Boolean) fileTableModel.getValueAt(row, 0) /* If checked then add file to list */)
+                    if ((Boolean) fileTableModel2.getValueAt(row, 0) /* If checked then add file to list */) // has to be in the second table in order for a file to be successfully submitted 
                     {
-                        selectedJobID.add(Integer.parseInt((String) fileTableModel.getValueAt(row, 1)));
+                        selectedJobID.add(Integer.parseInt((String) fileTableModel2.getValueAt(row, 1)));
                         countNumOfModels++;
                     }
                 }
@@ -214,7 +216,9 @@ public class BuildView extends javax.swing.JFrame
         }
 
         countNumOfModels = 0;
-        fileTableModel = (DefaultTableModel) studentSubmissionApprovedTableList.getModel();
+        fileTableModel = (DefaultTableModel) studentSubmissionTableList.getModel();
+        fileTableModel2 = (DefaultTableModel) studentSubmissionApprovedTableList.getModel(); //added 
+        
         ErrorText.setVisible(false);
         this.setVisible(true);
 
@@ -258,7 +262,7 @@ public class BuildView extends javax.swing.JFrame
         browseBtn = new javax.swing.JButton();
         ErrorText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        studentSubmissionApprovedTableList = new javax.swing.JTable();
+        studentSubmissionTableList = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         deviceNameComboBox = new javax.swing.JComboBox();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -281,8 +285,13 @@ public class BuildView extends javax.swing.JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         userGuide = new javax.swing.JMenuItem();
+        addArrow = new javax.swing.JButton();
+        removeArrow = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        studentSubmissionApprovedTableList = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
         logoutButton = new javax.swing.JButton();
-
+        
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -305,17 +314,26 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
         Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
-        Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 640, 100, 30));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 700, 100, 30));
+        
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 700, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Choose jobs part of build: ");
+        jLabel4.setText("Available Jobs: ");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 19));
 
         buildLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -346,8 +364,8 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setText("Error Text");
         getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 760, -1));
 
-        studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
-        studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
+        studentSubmissionTableList.setAutoCreateRowSorter(true);
+        studentSubmissionTableList.setModel(new javax.swing.table.DefaultTableModel()
             {
                 Class[] types = new Class []
                 {
@@ -369,16 +387,52 @@ public class BuildView extends javax.swing.JFrame
                     return canEdit [columnIndex];
                 }
             });
-            jScrollPane3.setViewportView(studentSubmissionApprovedTableList);
-            if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0) {
-                studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMinWidth(30);
-                studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMaxWidth(30);
-                studentSubmissionApprovedTableList.getColumnModel().getColumn(1).setResizable(false);
-                studentSubmissionApprovedTableList.getColumnModel().getColumn(2).setResizable(false);
+            jScrollPane3.setViewportView(studentSubmissionTableList);
+            if (studentSubmissionTableList.getColumnModel().getColumnCount() > 0) {
+                studentSubmissionTableList.getColumnModel().getColumn(0).setMinWidth(30);
+                studentSubmissionTableList.getColumnModel().getColumn(0).setMaxWidth(30);
+                studentSubmissionTableList.getColumnModel().getColumn(1).setResizable(false);
+                studentSubmissionTableList.getColumnModel().getColumn(2).setResizable(false);
             }
+            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 415, 350));
 
-            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 950, 300));
+            
+            //added to create the current jobs table 
+            jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+            jLabel11.setText("Current Jobs:");
+            getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(533, 120, 150, 20));            
+            studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
+            studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
+                {
+                    Class[] types = new Class []
+                    {
+                        java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                        ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                    };
+                    boolean[] canEdit = new boolean []
+                    {
+                        true, false, false, false, false, false, false, false, false
+                    };
 
+                    public Class getColumnClass(int columnIndex)
+                    {
+                        return types [columnIndex];
+                    }
+
+                    public boolean isCellEditable(int rowIndex, int columnIndex)
+                    {
+                        return canEdit [columnIndex];
+                    }
+                });
+                jScrollPane6.setViewportView(studentSubmissionApprovedTableList);
+                if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0) {
+                    studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMinWidth(30);
+                    studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMaxWidth(30);
+                    studentSubmissionApprovedTableList.getColumnModel().getColumn(1).setResizable(false);
+                    studentSubmissionApprovedTableList.getColumnModel().getColumn(2).setResizable(false);
+                }
+                getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(533, 140, 415, 350));
+                
             jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             jLabel2.setText("Select Device:");
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
@@ -399,13 +453,12 @@ public class BuildView extends javax.swing.JFrame
             deviceInputTable.setRowHeight(24);
             jScrollPane4.setViewportView(deviceInputTable);
 
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, 950, 150));
+            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 525, 950, 150));
 
             jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel3.setText("Enter Build Data:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 150, 20));
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 150, 20));
 
-            /*
             backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
             backToMainMenu.setToolTipText("Back");
             backToMainMenu.setBorderPainted(false);
@@ -418,18 +471,6 @@ public class BuildView extends javax.swing.JFrame
                 }
             });
             getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
-            
-            */
-            
-            //logoutButton.setBackground(new java.awt.Color(0, 180, 0));
-            logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-            logoutButton.setText("Logout");
-            logoutButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    logoutButtonActionPerformed(evt);
-                }
-            });
-            getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 640, 100, 30));
 
             buildFileLocationErrorStatusText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             buildFileLocationErrorStatusText.setForeground(new java.awt.Color(255, 0, 0));
@@ -441,16 +482,16 @@ public class BuildView extends javax.swing.JFrame
 
             runtimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
             runtimeLabel.setText("Total Runtime:");
-            getContentPane().add(runtimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 650, -1, 20));
+            getContentPane().add(runtimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 700, -1, 20));
 
             hourField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             hourField.setText("00");
-            getContentPane().add(hourField, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 650, 20, -1));
+            getContentPane().add(hourField, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 700, 20, -1));
 
             secondField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             secondField.setText("00");
             secondField.setPreferredSize(new java.awt.Dimension(20, 20));
-            getContentPane().add(secondField, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 650, -1, -1));
+            getContentPane().add(secondField, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 700, -1, -1));
 
             minuteField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             minuteField.setText("00");
@@ -460,68 +501,57 @@ public class BuildView extends javax.swing.JFrame
                     minuteFieldActionPerformed(evt);
                 }
             });
-            getContentPane().add(minuteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 650, -1, -1));
+            getContentPane().add(minuteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 700, -1, -1));
 
             jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel5.setText(":");
-            getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 650, 10, 20));
+            getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 700, 10, 20));
 
             jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel6.setText(":");
-            getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 650, 10, 20));
+            getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 10, 20));
 
             jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
             jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel7.setText("H");
-            getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 670, 20, -1));
+            getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 720, 20, -1));
 
             jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
             jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel8.setText("M");
-            getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 670, 20, -1));
+            getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 720, 20, -1));
 
             jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
             jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel9.setText("S");
-            getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 670, 20, -1));
+            getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 720, 20, -1));
+            
+            addArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            addArrow.setText("Add ->");
+            addArrow.setPreferredSize(new java.awt.Dimension(60, 23));
+            addArrow.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    addArrowActionPerformed(evt);
+                }
+            });
+            getContentPane().add(addArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 240, 90, -1));
+     
+            removeArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+            removeArrow.setText("<- Remove");
+            removeArrow.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    removeArrowActionPerformed(evt);
+                }
+            });
+            getContentPane().add(removeArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 270, 90, -1));
 
             jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 825));
+            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 900));
 
-          /*  removeBuildOpen.setText("Remove Build");
-            removeBuildOpen.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    removeBuildOpenActionPerformed(evt);
-                }
-            });
 
-            jMenuItem1.setText("Remove Build");
-            jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    jMenuItem1ActionPerformed(evt);
-                }
-            });
-            removeBuildOpen.add(jMenuItem1);
-
-            jMenuBar1.add(removeBuildOpen);
-
-            helpMenu.setText("Help");
-
-            userGuide.setText("User Guide");
-            userGuide.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    userGuideActionPerformed(evt);
-                }
-            });
-            helpMenu.add(userGuide);
-
-            jMenuBar1.add(helpMenu); 
-
-            setJMenuBar(jMenuBar1); */
-            
-            getContentPane().setPreferredSize(new Dimension(975,875));
+            getContentPane().setPreferredSize(new Dimension(975,800));
             pack();
             setLocationRelativeTo(null);
         }// </editor-fold>//GEN-END:initComponents
@@ -530,33 +560,33 @@ public class BuildView extends javax.swing.JFrame
     private void initNavBar()
     {
 
-    	jMenuBar1.setPreferredSize(new Dimension(200, 75));
+    	jMenuBar1.setPreferredSize(new Dimension(275, 30));
         setJMenuBar(jMenuBar1);
         
         navBtn_jobsMgr = new JButton("Jobs Manager");
         navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
-        navBtn_jobsMgr.setPreferredSize(new Dimension(100,75));
+        navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
         navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(200,0)));
+        jMenuBar1.add(Box.createRigidArea(new Dimension(275,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
         navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
         
-        navBtn_build.setPreferredSize(new Dimension(100,100));
+        navBtn_build.setPreferredSize(new Dimension(100,24));
         navBtn_build.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_build);
         
         navBtn_reports = new JButton("Reports");
         navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
-        navBtn_reports.setPreferredSize(new Dimension(100,100));
+        navBtn_reports.setPreferredSize(new Dimension(100,24));
         navBtn_reports.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_reports);
         
         navBtn_settings = new JButton("Settings");
         navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
-        navBtn_settings.setPreferredSize(new Dimension(100,100));
+        navBtn_settings.setPreferredSize(new Dimension(100,24));
         navBtn_settings.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_settings);
 
@@ -590,8 +620,8 @@ public class BuildView extends javax.swing.JFrame
     
     private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	jobsView = new JobsView();
-        jobsView.PendingJobsStart();
+    	jobsView = new newJobsMgr();
+        jobsView.setVisible(true);
     	dispose();
     	
     }
@@ -614,8 +644,8 @@ public class BuildView extends javax.swing.JFrame
     
     private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
     {
-    	adminSettingsView = new AdminSettingsView();
-    	adminSettingsView.AdminSettingsViewStart();
+    	adminSettingsView = new newSettingsMenu();
+    	adminSettingsView.setVisible(true);
     	dispose();
     	
     }
@@ -623,7 +653,7 @@ public class BuildView extends javax.swing.JFrame
     
     
     /////// Nav Bar ~Alex /////
-
+    
     
     private void Submit_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit_ButtonActionPerformed
         //add stl information to build table zcorp and create incomplete entry
@@ -637,6 +667,12 @@ public class BuildView extends javax.swing.JFrame
         }
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_logoutButtonActionPerformed
+        //GEN-HEADEREND:event_logoutButtonActionPerformed
+    		dispose();
+            home.setVisible(true);
+    }//GEN-LAST:event_logoutButtonActionPerformed
+    
     private void filepathToSelectedDeviceBuildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filepathToSelectedDeviceBuildActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_filepathToSelectedDeviceBuildActionPerformed
@@ -718,10 +754,17 @@ public class BuildView extends javax.swing.JFrame
                 {
                     "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
                 });
+                
+                fileTableModel2.setColumnIdentifiers(new String[]
+                {
+                    "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
+                });
 
                 updateViewData(fileTableModel, approvedStudentSubmissions);
+                updateViewData(fileTableModel2, approvedStudentSubmissions); //dont think this does anything tbh
 
                 /* Set UI to display the next steps in completing a build for student submissions that are tracked */
+                studentSubmissionTableList.setVisible(true);
                 studentSubmissionApprovedTableList.setVisible(true);
                 buildLbl.setVisible(true);
                 browseBtn.setVisible(true);
@@ -730,8 +773,9 @@ public class BuildView extends javax.swing.JFrame
             {
                 fileTableModel.setColumnIdentifiers(new String[]
                 {
-                    "There are no approved student submissions for the device  " + deviceModel.getDeviceName()
+                    "There are no approved student submissions for the " + deviceModel.getDeviceName()
                 });
+                studentSubmissionTableList.setVisible(false);
                 studentSubmissionApprovedTableList.setVisible(false);
                 buildLbl.setVisible(false);
                 browseBtn.setVisible(false);
@@ -743,6 +787,7 @@ public class BuildView extends javax.swing.JFrame
             setupUserInputBuildData();
             studentSubmissionTracked = false;
 
+            studentSubmissionTableList.setVisible(false);
             studentSubmissionApprovedTableList.setVisible(false);
             filepathToSelectedDeviceBuild.setVisible(false);
             buildLbl.setVisible(false);
@@ -776,15 +821,52 @@ public class BuildView extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_minuteFieldActionPerformed
     
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_logoutButtonActionPerformed
-        //GEN-HEADEREND:event_logoutButtonActionPerformed
-    		dispose();
-            home.setVisible(true);
-    }//GEN-LAST:event_logoutButtonActionPerformed
     
+    private void addArrowActionPerformed (java.awt.event.ActionEvent evt)
+	{
+		if (studentSubmissionApprovedTableList.equals(studentSubmissionTableList.getSelectedRow())) //believe this check works
+		{
+			JOptionPane.showMessageDialog(null, "File is already in the current jobs list!",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		} 
+		
+    	/*if(studentSubmissionTableList.getSelectedRow() == 0)
+    	{
+    		((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(studentSubmissionTableList.getSelectedRow());
+			((MutableComboBoxModel) studentSubmissionTableList).removeElement(studentSubmissionTableList.getSelectedRow());
+    	}*/
+		
+		else if(studentSubmissionTableList.getSelectedRow() == -1)
+		{
+			JOptionPane.showMessageDialog(null, "No file selected!",
+					"Add Error", JOptionPane.ERROR_MESSAGE);
+		}
+		else
+		{
+	
+			((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(studentSubmissionTableList.getSelectedRow());
+			((MutableComboBoxModel) studentSubmissionTableList).removeElement(studentSubmissionTableList.getSelectedRow());
+			//removeClassList.setModel(removeClassListModel);
+			
+		}
+    }
+    
+    private void removeArrowActionPerformed (java.awt.event.ActionEvent evt) 
+    {
+    	int row;
+    	for (row = 0; row < studentSubmissionApprovedTableList.getRowCount(); row++) 
+    	{
+    		if(studentSubmissionApprovedTableList.getSelectedRow() == (studentSubmissionTableList.getSelectedRow()))
+    		{
+    			((MutableComboBoxModel) studentSubmissionTableList).addElement(studentSubmissionApprovedTableList.getSelectedRow());
+    			((MutableComboBoxModel) studentSubmissionApprovedTableList).removeElementAt(studentSubmissionApprovedTableList.getSelectedRow());
+    		}
+    	}
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
     private javax.swing.JButton backToMainMenu;
@@ -816,13 +898,18 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JButton logoutButton;
     private javax.swing.JTextField minuteField;
     private javax.swing.JMenu removeBuildOpen;
     private javax.swing.JLabel runtimeLabel;
     private javax.swing.JTextField secondField;
-    private javax.swing.JTable studentSubmissionApprovedTableList;
+    private javax.swing.JTable studentSubmissionTableList;
     private javax.swing.JMenuItem userGuide;
+    private javax.swing.JButton addArrow;
+    private javax.swing.JButton removeArrow;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JTable studentSubmissionApprovedTableList;
+    private javax.swing.JScrollPane jScrollPane6;
+    
     // --nav bar vars ~Alex
     private JButton navBtn_jobsMgr;
     private JButton navBtn_build;
