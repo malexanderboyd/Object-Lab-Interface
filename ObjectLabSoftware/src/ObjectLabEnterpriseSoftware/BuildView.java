@@ -560,7 +560,7 @@ public class BuildView extends javax.swing.JFrame
     private void initNavBar()
     {
 
-    	jMenuBar1.setPreferredSize(new Dimension(200, 30));
+    	jMenuBar1.setPreferredSize(new Dimension(275, 30));
         setJMenuBar(jMenuBar1);
         
         navBtn_jobsMgr = new JButton("Jobs Manager");
@@ -568,7 +568,7 @@ public class BuildView extends javax.swing.JFrame
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
         navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(200,0)));
+        jMenuBar1.add(Box.createRigidArea(new Dimension(275,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
