@@ -71,6 +71,7 @@ public class DeviceMgr extends JFrame {
 		setResizable(false);
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		setTitle("Device Manager");
+		getContentPane().setBackground(Color.WHITE);
 		initWindow();
 		updateView();
 

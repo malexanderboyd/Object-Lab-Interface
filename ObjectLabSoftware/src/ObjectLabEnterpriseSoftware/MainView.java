@@ -1,5 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -26,6 +27,7 @@ public class MainView extends javax.swing.JFrame
 
     public MainView()
     {
+    	getContentPane().setBackground(Color.WHITE);
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
@@ -87,7 +89,6 @@ public class MainView extends javax.swing.JFrame
         ReportsLabel = new javax.swing.JLabel();
         settingsLabel = new javax.swing.JLabel();
         oliSymbol = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         userOptionsMenu = new javax.swing.JMenu();
         newStudentOption = new javax.swing.JMenuItem();
@@ -268,10 +269,6 @@ public class MainView extends javax.swing.JFrame
 
         oliSymbol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/main_logo.png"))); // NOI18N
         getContentPane().add(oliSymbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, 150));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 325));
 
         userOptionsMenu.setText("User Options");
         userOptionsMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -583,7 +580,6 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JLabel enterBuildLabel;
     private javax.swing.JLabel errorIdLabel;
     private javax.swing.JMenu helpButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
