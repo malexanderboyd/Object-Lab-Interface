@@ -2,6 +2,7 @@ package ObjectLabEnterpriseSoftware;
 
 import javax.swing.JFrame;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -41,6 +42,7 @@ public class newSettingsMenu extends JFrame {
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		setTitle("Settings");
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		
 		JLabel titleLabel = new JLabel("Settings");
 		titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 24));
