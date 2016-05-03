@@ -1,5 +1,6 @@
 package ObjectLabEnterpriseSoftware;
 
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class ReportsView extends javax.swing.JFrame
 
     public void ReportsPage() 
     {
+    	getContentPane().setBackground(Color.WHITE);
         initComponents();
         model = (DefaultTableModel) reportsTable.getModel();
         if(selectedPrinter != null){
@@ -82,7 +84,6 @@ public class ReportsView extends javax.swing.JFrame
         exportBtn = new javax.swing.JButton();
         closeBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -182,13 +183,9 @@ public class ReportsView extends javax.swing.JFrame
     jLabel4.setText("Device Name:");
     getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 20));
 
-    jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-    jLabel5.setText("jLabel5");
-    getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-2, -18, 710, 430));
 
     /*
     jMenu2.setText("Help");
-
     jMenuItem1.setText("User Guide");
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,9 +193,7 @@ public class ReportsView extends javax.swing.JFrame
         }
     });
     jMenu2.add(jMenuItem1);
-
     jMenuBar1.add(jMenu2);
-
     setJMenuBar(jMenuBar1);
     */
 
@@ -285,7 +280,6 @@ public class ReportsView extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
