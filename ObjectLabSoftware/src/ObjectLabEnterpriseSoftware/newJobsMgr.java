@@ -88,6 +88,7 @@ public class newJobsMgr extends JFrame {
 		setTitle("Administration Panel");
 		setPreferredSize(new Dimension(635,605));
 		setAlwaysOnTop(false);
+		getContentPane().setBackground(Color.WHITE);
 		initWindow();
 		setLocationRelativeTo(null);
 	}
