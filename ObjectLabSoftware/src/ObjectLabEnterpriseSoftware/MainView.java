@@ -21,7 +21,6 @@ public class MainView extends javax.swing.JFrame
 	//UpdateStudentView updateStudentSys;
     JobsView pendingSys;
     StudentSubmissionView studentSys;
-    AddStatsView statsSys;
     boolean show;
     String PASS = "ForwardMotion";
 
@@ -30,11 +29,11 @@ public class MainView extends javax.swing.JFrame
         initComponents();
         this.setResizable(false);
         setPrintersVisible(false);
-        pendingSys = new JobsView();
+        njm = new newJobsMgr();
         studentSys = new StudentSubmissionView();
       //  newStudentSys = new AddStudentView();
 	//updateStudentSys = new UpdateStudentView();
-	statsSys = new AddStatsView();
+	
 				
         //Allows only integers for student ID
         studentIdString.addKeyListener(new KeyAdapter()
@@ -102,6 +101,10 @@ public class MainView extends javax.swing.JFrame
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
+        
+        
+        
+        
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -115,10 +118,15 @@ public class MainView extends javax.swing.JFrame
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         
+        
+        
+        
+        
+        
         errorIdLabel.setBackground(new java.awt.Color(0, 0, 0));
         errorIdLabel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         errorIdLabel.setForeground(new java.awt.Color(255, 0, 0));
-        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 130, 20));
+        getContentPane().add(errorIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 195, 20));
 
         studentIdString.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         studentIdString.setToolTipText("Enter your student ID.");
@@ -136,6 +144,11 @@ public class MainView extends javax.swing.JFrame
             	studentPassStringActionPerformed(evt);
             }
         });
+
+        
+        
+        
+        
         
         studentButton.setBackground(new java.awt.Color(0, 0, 0));
         studentButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -144,8 +157,9 @@ public class MainView extends javax.swing.JFrame
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 studentButtonActionPerformed(evt);
             }
-        });  
-        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 110, -1, 20));
+        });
+        
+        getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 120, -1, 20));
 
         enterBuild.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png"))); // NOI18N
         enterBuild.setToolTipText("");
@@ -217,7 +231,11 @@ public class MainView extends javax.swing.JFrame
         
         //(int x, int y, int width, int height) 
         getContentPane().add(studentPassString, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 130, 20));
-        getContentPane().add(studentPassLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 140, 20));   
+
+        getContentPane().add(studentPassLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 140, 20));
+        
+   
+        
         
         logoutB.setBackground(new java.awt.Color(0, 0, 0));
         logoutB.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -253,7 +271,7 @@ public class MainView extends javax.swing.JFrame
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 315));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 325));
 
         userOptionsMenu.setText("User Options");
         userOptionsMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -269,7 +287,6 @@ public class MainView extends javax.swing.JFrame
             }
         });
         userOptionsMenu.add(newStudentOption); 
-
         updateStudentOption.setText("Update User Login Info");
         updateStudentOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,9 +305,8 @@ public class MainView extends javax.swing.JFrame
 
         MenuBar.add(userOptionsMenu);
 
-        /*
+	/*
         helpButton.setText("Help");
-
         userGuideButton.setText("User Guide");
         userGuideButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,7 +314,6 @@ public class MainView extends javax.swing.JFrame
             }
         });
         helpButton.add(userGuideButton);
-
         MenuBar.add(helpButton);
         */
 
@@ -317,7 +332,8 @@ public class MainView extends javax.swing.JFrame
 
     private void openProjectsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectsButtonActionPerformed
         // TODO add your handling code here:
-        pendingSys.PendingJobsStart();
+        //pendingSys.PendingJobsStart();
+    		njm.setVisible(true);
         dispose();
     }//GEN-LAST:event_openProjectsButtonActionPerformed
 
@@ -331,7 +347,7 @@ public class MainView extends javax.swing.JFrame
     
 	public void resetAdminMode()
 	{
-			pendingSys.PendingJobsStart();
+			njm.setVisible(true);
             hideStudentOptions();
             setVisible(false);
             dispose();
@@ -382,6 +398,9 @@ public class MainView extends javax.swing.JFrame
     private void studentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentButtonActionPerformed
         // TODO add your handling code here:
         setPrintersVisible(false);
+
+        
+        
         String idString = studentIdString.getText();//DB team this is to store String
         String password = new String(studentPassString.getPassword());
         if (idString.length() < 2)
@@ -503,7 +522,9 @@ public class MainView extends javax.swing.JFrame
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */	
-        String mapDrive = "net use " + SHARE_DRIVE_DIR + ": \\\\customshare\\ObjectLabStorage  /user:TOWSONU\\mboyd8 6TgrAlienRazor9!"; // This is the command that mounts the drive.  
+    	
+    	
+    	String mapDrive = "net use " + SHARE_DRIVE_DIR + ": \\\\customshare\\ObjectLabStorage  /user:TOWSONU\\mboyd8 6TgrAlienRazor9!"; // This is the command that mounts the drive.  
         Process p = null;
         
         try
@@ -582,5 +603,6 @@ public class MainView extends javax.swing.JFrame
     private javax.swing.JMenuItem updateStudentOption;
     private javax.swing.JMenuItem userGuideButton;
     private javax.swing.JMenu userOptionsMenu;
+    private  newJobsMgr njm;
     // End of variables declaration//GEN-END:variables
 }
