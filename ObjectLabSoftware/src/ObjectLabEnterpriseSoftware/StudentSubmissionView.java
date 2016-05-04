@@ -50,8 +50,9 @@ public class StudentSubmissionView extends javax.swing.JFrame
             @Override
             public void windowClosing(WindowEvent e)
             {
+            	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                 dispose();
-                home.setVisible(true);
+                //home.setVisible(true);
             }
         });
         setVisible(true);
@@ -200,21 +201,21 @@ public class StudentSubmissionView extends javax.swing.JFrame
         });
         getContentPane().add(printerBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 140, -1));
 
-        error_NoFileLocationSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        error_NoFileLocationSelected.setForeground(new java.awt.Color(255, 0, 0));
-        error_NoFileLocationSelected.setText("Error Text");
-        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 70, 20));
-
         error_NoClassSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoClassSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoClassSelected.setText("Error Text");
-        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, -1, 20));
+        getContentPane().add(error_NoClassSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 150, 20));
 
         error_NoPrinterSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         error_NoPrinterSelected.setForeground(new java.awt.Color(255, 0, 0));
         error_NoPrinterSelected.setText("Error Text");
-        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 70, 20));
+        getContentPane().add(error_NoPrinterSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 265, 150, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 400, 10));
+        
+        error_NoFileLocationSelected.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        error_NoFileLocationSelected.setForeground(new java.awt.Color(255, 0, 0));
+        error_NoFileLocationSelected.setText("Error Text");
+        getContentPane().add(error_NoFileLocationSelected, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 100, 20));
 
         jLabel8_StudentSubmission.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8_StudentSubmission.setText("Student Submission");
@@ -288,14 +289,14 @@ public class StudentSubmissionView extends javax.swing.JFrame
         if (classBox.getSelectedIndex() == -1)
         {
             error_NoClassSelected.setVisible(true);
-            error_NoClassSelected.setText("Please input a class!");
+            error_NoClassSelected.setText("Select a Class!");
             isErr = true;
         }
 
         if (printerBox.getSelectedIndex() == -1)
         {
             error_NoPrinterSelected.setVisible(true);
-            error_NoPrinterSelected.setText("Please select a printer!");
+            error_NoPrinterSelected.setText("Select a Device!");
             isErr = true;
         }
         return isErr;
