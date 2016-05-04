@@ -281,7 +281,7 @@ public class newJobsMgr extends JFrame {
 		reviewButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		getContentPane().add(reviewButton);
 
-		lblFillInData = new JLabel("Please enter device statistic tracking data before approving:");
+		lblFillInData = new JLabel("Please enter device statistic tracking data if approving:");
 		lblFillInData.setBounds(10, 271, 375, 23);
 		lblFillInData.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblFillInData.setVisible(false);
