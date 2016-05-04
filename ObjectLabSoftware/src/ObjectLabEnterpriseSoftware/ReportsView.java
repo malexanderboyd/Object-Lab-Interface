@@ -50,8 +50,9 @@ public class ReportsView extends javax.swing.JFrame
                 public void windowClosing(WindowEvent we)
                 {
                     /* If they close the program then close out the window properly */
+                    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
                     dispose();
-                    home.resetAdminMode();
+                    //home.resetAdminMode();
                 }
             }
         );
