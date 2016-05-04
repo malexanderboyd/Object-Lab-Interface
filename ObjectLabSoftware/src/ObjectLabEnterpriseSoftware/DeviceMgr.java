@@ -220,14 +220,14 @@ public class DeviceMgr extends JFrame {
 				addArrowRCActionPerformed(evt);
 			}
 		});
-		addArrowRC.setText("->");
+		addArrowRC.setText("--->");
 		addArrowRC.setPreferredSize(new Dimension(60, 23));
 		addArrowRC.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		addArrowRC.setBounds(159, 99, 90, 23);
 		removeClassPanel.add(addArrowRC);
 		
 		removeArrowRC = new JButton();
-		removeArrowRC.setText("<-");
+		removeArrowRC.setText("<---");
 		removeArrowRC.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		removeArrowRC.setBounds(159, 143, 90, 23);
 		removeArrowRC.addActionListener(new ActionListener() {
