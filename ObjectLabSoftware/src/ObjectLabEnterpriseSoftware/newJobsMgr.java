@@ -576,8 +576,8 @@ public class newJobsMgr extends JFrame {
 			trackingStatLabel2.setText("Cut Time (H:M:S)");
 		}
 		else if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
-			trackingStatLabel1.setText("Build material (grams)");
-			trackingStatLabel2.setText("Support material (grams)");
+			trackingStatLabel1.setText("Build material (g)");
+			trackingStatLabel2.setText("Support material (g)");
 		}
 		else if(selectedDevice.equals("Solidscape R66+"))
 		{
@@ -593,6 +593,11 @@ public class newJobsMgr extends JFrame {
 		{
 			jobStatPanel.setVisible(false);
 			lblFillInData.setVisible(false);
+		}
+		else
+		{
+			jobStatPanel.setVisible(false);
+			lblFillInData.setVisible(false);	
 		}
 
 

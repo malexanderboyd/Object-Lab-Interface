@@ -20,7 +20,7 @@ public class ReportsView extends javax.swing.JFrame
     private FileManager inst;
     private String selectedPrinter;
     private UtilController controller;
-    private String[] headers = {"Test 1", "Test 2", "Test 3", "Test 4"};
+    private String[] headers = {"", "", "", ""};
     private ArrayList<String> printers;
 	// --nav bar views ~Alex
 	private BuildView buildView;
@@ -111,7 +111,7 @@ public class ReportsView extends javax.swing.JFrame
                 searchFilterActionPerformed(evt);
             }
         });
-        getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 90, -1));
+       // getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 90, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Object Lab Search");
@@ -119,10 +119,10 @@ public class ReportsView extends javax.swing.JFrame
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel2.setText("Search For:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 60, 21));
+        //getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 60, 21));
 
         searchKey.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 120, 430, -1));
+       // getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 120, 430, -1));
 
         searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         searchBtn.setText("Search");
@@ -132,7 +132,7 @@ public class ReportsView extends javax.swing.JFrame
                 searchBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 120, 50, 20));
+       // getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 120, 50, 20));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 682, 10));
 
         ExportMasterReportButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -156,7 +156,7 @@ public class ReportsView extends javax.swing.JFrame
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 80, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 135, -1));
 
         reportsTable.setAutoCreateRowSorter(true);
         reportsTable.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N

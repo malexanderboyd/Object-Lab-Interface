@@ -444,16 +444,16 @@ public class BuildView extends javax.swing.JFrame
 
             runtimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
             runtimeLabel.setText("Total Runtime:");
-            getContentPane().add(runtimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 700, -1, 20));
+            //getContentPane().add(runtimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 700, -1, 20));
 
             hourField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             hourField.setText("00");
-            getContentPane().add(hourField, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 700, 20, -1));
+          //  getContentPane().add(hourField, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 700, 20, -1));
 
             secondField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             secondField.setText("00");
             secondField.setPreferredSize(new java.awt.Dimension(20, 20));
-            getContentPane().add(secondField, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 700, -1, -1));
+         //   getContentPane().add(secondField, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 700, -1, -1));
 
             minuteField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
             minuteField.setText("00");
@@ -463,35 +463,35 @@ public class BuildView extends javax.swing.JFrame
                     minuteFieldActionPerformed(evt);
                 }
             });
-            getContentPane().add(minuteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 700, -1, -1));
+          //  getContentPane().add(minuteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 700, -1, -1));
 
             jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel5.setText(":");
-            getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 700, 10, 20));
+           // getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 700, 10, 20));
 
             jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel6.setText(":");
-            getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 10, 20));
+           // getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 10, 20));
 
             jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
             jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel7.setText("H");
-            getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 720, 20, -1));
+          // getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 720, 20, -1));
 
             jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
             jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel8.setText("M");
-            getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 720, 20, -1));
+          //  getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 720, 20, -1));
 
             jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
             jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel9.setText("S");
-            getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 720, 20, -1));
+          //  getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 720, 20, -1));
             
             addArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            addArrow.setText("->");
+            addArrow.setText("--->");
             addArrow.setPreferredSize(new java.awt.Dimension(60, 23));
             addArrow.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -501,7 +501,7 @@ public class BuildView extends javax.swing.JFrame
             getContentPane().add(addArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 240, 90, -1));
      
             removeArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            removeArrow.setText("<-");
+            removeArrow.setText("<---");
             removeArrow.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     removeArrowActionPerformed(evt);
