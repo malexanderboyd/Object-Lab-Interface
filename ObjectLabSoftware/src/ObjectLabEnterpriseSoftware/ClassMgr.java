@@ -93,14 +93,14 @@ public class ClassMgr extends JFrame {
 		jScrollPane3.setViewportView(allClassList);
 		
 		 addArrow = new JButton();
-		addArrow.setText("->");
+		addArrow.setText("--->");
 		addArrow.setPreferredSize(new Dimension(60, 23));
 		addArrow.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		addArrow.setBounds(169, 99, 90, 23);
 		manageClassPanel.add(addArrow);
 		
 		 removeArrow = new JButton();
-		removeArrow.setText("<-");
+		removeArrow.setText("<---");
 		removeArrow.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		removeArrow.setBounds(169, 129, 90, 23);
 		removeArrow.addActionListener(new ActionListener() {
