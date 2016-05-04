@@ -97,7 +97,7 @@ public class BuildView extends javax.swing.JFrame
                 //checks to see if any selections in table exist to prevent no file submit case
                 for (int z = 0; z < fileTableModel2.getRowCount(); z++) //changed to model2 so it has to be in this table in order to validate
                 {
-                    if ((Boolean) fileTableModel2.getValueAt(z, 0))
+                    if (fileTableModel2.getValueAt(z, 0) != null)
                     {
                         filesSelected = true; /* At least one file was checked off for being part of the build*/
 
@@ -176,13 +176,17 @@ public class BuildView extends javax.swing.JFrame
                 /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
                 for (int row = 0; row < fileTableModel2.getRowCount(); row++)
                 {
-                    if ((Boolean) fileTableModel2.getValueAt(row, 0) /* If checked then add file to list */) // has to be in the second table in order for a file to be successfully submitted 
+                    if (fileTableModel2.getValueAt(row, 0) != null) /* If checked then add file to list */ // has to be in the second table in order for a file to be successfully submitted 
                     {
-                        selectedJobID.add(Integer.parseInt((String) fileTableModel2.getValueAt(row, 1)));
+                        selectedJobID.add(Integer.parseInt((String) fileTableModel2.getValueAt(row, 0)));
                         countNumOfModels++;
                     }
                 }
-                return UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels);
+                if(UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels))
+                {
+                	JOptionPane.showMessageDialog(null, "Build successfully created");
+                	return true;
+                }
             }
         }
         return false;
@@ -218,6 +222,7 @@ public class BuildView extends javax.swing.JFrame
         countNumOfModels = 0;
         fileTableModel = (DefaultTableModel) studentSubmissionTableList.getModel();
         fileTableModel2 = (DefaultTableModel) studentSubmissionApprovedTableList.getModel(); //added 
+
         
         ErrorText.setVisible(false);
         this.setVisible(true);
@@ -365,28 +370,7 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 760, -1));
 
         studentSubmissionTableList.setAutoCreateRowSorter(true);
-        studentSubmissionTableList.setModel(new javax.swing.table.DefaultTableModel()
-            {
-                Class[] types = new Class []
-                {
-                    java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-                    ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-                };
-                boolean[] canEdit = new boolean []
-                {
-                    true, false, false, false, false, false, false, false, false
-                };
-
-                public Class getColumnClass(int columnIndex)
-                {
-                    return types [columnIndex];
-                }
-
-                public boolean isCellEditable(int rowIndex, int columnIndex)
-                {
-                    return canEdit [columnIndex];
-                }
-            });
+       
             jScrollPane3.setViewportView(studentSubmissionTableList);
             if (studentSubmissionTableList.getColumnModel().getColumnCount() > 0) {
                 studentSubmissionTableList.getColumnModel().getColumn(0).setMinWidth(30);
@@ -402,28 +386,6 @@ public class BuildView extends javax.swing.JFrame
             jLabel11.setText("Current Jobs:");
             getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(533, 120, 150, 20));            
             studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
-            studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
-                {
-                    Class[] types = new Class []
-                    {
-                        java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-                        ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-                    };
-                    boolean[] canEdit = new boolean []
-                    {
-                        true, false, false, false, false, false, false, false, false
-                    };
-
-                    public Class getColumnClass(int columnIndex)
-                    {
-                        return types [columnIndex];
-                    }
-
-                    public boolean isCellEditable(int rowIndex, int columnIndex)
-                    {
-                        return canEdit [columnIndex];
-                    }
-                });
                 jScrollPane6.setViewportView(studentSubmissionApprovedTableList);
                 if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0) {
                     studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMinWidth(30);
@@ -529,7 +491,7 @@ public class BuildView extends javax.swing.JFrame
             getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 720, 20, -1));
             
             addArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            addArrow.setText("Add ->");
+            addArrow.setText("->");
             addArrow.setPreferredSize(new java.awt.Dimension(60, 23));
             addArrow.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -539,7 +501,7 @@ public class BuildView extends javax.swing.JFrame
             getContentPane().add(addArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 240, 90, -1));
      
             removeArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            removeArrow.setText("<- Remove");
+            removeArrow.setText("<-");
             removeArrow.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     removeArrowActionPerformed(evt);
@@ -742,6 +704,12 @@ public class BuildView extends javax.swing.JFrame
          From here we can determine how we update our display and what type of data we require from the user as well as the
          column data to display.
          */
+    	
+    	
+    	clearEntries(fileTableModel);
+    	clearEntries(fileTableModel2);
+    	
+    	
         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
 
         if (deviceModel.getTrackSubmission())
@@ -752,23 +720,33 @@ public class BuildView extends javax.swing.JFrame
             {
                 fileTableModel.setColumnIdentifiers(new String[]
                 {
-                    "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
+                    "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
                 });
                 
                 fileTableModel2.setColumnIdentifiers(new String[]
                 {
-                    "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
+                    "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
                 });
+                for(int i = 0; i < approvedStudentSubmissions.size(); i++)
+                {
+                	
+                	fileTableModel.addRow(new Object[] { approvedStudentSubmissions.get(i).get(0), approvedStudentSubmissions.get(i).get(1),
+                			approvedStudentSubmissions.get(i).get(2), approvedStudentSubmissions.get(i).get(3), approvedStudentSubmissions.get(i).get(4),
+                			approvedStudentSubmissions.get(i).get(5), approvedStudentSubmissions.get(i).get(6), approvedStudentSubmissions.get(i).get(7)
 
-                updateViewData(fileTableModel, approvedStudentSubmissions);
-                updateViewData(fileTableModel2, approvedStudentSubmissions); //dont think this does anything tbh
-
-                /* Set UI to display the next steps in completing a build for student submissions that are tracked */
+                	});
+                	
+                	
+                }
+                /*
+                studentSubmissionTableList.setModel(fileTableModel);
+                studentSubmissionApprovedTableList.setModel(fileTableModel2);
                 studentSubmissionTableList.setVisible(true);
                 studentSubmissionApprovedTableList.setVisible(true);
                 buildLbl.setVisible(true);
                 browseBtn.setVisible(true);
                 filepathToSelectedDeviceBuild.setVisible(true);
+                repaint();*/
             } else
             {
                 fileTableModel.setColumnIdentifiers(new String[]
@@ -843,25 +821,57 @@ public class BuildView extends javax.swing.JFrame
 		}
 		else
 		{
-	
-			((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(studentSubmissionTableList.getSelectedRow());
-			((MutableComboBoxModel) studentSubmissionTableList).removeElement(studentSubmissionTableList.getSelectedRow());
+			fileTableModel2.addRow(new Object[] { studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 0), 
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 1),	
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 2),
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 3),
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 4),
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 5),
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 6),
+					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 7)
+			
+			});
+			
+			
+			
+			
+			fileTableModel.removeRow(studentSubmissionTableList.getSelectedRow());
+			
+			studentSubmissionTableList.setModel(fileTableModel);
+			studentSubmissionApprovedTableList.setModel(fileTableModel2);
+			/*
+			 * 
+			 * removeClassListModel.addElement(currentClassListRC.getSelectedValue());
+			currentDeviceListModel.removeElement(currentClassListRC.getSelectedValue());
+			//((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(studentSubmissionTableList.getSelectedRow());
+			//((MutableComboBoxModel) studentSubmissionTableList).removeElement(studentSubmissionTableList.getSelectedRow());
 			//removeClassList.setModel(removeClassListModel);
+			 * 
+			 * */
+			 
 			
 		}
     }
     
     private void removeArrowActionPerformed (java.awt.event.ActionEvent evt) 
     {
-    	int row;
-    	for (row = 0; row < studentSubmissionApprovedTableList.getRowCount(); row++) 
-    	{
-    		if(studentSubmissionApprovedTableList.getSelectedRow() == (studentSubmissionTableList.getSelectedRow()))
-    		{
-    			((MutableComboBoxModel) studentSubmissionTableList).addElement(studentSubmissionApprovedTableList.getSelectedRow());
-    			((MutableComboBoxModel) studentSubmissionApprovedTableList).removeElementAt(studentSubmissionApprovedTableList.getSelectedRow());
-    		}
-    	}
+		fileTableModel.addRow(new Object[] { studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 0), 
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 1),	
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 2),
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 3),
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 4),
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 5),
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 6),
+				studentSubmissionApprovedTableList.getValueAt(studentSubmissionApprovedTableList.getSelectedRow(), 7)
+		
+		});
+		
+		
+		
+		
+		fileTableModel2.removeRow(studentSubmissionApprovedTableList.getSelectedRow());
+		studentSubmissionTableList.setModel(fileTableModel);
+		studentSubmissionApprovedTableList.setModel(fileTableModel2);
     }
 
 

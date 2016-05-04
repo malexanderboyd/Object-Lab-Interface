@@ -1,9 +1,14 @@
 package ObjectLabEnterpriseSoftware;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 public class ReportsView extends javax.swing.JFrame 
@@ -17,7 +22,12 @@ public class ReportsView extends javax.swing.JFrame
     private UtilController controller;
     private String[] headers = {"Test 1", "Test 2", "Test 3", "Test 4"};
     private ArrayList<String> printers;
-    
+	// --nav bar views ~Alex
+	private BuildView buildView;
+	private newJobsMgr jobsView;
+	private ReportsView reportsView;	
+	private newSettingsMenu adminSettingsView;
+	//
 
     public ReportsView() 
     {
@@ -51,6 +61,7 @@ public class ReportsView extends javax.swing.JFrame
     {
     	getContentPane().setBackground(Color.WHITE);
         initComponents();
+        initNavBar();
         model = (DefaultTableModel) reportsTable.getModel();
         if(selectedPrinter != null){
             for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
@@ -196,7 +207,7 @@ public class ReportsView extends javax.swing.JFrame
     jMenuBar1.add(jMenu2);
     setJMenuBar(jMenuBar1);
     */
-
+    setPreferredSize(new Dimension(800, 550));
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -264,11 +275,109 @@ public class ReportsView extends javax.swing.JFrame
         
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
+    private void initNavBar()
+    {
+
+    	jMenuBar1.setPreferredSize(new Dimension(275, 30));
+        setJMenuBar(jMenuBar1);
+        
+        navBtn_jobsMgr = new JButton("Jobs Manager");
+        navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
+        navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
+        
+        jMenuBar1.add(Box.createRigidArea(new Dimension(150,0)));
+        jMenuBar1.add(navBtn_jobsMgr);
+        
+        navBtn_build = new JButton("Enter Build");
+        navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
+        
+        navBtn_build.setPreferredSize(new Dimension(100,24));
+        jMenuBar1.add(navBtn_build);
+        
+        navBtn_reports = new JButton("Reports");
+        navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
+        navBtn_reports.setPreferredSize(new Dimension(100,24));
+        jMenuBar1.add(navBtn_reports);
+        
+        navBtn_settings = new JButton("Settings");
+        navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
+        navBtn_settings.setPreferredSize(new Dimension(100,24));
+        jMenuBar1.add(navBtn_settings);
+
+        
+        navBtn_jobsMgr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_jobsMgrActionPerformed(evt);
+            }
+        });
+        
+        navBtn_build.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_buildActionPerformed(evt);
+            }
+        });
+        
+        navBtn_reports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_reportsActionPerformed(evt);
+            }
+        });
+        
+        navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	navBtn_settingsActionPerformed(evt);
+            }
+        }); 
+
+    }
+    
+    
+    private void navBtn_jobsMgrActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	jobsView = new newJobsMgr();
+        jobsView.setVisible(true);
+    	dispose();
+    	
+    }
+    
+    private void navBtn_buildActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	buildView = new BuildView();
+        buildView.startMakeBuildProcess();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_reportsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	reportsView = new ReportsView();
+        reportsView.ReportsPage();
+    	dispose();
+    	
+    }
+    
+    private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
+    {
+    	adminSettingsView = new newSettingsMenu();
+    	adminSettingsView.setVisible(true);
+    	dispose();
+    	
+    }
+    
+    
+    /////// Nav Bar ~Alex /////
+
     private void ExportMasterReportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportMasterReportButtonActionPerformed
         
         UtilController.exportReportsForPrinters();
         
     }//GEN-LAST:event_ExportMasterReportButtonActionPerformed
+	/////// Nav Bar ~Alex /////
+	// --nav bar vars ~Alex
+	private JButton navBtn_jobsMgr;
+	private JButton navBtn_build;
+	private JButton navBtn_reports;
+	private JButton navBtn_settings;
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

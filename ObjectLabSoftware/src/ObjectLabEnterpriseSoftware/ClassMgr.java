@@ -226,14 +226,14 @@ public class ClassMgr extends JFrame {
 				addArrowRCActionPerformed(evt);
 			}
 		});
-		addArrowRC.setText("Add ->");
+		addArrowRC.setText("->");
 		addArrowRC.setPreferredSize(new Dimension(60, 23));
 		addArrowRC.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		addArrowRC.setBounds(159, 99, 90, 23);
 		removeClassPanel.add(addArrowRC);
 		
 		removeArrowRC = new JButton();
-		removeArrowRC.setText("<- Remove");
+		removeArrowRC.setText("<-");
 		removeArrowRC.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		removeArrowRC.setBounds(159, 143, 90, 23);
 		removeArrowRC.addActionListener(new ActionListener() {
@@ -327,7 +327,7 @@ public class ClassMgr extends JFrame {
 			}
 
 			temp.clear();
-			
+			JOptionPane.showMessageDialog(null, "Successfully added class!");
             updateView();
 		}
 		
