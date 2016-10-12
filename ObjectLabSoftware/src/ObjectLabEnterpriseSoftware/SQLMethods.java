@@ -57,10 +57,20 @@ public class SQLMethods
         }
        
         ///////////////////////////////////
-        ip = "mysql1110.ixwebhosting.com";  ////////
+        ///ip = "mysql1110.ixwebhosting.com";  ////////
         ///////////////////////////////////
-        url = "jdbc:mysql://" + ip + ":3306/";
-        connectToDatabase("com.mysql.jdbc.Driver", url + "AAAlvxm_oli", "AAAlvxm_oliAdmin", "Password1");
+        //url = "jdbc:mysql://" + ip + ":3306/";
+        //connectToDatabase("com.mysql.jdbc.Driver", url + "AAAlvxm_oli", "AAAlvxm_oliAdmin", "Password1");
+        
+        String host = "db4free.net";
+        String port = "3306";
+        String user = "oliadminuser";
+        String pass = "olipass";
+        String db   = "olidatabase";
+        String driver = "com.mysql.jdbc.Driver";
+        
+        url = "jdbc:mysql://" + host + ":" + port + "/" + db;
+        connectToDatabase(driver, url, user, pass);
     }
     
     private void connectToDatabase(String driver, String urlDatabaseName, String userName, String pw)
