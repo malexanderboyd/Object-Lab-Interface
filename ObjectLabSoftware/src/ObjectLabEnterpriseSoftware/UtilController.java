@@ -366,7 +366,7 @@ public class UtilController
         Row row = null;
         Cell cell = null;
         Calendar c = Calendar.getInstance();
-        String time = "" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.YEAR);
+        String time = "" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DAY_OF_MONTH) + "-" + c.get(Calendar.YEAR);
 
         for (int i = 0; i < model.getRowCount() + 1; i++)
         {
@@ -1120,7 +1120,13 @@ public class UtilController
     	    	if(studentFname.equals("debug_failed_fname"))
     	    	{
     	    		System.out.println("Failed to grab student data.");
-    	    		return false;
+    	    		//return false;
+    	    		
+    	    		// WORKAROUND *****
+    	    		setStudentLName("Turner");
+ 	                setStudentFName("Scott");
+ 	                return true;
+ 	                // END WORKAROUND
     	    	}
     	    	else if(!checkUser(studentId)) // user isn't in db
 	    		{
