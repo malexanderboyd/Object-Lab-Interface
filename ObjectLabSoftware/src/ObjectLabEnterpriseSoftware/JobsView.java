@@ -367,6 +367,12 @@ public class JobsView extends javax.swing.JFrame
         navBtn_settings.setPreferredSize(new Dimension(100,100));
         navBtn_settings.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_settings);
+        
+        navBtn_rejected = new JButton("Rejected File Manager");
+        navBtn_rejected.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reject_files_icon.ico")));
+        navBtn_rejected.setPreferredSize(new Dimension(100, 100));
+        navBtn_rejected.setAlignmentX(0.5f);
+        jMenuBar1.add(navBtn_rejected);
 
         
         navBtn_jobsMgr.addActionListener(new java.awt.event.ActionListener() {
@@ -643,6 +649,7 @@ public class JobsView extends javax.swing.JFrame
     private JButton navBtn_build;
     private JButton navBtn_reports;
     private JButton navBtn_settings;
+    private JButton navBtn_rejected;
     //
     // End of variables declaration//GEN-END:variables
 }
