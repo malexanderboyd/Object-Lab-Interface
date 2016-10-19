@@ -270,7 +270,7 @@ public class MainView extends javax.swing.JFrame
         oliSymbol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/main_logo.png"))); // NOI18N
         getContentPane().add(oliSymbol, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, 150));
 
-        userOptionsMenu.setText("User Options");
+        userOptionsMenu.setText("Admin");
         userOptionsMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userOptionsMenuActionPerformed(evt);
