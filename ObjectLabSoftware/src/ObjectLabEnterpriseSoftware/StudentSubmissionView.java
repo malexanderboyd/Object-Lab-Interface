@@ -23,8 +23,12 @@ public class StudentSubmissionView extends javax.swing.JFrame
         /* set valid id passed in from MainView.java as our userID for submitting files... */
 		userID = id;
       //  idOfUser.setText(studentName);
-        userName = studentName;
-        initComponents();
+        
+		// ***** ldap below
+		//userName = studentName;
+        userName = "student";
+		
+		initComponents();
         hideErrorFields();
         
 
