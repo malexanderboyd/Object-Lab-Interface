@@ -36,7 +36,7 @@ public class ReportsView extends javax.swing.JFrame
         if(printers.size() > 0){
             selectedPrinter = printers.get(1);
           //* THIS IS THE PROBLEM WITH THE REPORTS NOT OPENING, THIS FEEDS THEM THE WRONG HEADERS NOW - used to be sql error. *\\\
-          //  headers = UtilController.getReportColumnHeaders(selectedPrinter);
+            headers = UtilController.getReportColumnHeaders(selectedPrinter);
 
         }
         else{

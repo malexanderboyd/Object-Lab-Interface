@@ -132,9 +132,12 @@ public class newJobsMgr extends JFrame {
 
 		jobStatusCombo = new JComboBox();
 		jobStatusCombo.setBounds(163, 63, 89, 20);
-		jobStatusCombo.addItem("All Jobs");
+		// *****
+		//jobStatusCombo.addItem("All Jobs");
 		jobStatusCombo.addItem("Pending");
-		jobStatusCombo.addItem("Approved");
+		jobStatusCombo.addItem("Rejected");
+		//
+		
 		getContentPane().add(jobStatusCombo);
 
 		JLabel lblJobStatus = new JLabel("Job Status:");
@@ -168,7 +171,7 @@ public class newJobsMgr extends JFrame {
 				String selectedDevice = (String) cb.getSelectedItem();
 				System.out.println(selectedDevice);
 				updateJobWindow(selectedDevice);
-				if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("approved")) // hide approve/reject/review buttons and panel
+				if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("rejected")) // hide approve/reject/review buttons and panel
 				{
 					toggleButtons(false);
 				}
@@ -217,15 +220,15 @@ public class newJobsMgr extends JFrame {
 		jobsModel = 
 				new DefaultTableModel() {
 			Class[] columnTypes = new Class[] {
-					Boolean.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
+					Boolean.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
 		};
-		jobsModel.setColumnCount(7);
+		jobsModel.setColumnCount(8);
 		jobsModel.setColumnIdentifiers(new String[] {
-				"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"
+				"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Volume"
 		});
 
 		jobsTable.setModel(jobsModel);
@@ -397,11 +400,12 @@ public class newJobsMgr extends JFrame {
 
 	private void toggleButtons(boolean status) // toggles the approve,reject,review buttons along with stat panel so you can't approve the already approved
 	{
-		jobStatPanel.setVisible(status);
-		lblFillInData.setVisible(status);
+		// *****
+		//jobStatPanel.setVisible(status);
+		//lblFillInData.setVisible(status);
 		approveButton.setVisible(status);
 		rejectButton.setVisible(status);
-		reviewButton.setVisible(status);
+		//reviewButton.setVisible(status);
 	}
 	
 	
@@ -416,7 +420,7 @@ public class newJobsMgr extends JFrame {
 				selectedDevices.add(j); // adds row # for all selected rows.
 			}
 		}
-
+/*
 		if(trackingStatInput1.getText().isEmpty())
 		{
 			System.out.println("Missing stat 1");
@@ -427,7 +431,7 @@ public class newJobsMgr extends JFrame {
 		}
 		else
 		{
-
+*/
 
 			int rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
 
@@ -441,9 +445,9 @@ public class newJobsMgr extends JFrame {
 			trackingStatInput1.setText("");
 			trackingStatInput2.setText("");
 			jobsModel.fireTableDataChanged();
-			jobStatusCombo.setSelectedIndex(2);
+			jobStatusCombo.setSelectedIndex(0); //*****
 			jobsTable.repaint();
-		}
+	//	}
 
 		jobsModel.fireTableDataChanged();
 		jobsTable.repaint();
@@ -519,6 +523,23 @@ public class newJobsMgr extends JFrame {
 					SQLMethods dbconn = new SQLMethods();
 					System.out.println("Trying to find " + selectedDevice);
 					ResultSet queryResult;
+					
+
+					if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Pending"))
+                    {
+                    	queryResult = dbconn.searchJobsStatusPrinter("pending", selectedDevice);
+                    }
+                    else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Rejected"))
+                    {
+                    	queryResult = dbconn.searchJobsStatusPrinter("rejected", selectedDevice);
+                    }
+                    else 
+                    {
+                        queryResult = null;
+                    }
+					
+					
+					/*
 					if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("All Jobs"))
 					{
 						queryResult = dbconn.searchAllJobsStatusPrinter(selectedDevice);
@@ -533,7 +554,7 @@ public class newJobsMgr extends JFrame {
 					else
 					{
 						queryResult = dbconn.searchAllJobsStatusPrinter(selectedDevice);
-					}
+					}*/
 					while(queryResult.next())
 					{
 						int jobId = queryResult.getInt(1);
@@ -567,27 +588,35 @@ public class newJobsMgr extends JFrame {
 
 	private void showDeviceStats(String selectedDevice) { // used to update 
 
+		// *****
+		if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Pending") &&
+                (selectedDevice.equals("Objet Desktop 30") || selectedDevice.equals("Z Printer 250")))
+		{
+			
 		jobStatPanel.setVisible(true);
 		lblFillInData.setVisible(true);
 		deviceNameLabel.setText(selectedDevice);
 
+		/*
 		if(selectedDevice.equals("Laser Printer")) { // hard coding these quick and dirttay
 			trackingStatLabel1.setText("Material");
 			trackingStatLabel2.setText("Cut Time (H:M:S)");
 		}
-		else if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
+		*/
+		if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
 			trackingStatLabel1.setText("Build material (g)");
 			trackingStatLabel2.setText("Support material (g)");
 		}
-		else if(selectedDevice.equals("Solidscape R66+"))
+		/*else if(selectedDevice.equals("Solidscape R66+"))
 		{
 			trackingStatLabel1.setText("Build Time");
 			trackingStatLabel2.setText("Resolution");
-		}
+		}*/
 		else if(selectedDevice.equals("Z Printer 250"))
 		{
 			trackingStatLabel1.setText("Volume (cubic in)");
-			trackingStatLabel2.setText("Color");
+			//trackingStatLabel2.setText("Color");
+			// *** *** Fix needed
 		}
 		else if(selectedDevice.equals(" ") || selectedDevice.equals(""))
 		{
@@ -600,7 +629,12 @@ public class newJobsMgr extends JFrame {
 			lblFillInData.setVisible(false);	
 		}
 
-
+		}
+		else
+		{
+			jobStatPanel.setVisible(false);
+			lblFillInData.setVisible(false);
+		}
 
 	}
 

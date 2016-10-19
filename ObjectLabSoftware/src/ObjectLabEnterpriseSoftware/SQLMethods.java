@@ -165,11 +165,18 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
-					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
-					+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
-					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
-            stmt.setString(1, status);
+        	// *****
+            //stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
+			//		+ "job.submission_date ,job.printer_name, class_name, class_section  " 
+			//		+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
+			//		+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
+        	stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
+                    + "job.submission_date ,job.printer_name, class_name, class_section, job.volume  " 
+                    + "FROM job INNER JOIN users ON users.towson_id = job.student_id "
+                    + "INNER JOIN class ON job.class_id = class.class_id WHERE job.status = ? AND "
+                                   + "printer_name = ?;");
+        	
+        	stmt.setString(1, status);
             stmt.setString(2, printer);
             res = stmt.executeQuery();
         } catch (Exception e)
@@ -179,7 +186,7 @@ public class SQLMethods
 
         return res;
     }
-    
+    /*
     public ResultSet searchAllJobsStatusPrinter(String printer) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;
@@ -199,7 +206,7 @@ public class SQLMethods
 
         return res;
     }
-    
+    */
     public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;
@@ -1133,18 +1140,34 @@ public class SQLMethods
     // _____________________________________________________________________________________________________________________
     public ResultSet getReport(String printer_name)
     {
-        res = null;
+    	res = null;
         try
         {
           /*  stmt = this.conn.prepareStatement(
                     "call report('" + printer_name + "');"
             );*/
         	// temp fix to get reports view working
-        	   stmt = this.conn.prepareStatement(
-                       "SELECT * FROM custom_printer_column_names WHERE printer_name = ?"
-               );
-               stmt.setString(1, printer_name);
-
+        	   //stmt = this.conn.prepareStatement(
+               //        "SELECT * FROM custom_printer_column_names WHERE printer_name = ?;"
+               //);
+               //stmt.setString(1, printer_name);
+        	/*
+        	stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
+                    + "job.submission_date ,job.printer_name, class_name, class_section, job.volume " 
+                    + "FROM job INNER JOIN users ON users.towson_id = job.student_id "
+                    + "INNER JOIN class ON job.class_id = class.class_id WHERE job.status = ? AND "
+                                   + "printer_name = ?;");
+        	*/
+        	stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
+                    + "job.submission_date ,job.printer_name, class_name, class_section, job_stats.stat1 " 
+                    + "FROM job INNER JOIN job_stats ON job.job_id = job_stats.job_id "
+                             + "INNER JOIN users ON users.towson_id = job.student_id "
+                             + "INNER JOIN class ON job.class_id = class.class_id WHERE job.status = 'completed' AND "
+                                  + "printer_name = ?;");
+        	
+        	stmt.setString(1, printer_name);
+        	//stmt.setString(1, "completed");
+        	
             res = stmt.executeQuery();
         } catch (Exception e)
         {
