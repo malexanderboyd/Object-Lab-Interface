@@ -12,8 +12,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class StudentSubmissionView extends javax.swing.JFrame
 {
-	public StudentSubmissionView() {
+	public StudentSubmissionView() 
+	{
+		// 10-23-16 Scott:
+		// Filler values. Allows design view to render correctly.
+		// This code is just for developing the design view. 
+		// Production code goes straight to studentSubmissionStart.
+		// Uncomment this just when the design view needs to be looked at.
+		//studentSubmissionStart("fakeID","Johnny");
 	}
+	
     private static final String NAME_OF_PAGE = "Student Submission";
     private static final MainView home = new MainView();
     private String userID;
