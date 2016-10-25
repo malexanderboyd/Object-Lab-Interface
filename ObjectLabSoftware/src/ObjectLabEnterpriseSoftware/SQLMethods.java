@@ -171,9 +171,9 @@ public class SQLMethods
 			//		+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
 			//		+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
         	stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
-                    + "job.submission_date ,job.printer_name, class_name, class_section, job.volume  " 
+                    + "job.submission_date ,job.printer_name, class_name, class_section, material1 " 
                     + "FROM job INNER JOIN users ON users.towson_id = job.student_id "
-                    + "INNER JOIN class ON job.class_id = class.class_id WHERE job.status = ? AND "
+                    + "INNER JOIN class ON job.class_id = class.class_id INNER JOIN material ON material.id = job.student_id WHERE job.status = ? AND "
                                    + "printer_name = ?;");
         	
         	stmt.setString(1, status);
@@ -184,6 +184,38 @@ public class SQLMethods
             e.printStackTrace();
         }
 
+        return res;
+    }
+    
+    public ResultSet searchStudentBalanceId(String id)
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT first_name, last_name, towson_id, material1, material2, material3 " +
+                                              "FROM users INNER JOIN material ON users.towson_id = material.id " +
+                                               "WHERE towson_id = ?;"); 
+            stmt.setString(1, id);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
+    public ResultSet searchStudentBalance()
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT first_name, last_name, towson_id, material1, material2, material3 " +
+                                              "FROM users INNER JOIN material ON users.towson_id = material.id;"); 
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         return res;
     }
     /*
@@ -207,6 +239,83 @@ public class SQLMethods
         return res;
     }
     */
+    
+    public double getCurrentMaterialBalance(String studentId, String whichMaterial)
+    {
+        double current = 0;
+        try
+        {
+        ResultSet queryResult; 
+        stmt = this.conn.prepareStatement("SELECT " + whichMaterial + " FROM `material` WHERE id = ?;");
+        stmt.setString(1, studentId);
+        queryResult = stmt.executeQuery();
+        while(queryResult.next())
+        {
+            current = queryResult.getDouble(whichMaterial);
+        }
+        } catch (SQLException e)
+        {
+            System.err.println(e);
+        }
+        return current;
+        
+    }
+    
+    public void addMaterial1(String studentId, double amount)
+    {
+        try
+        {
+        double current; 
+        SQLMethods dbconn = new SQLMethods();
+        current = dbconn.getCurrentMaterialBalance(studentId, "material1");
+        amount += current;
+        stmt = this.conn.prepareStatement("UPDATE material SET material1 = " + amount + " WHERE id = ?;");
+        stmt.setString(1, studentId);
+        stmt.executeUpdate();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } 
+    }
+    
+    public void addMaterial2(String studentId, double amount)
+    {
+        try
+        {
+        double current; 
+        SQLMethods dbconn = new SQLMethods();
+        current = dbconn.getCurrentMaterialBalance(studentId, "material2");
+        amount += current;    
+        stmt = this.conn.prepareStatement("UPDATE material SET material2 = " + amount + " WHERE id = ?;");
+        stmt.setString(1, studentId);
+        stmt.executeUpdate();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } 
+    }
+    
+    public void addMaterial3(String studentId, double amount)
+    {
+        try
+        {
+        double current; 
+        SQLMethods dbconn = new SQLMethods();
+        current = dbconn.getCurrentMaterialBalance(studentId, "material3");
+        amount += current;
+        stmt = this.conn.prepareStatement("UPDATE material SET material3 = " + amount + " WHERE id = ?;");
+        stmt.setString(1, studentId);
+        stmt.executeUpdate();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        } 
+    }
+    
+    
     public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;

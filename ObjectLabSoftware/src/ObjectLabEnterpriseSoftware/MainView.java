@@ -17,7 +17,7 @@ public class MainView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Home";
     private static final char SHARE_DRIVE_DIR = 'Z';
-    int a;
+
    // AddStudentView newStudentSys;
 	//UpdateStudentView updateStudentSys;
     JobsView pendingSys;

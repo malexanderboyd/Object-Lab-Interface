@@ -81,6 +81,7 @@ public class newJobsMgr extends JFrame {
 	private BuildView buildView;
 	private newJobsMgr jobsView;
 	private ReportsView reportsView;	
+        private BalanceView balanceView;
 	private newSettingsMenu adminSettingsView;
 	//
 	public newJobsMgr() {
@@ -107,7 +108,7 @@ public class newJobsMgr extends JFrame {
 		navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
 
 
-		jMenuBar1.add(Box.createRigidArea(new Dimension(83, 12)));
+		jMenuBar1.add(Box.createRigidArea(new Dimension(45, 12)));
 		jMenuBar1.add(navBtn_jobsMgr);
 
 		navBtn_build = new JButton("Enter Build");
@@ -122,7 +123,12 @@ public class newJobsMgr extends JFrame {
 		navBtn_reports.setPreferredSize(new Dimension(100,24));
 
 		jMenuBar1.add(navBtn_reports);
+                
+                navBtn_balance = new JButton("Balance");
+		navBtn_balance.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png")));
+		navBtn_balance.setPreferredSize(new Dimension(100,24));
 
+		jMenuBar1.add(navBtn_balance);
 		navBtn_settings = new JButton("Settings");
 		navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
 		navBtn_settings.setPreferredSize(new Dimension(100,24));
@@ -341,7 +347,13 @@ public class newJobsMgr extends JFrame {
 				navBtn_reportsActionPerformed(evt);
 			}
 		});
-
+                
+                navBtn_balance.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				navBtn_balanceActionPerformed(evt);
+			}
+		});
+                
 		navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				navBtn_settingsActionPerformed(evt);
@@ -565,8 +577,10 @@ public class newJobsMgr extends JFrame {
 						String deviceName = queryResult.getString(6);
 						String className = queryResult.getString(7);
 						String classSection = queryResult.getString(8);
+                                                String balance = queryResult.getString(9);
 						System.out.println("Adding row...");
-						jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection });
+						jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance});
+                                                //jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection });
 					}
 					jobsTable.setModel(jobsModel);
 					jobsTable.repaint();
@@ -661,6 +675,14 @@ public class newJobsMgr extends JFrame {
 		dispose();
 
 	}
+        
+        private void navBtn_balanceActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		balanceView= new BalanceView();
+		balanceView.setVisible(true);
+		dispose();
+
+	}
 
 	private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
 	{
@@ -684,6 +706,7 @@ public class newJobsMgr extends JFrame {
 	private JButton navBtn_jobsMgr;
 	private JButton navBtn_build;
 	private JButton navBtn_reports;
+        private JButton navBtn_balance;
 	private JButton navBtn_settings;
 
 	///
