@@ -17,7 +17,7 @@ public class MainView extends javax.swing.JFrame
 {
     private static final String NAME_OF_PAGE = "Home";
     private static final char SHARE_DRIVE_DIR = 'Z';
-
+    int a;
    // AddStudentView newStudentSys;
 	//UpdateStudentView updateStudentSys;
     JobsView pendingSys;
@@ -417,10 +417,10 @@ public class MainView extends javax.swing.JFrame
         }
     }//GEN-LAST:event_studentButtonActionPerformed
 
-    private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
+    private void studentIdStringActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_studentIdStringActionPerformed
+    }                                               
 
     private void studentPassStringActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdStringActionPerformed
         // TODO add your handling code here:
