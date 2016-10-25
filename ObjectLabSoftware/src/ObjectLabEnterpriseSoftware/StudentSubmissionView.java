@@ -9,11 +9,16 @@ import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
 
 public class StudentSubmissionView extends javax.swing.JFrame
 {
 	public StudentSubmissionView() 
 	{
+		error_centralized.setForeground(Color.RED);
+		error_centralized.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		// 10-23-16 Scott:
 		// Filler values. Allows design view to render correctly.
 		// This code is just for developing the design view. 
@@ -126,7 +131,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
         jLabel1_FileLocation.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jLabel1_FileLocation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1_FileLocation.setText("File Location:");
+        jLabel1_FileLocation.setText("File:");
         getContentPane().add(jLabel1_FileLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 95, 20));
 
         fileLocation.setEditable(false);
@@ -284,6 +289,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
         error_NoFileLocationSelected.setVisible(false);
         error_NoClassSelected.setVisible(false);
         error_NoPrinterSelected.setVisible(false);
+        
+        error_centralized.setVisible(false);
     }
 
     private boolean errCheck()
@@ -292,23 +299,29 @@ public class StudentSubmissionView extends javax.swing.JFrame
         hideErrorFields();
         if (fileLocation.getText().isEmpty())
         {
-            error_NoFileLocationSelected.setVisible(true);
-            error_NoFileLocationSelected.setText("Select a File!");
+            //error_NoFileLocationSelected.setVisible(true);
+            //error_NoFileLocationSelected.setText("Select a File!");
+        	error_centralized.setVisible(true);
+        	error_centralized.setText("Select a File!");
             isErr = true;
         }
 
         //End Email Validation
         if (classBox.getSelectedIndex() == -1)
         {
-            error_NoClassSelected.setVisible(true);
-            error_NoClassSelected.setText("Select a Class!");
+            //error_NoClassSelected.setVisible(true);
+            //error_NoClassSelected.setText("Select a Class!");
+        	error_centralized.setVisible(true);
+        	error_centralized.setText("Select a Class!");
             isErr = true;
         }
 
         if (printerBox.getSelectedIndex() == -1)
         {
-            error_NoPrinterSelected.setVisible(true);
-            error_NoPrinterSelected.setText("Select a Device!");
+            //error_NoPrinterSelected.setVisible(true);
+            //error_NoPrinterSelected.setText("Select a Device!");
+        	error_centralized.setVisible(true);
+        	error_centralized.setText("Select a Device!");
             isErr = true;
         }
         return isErr;
@@ -439,5 +452,9 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private javax.swing.JComboBox printerBox;
     private javax.swing.JTextField projName;
     private javax.swing.JCheckBox checkBox;
+    /**
+     * @wbp.nonvisual location=121,279
+     */
+    private final JLabel error_centralized = new JLabel("");
     // End of variables declaration//GEN-END:variables
 }
