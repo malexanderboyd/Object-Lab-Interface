@@ -26,6 +26,7 @@ public class BuildView extends javax.swing.JFrame
     private BuildView buildView;
     private newJobsMgr jobsView;
     private ReportsView reportsView;	
+    private BalanceView balanceView;
     private newSettingsMenu adminSettingsView;
     //
     private static final DefaultTableModel invalidBuildLocationSelectedColumnModel = new DefaultTableModel();
@@ -530,7 +531,7 @@ public class BuildView extends javax.swing.JFrame
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
         navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(275,0)));
+        jMenuBar1.add(Box.createRigidArea(new Dimension(220,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
@@ -545,6 +546,12 @@ public class BuildView extends javax.swing.JFrame
         navBtn_reports.setPreferredSize(new Dimension(100,24));
         navBtn_reports.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         jMenuBar1.add(navBtn_reports);
+        
+        navBtn_balance = new JButton("Balance");
+	navBtn_balance.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png")));
+	navBtn_balance.setPreferredSize(new Dimension(100,24));
+
+	jMenuBar1.add(navBtn_balance);
         
         navBtn_settings = new JButton("Settings");
         navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
@@ -570,6 +577,12 @@ public class BuildView extends javax.swing.JFrame
                 navBtn_reportsActionPerformed(evt);
             }
         });
+        
+        navBtn_balance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                navBtn_balanceActionPerformed(evt);
+            }
+	});
         
         navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -604,6 +617,14 @@ public class BuildView extends javax.swing.JFrame
     	
     }
     
+    private void navBtn_balanceActionPerformed(java.awt.event.ActionEvent evt)
+    {
+	balanceView= new BalanceView();
+	balanceView.setVisible(true);
+	dispose();
+
+    }
+    
     private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
     {
     	adminSettingsView = new newSettingsMenu();
@@ -629,8 +650,8 @@ public class BuildView extends javax.swing.JFrame
         }
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
-    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_logoutButtonActionPerformed
-        //GEN-HEADEREND:event_logoutButtonActionPerformed
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+//GEN-HEADEREND:event_logoutButtonActionPerformed
     		dispose();
             home.setVisible(true);
     }//GEN-LAST:event_logoutButtonActionPerformed
@@ -874,6 +895,7 @@ public class BuildView extends javax.swing.JFrame
 		studentSubmissionApprovedTableList.setModel(fileTableModel2);
     }
 
+    private JButton navBtn_balance;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton logoutButton;

@@ -25,12 +25,14 @@ public class newSettingsMenu extends JFrame {
 		private BuildView buildView;
 		private newJobsMgr jobsView;
 		private ReportsView reportsView;	
+                private BalanceView balanceView;         
 		private newSettingsMenu adminSettingsView;
 		/////// Nav Bar ~Alex /////
 		// --nav bar vars ~Alex
 		private JButton navBtn_jobsMgr;
 		private JButton navBtn_build;
 		private JButton navBtn_reports;
+                private JButton navBtn_balance;
 		private JButton navBtn_settings;
 
 		//
@@ -75,6 +77,12 @@ public class newSettingsMenu extends JFrame {
 
 			jMenuBar1.add(navBtn_reports);
 
+                        navBtn_balance = new JButton("Balance");
+		        navBtn_balance.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png")));
+                        navBtn_balance.setPreferredSize(new Dimension(100,24));
+
+                        jMenuBar1.add(navBtn_balance);
+                        
 			navBtn_settings = new JButton("Settings");
 			navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
 			navBtn_settings.setPreferredSize(new Dimension(100,24));
@@ -99,6 +107,12 @@ public class newSettingsMenu extends JFrame {
 					navBtn_reportsActionPerformed(evt);
 				}
 			});
+                        
+                        navBtn_balance.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				navBtn_balanceActionPerformed(evt);
+                                }
+                        });
 
 			navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,6 +227,14 @@ public class newSettingsMenu extends JFrame {
 
 	}
 
+        private void navBtn_balanceActionPerformed(java.awt.event.ActionEvent evt)
+	{
+		balanceView= new BalanceView();
+		balanceView.setVisible(true);
+		dispose();
+
+	}
+        
 	private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
 	{
 		adminSettingsView = new newSettingsMenu();

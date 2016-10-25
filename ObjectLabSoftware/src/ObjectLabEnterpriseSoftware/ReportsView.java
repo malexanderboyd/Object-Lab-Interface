@@ -25,7 +25,8 @@ public class ReportsView extends javax.swing.JFrame
 	// --nav bar views ~Alex
 	private BuildView buildView;
 	private newJobsMgr jobsView;
-	private ReportsView reportsView;	
+	private ReportsView reportsView;
+        private BalanceView balanceView;
 	private newSettingsMenu adminSettingsView;
 	//
 
@@ -286,7 +287,7 @@ public class ReportsView extends javax.swing.JFrame
         navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(150,0)));
+        jMenuBar1.add(Box.createRigidArea(new Dimension(120,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
@@ -299,6 +300,12 @@ public class ReportsView extends javax.swing.JFrame
         navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
         navBtn_reports.setPreferredSize(new Dimension(100,24));
         jMenuBar1.add(navBtn_reports);
+        
+        navBtn_balance = new JButton("Balance");
+	navBtn_balance.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png")));
+	navBtn_balance.setPreferredSize(new Dimension(100,24));
+
+	jMenuBar1.add(navBtn_balance);
         
         navBtn_settings = new JButton("Settings");
         navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
@@ -323,6 +330,12 @@ public class ReportsView extends javax.swing.JFrame
                 navBtn_reportsActionPerformed(evt);
             }
         });
+        
+        navBtn_balance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+		navBtn_balanceActionPerformed(evt);
+		}
+	});
         
         navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -357,6 +370,14 @@ public class ReportsView extends javax.swing.JFrame
     	
     }
     
+    private void navBtn_balanceActionPerformed(java.awt.event.ActionEvent evt)
+    {
+	balanceView= new BalanceView();
+	balanceView.setVisible(true);
+        dispose();
+
+    }
+    
     private void navBtn_settingsActionPerformed(java.awt.event.ActionEvent evt)
     {
     	adminSettingsView = new newSettingsMenu();
@@ -378,6 +399,7 @@ public class ReportsView extends javax.swing.JFrame
 	private JButton navBtn_jobsMgr;
 	private JButton navBtn_build;
 	private JButton navBtn_reports;
+        private JButton navBtn_balance;
 	private JButton navBtn_settings;
 
 

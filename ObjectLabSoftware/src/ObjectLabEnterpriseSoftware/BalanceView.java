@@ -43,8 +43,8 @@ public class BalanceView extends javax.swing.JFrame {
         initComponents();
         initNavBar();
         model = (DefaultTableModel) jTable1.getModel();
-        setVisible(true);
         updateBalanceWindow(firstName, lastName, id);
+        setVisible(true);
     }
 
     					
@@ -265,31 +265,38 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         String stringTemp = jTextField4.getText();
         amount = Double.valueOf(stringTemp); 
-
+        String studentId = null;
         SQLMethods dbconn = new SQLMethods();
-        if (jTable1.getRowCount() >= 1){
-            
-            String studentId = jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2).toString();
-            if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 1"))
-            {
-                    dbconn.addMaterial1(studentId, amount);
-            } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 2"))
-            {
-                    dbconn.addMaterial2(studentId, amount);	
+        if (jTable1.getRowCount() == 1)
+        {
+               studentId = jTable1.getModel().getValueAt(0, 2).toString(); 
+        }
+        else if (jTable1.contains(jTable1.getSelectedRow(), 2))
+        {
+                studentId = jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2).toString(); 
+        }
 
-            } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 3"))
-            {
-                    dbconn.addMaterial3(studentId, amount);
-            }
-            else
-            {
-                    System.out.println("ERROR");
-            }
+        {     
+            System.out.println("PLEASE SELECT A ROW");
+        }
+        
+        if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 1"))
+        {
+                dbconn.addMaterial1(studentId, amount);
+        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 2"))
+        {
+                dbconn.addMaterial2(studentId, amount);	
+
+        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 3"))
+        {
+                dbconn.addMaterial3(studentId, amount);
         }
         else
         {
-            System.out.println("CAN ONLY PROCESS FOR ONE STUDENT IN THE TABLE");
+                System.out.println("ERROR");
         }
+        
+        
         dbconn.closeDBConnection();
         updateBalanceWindow(firstName, lastName, id);
     }//GEN-LAST:event_jButton3MouseClicked
