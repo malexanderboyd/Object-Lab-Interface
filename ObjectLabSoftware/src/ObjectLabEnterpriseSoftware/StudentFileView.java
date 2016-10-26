@@ -13,42 +13,38 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Russell
  */
-public class StudentInfoView extends javax.swing.JFrame {
+public class StudentFileView extends javax.swing.JFrame {
 
     private static DefaultTableModel model;
-    private static final String NAME_OF_PAGE = "Student Submission";
+    private static final String NAME_OF_PAGE = "Student File Status";
     private static final MainView home = new MainView();
-    private String userID;
-    private String userName;
-    private StudentFileView studentFileView;
     
-    public StudentInfoView(String id, String studentName) {
-        userID = id;
-        userName = studentName;
+    public StudentFileView(String id, String studentName) {
         getContentPane().setBackground(Color.WHITE);
         initComponents();
         model = (DefaultTableModel) jTable1.getModel();
-        updateInfoWindow(id, studentName);
+        updateFileWindow(id, studentName);
         setVisible(true);
     }
-    
-    public void updateInfoWindow(String id, String studentName) {
+
+    public void updateFileWindow(String id, String studentName) {
         model.setRowCount(0);
         
         try {
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult;                  
 
-        queryResult = dbconn.getStudentInfo(id); 
+        queryResult = dbconn.getStudentFileStatus(id); 
         
         while(queryResult.next())
         {
-                String towson_id = queryResult.getString(1);
-                String material1 = queryResult.getString(2);
-                String material2 = queryResult.getString(3);
-                String material3  = queryResult.getString(4);
+                String file_name = queryResult.getString(1);
+                String date = queryResult.getString(2);
+                String stat1 = queryResult.getString(3);
+                String stat2  = queryResult.getString(4);
+                String status  = queryResult.getString(5);
                 System.out.println("Adding row...");
-                model.addRow(new Object[] {towson_id, material1, material2, material3});
+                model.addRow(new Object[] {file_name, date, stat1, stat2, status});
         }
             jTable1.setModel(model);
             jTable1.repaint();
@@ -58,7 +54,6 @@ public class StudentInfoView extends javax.swing.JFrame {
                 System.out.println("Error: " + e);
         }
     }
-            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,21 +65,24 @@ public class StudentInfoView extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Towson Id", "Material 1", "Material 2", "Material 3"
+                "File Name", "Date ", "Stat 1", "Stat 2", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -94,9 +92,6 @@ public class StudentInfoView extends javax.swing.JFrame {
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Student Balance");
-
         jButton1.setText("Logout");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -104,22 +99,25 @@ public class StudentInfoView extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Student Files");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addGap(0, 315, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
+                .addGap(119, 119, 119)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -128,9 +126,9 @@ public class StudentInfoView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(81, 81, 81)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -139,13 +137,12 @@ public class StudentInfoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-                studentFileView = new StudentFileView(userID, userName);
-		studentFileView.setVisible(true);
-		dispose();     
+              dispose();
+              home.setVisible(true);  
     }//GEN-LAST:event_jButton1MousePressed
 
-
- 
+    
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

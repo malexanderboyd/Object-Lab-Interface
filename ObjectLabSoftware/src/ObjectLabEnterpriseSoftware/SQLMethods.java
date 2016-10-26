@@ -239,6 +239,25 @@ public class SQLMethods
         return res;
     }
     */
+    
+    
+    public ResultSet getStudentFileStatus(String studentId)
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT file_name, submission_date, stat1, stat2, status " +
+                                              "FROM job INNER JOIN job_stats ON job.job_id = job_stats.job_id " +
+                                              "WHERE ? = job.student_id"); 
+            stmt.setString(1, studentId);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
     public ResultSet getStudentInfo(String studentId)
     {
         res = null;
