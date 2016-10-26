@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 
 public class ChangePasswordView extends javax.swing.JFrame {
 
+	int i;
+	
     AdminSettingsView settings = new AdminSettingsView();
     public void passwordChangeStart() {
         initComponents();
