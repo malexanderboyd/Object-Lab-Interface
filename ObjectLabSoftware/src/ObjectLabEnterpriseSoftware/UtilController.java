@@ -521,7 +521,7 @@ public class UtilController
                     + file + ", we have found the following error: \n\nComment: " + reasonForRejection
                     + "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
             //Backup email
-            //TowsonOli@gmail.com passwordTowson
+            //TowsonOli@gmail.com passwordTowson 
             return true; //new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
         } catch (SQLException ex)
         {
@@ -1123,8 +1123,8 @@ public class UtilController
     	    		//return false;
     	    		
     	    		// WORKAROUND *****
-    	    		setStudentLName("Turner");
- 	                setStudentFName("Scott");
+    	    		setStudentLName("Gehret");
+ 	                setStudentFName("Russell");
  	                return true;
  	                // END WORKAROUND
     	    	}

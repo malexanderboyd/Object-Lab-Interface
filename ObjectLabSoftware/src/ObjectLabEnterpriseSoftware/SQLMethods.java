@@ -239,6 +239,21 @@ public class SQLMethods
         return res;
     }
     */
+    public ResultSet getStudentInfo(String studentId)
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT id, material1, material2, material3 " +
+                                              "FROM material WHERE ? = material.id"); 
+            stmt.setString(1, studentId);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
     
     public double getCurrentMaterialBalance(String studentId, String whichMaterial)
     {

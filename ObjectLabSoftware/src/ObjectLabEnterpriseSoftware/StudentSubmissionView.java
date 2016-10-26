@@ -26,6 +26,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private static final MainView home = new MainView();
     private String userID;
     private String userName;
+    private StudentInfoView studentInfoView;
     public void studentSubmissionStart(String id, String studentName)
     {
         /* set valid id passed in from MainView.java as our userID for submitting files... */
@@ -34,7 +35,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
         
 		// ***** ldap below
 		//userName = studentName;
-        userName = "student";
+        userName = studentName;
 		
 		initComponents();
         hideErrorFields();
@@ -399,8 +400,11 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
     {//GEN-HEADEREND:event_backButtonActionPerformed
+                studentInfoView = new StudentInfoView(userID, userName);
+		studentInfoView.setVisible(true);
 		dispose();
-                home.setVisible(true);
+//                dispose();
+//                home.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void projNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_projNameActionPerformed

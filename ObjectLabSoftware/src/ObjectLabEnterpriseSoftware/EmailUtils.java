@@ -80,7 +80,7 @@ public class EmailUtils
     public boolean send() 
     {
         try
-        {
+        {  
             Transport.send(emailContent);
         }
         catch (SendFailedException send_fail_to_recipient)
