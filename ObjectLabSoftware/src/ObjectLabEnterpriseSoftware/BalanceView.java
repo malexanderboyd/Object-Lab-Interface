@@ -28,9 +28,9 @@ public class BalanceView extends javax.swing.JFrame {
     private BalanceView balanceView;
     private newSettingsMenu adminSettingsView;
     private double amount = 0;
-    private String firstName = null;
-    private String lastName = null;
-    private String id = null;
+    private String firstName = "";
+    private String lastName = "";
+    private String id = "";
     /**
      * Creates new form BalanceView
      */
@@ -55,9 +55,18 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
     try {
         SQLMethods dbconn = new SQLMethods();
         ResultSet queryResult;                  
-        if (id != null)
+        if (!id.isEmpty())
         {
+            System.out.println(id);
             queryResult = dbconn.searchStudentBalanceId(id);
+        }
+        else if (!lastName.isEmpty())
+        {
+            queryResult = dbconn.searchStudentBalanceLName(lastName);
+        }
+        else if (!firstName.isEmpty())
+        {
+            queryResult = dbconn.searchStudentBalanceFName(firstName);
         }
         else
         {
@@ -129,7 +138,7 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "First Name", "Last Name", "Towson ID", "Material 1", "Material 2", "Material 3"
+                "First Name", "Last Name", "Towson ID", "Z Corp Plaster", "Objet Build", "Objet Support"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -173,7 +182,7 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Material 1", "Material 2", "Material 3" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Z Corp Plaster", "Objet Build", "Objet Support" }));
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,7 +264,9 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-
+        firstName = "";
+        lastName = "";
+        id = "";
         firstName = jTextField1.getText();
         lastName = jTextField2.getText();
         id = jTextField3.getText();
@@ -267,7 +278,7 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
         amount = Double.valueOf(stringTemp); 
         String studentId = null;
         SQLMethods dbconn = new SQLMethods();
-        if (jTable1.getRowCount() == 1)
+        if (jTable1.getRowCount() == 1 && !jTable1.contains(jTable1.getSelectedRow(),2))
         {
                studentId = jTable1.getModel().getValueAt(0, 2).toString(); 
         }
@@ -275,21 +286,17 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
         {
                 studentId = jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2).toString(); 
         }
-
-        {     
-            System.out.println("PLEASE SELECT A ROW");
-        }
         
-        if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 1"))
+        if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Z Corp Plaster"))
         {
-                dbconn.addMaterial1(studentId, amount);
-        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 2"))
+                dbconn.addMaterial(studentId, amount, "z_corp_plaster");
+        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Objet Build"))
         {
-                dbconn.addMaterial2(studentId, amount);	
+                dbconn.addMaterial(studentId, amount, "objet_build");	
 
-        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Material 3"))
+        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Objet Support"))
         {
-                dbconn.addMaterial3(studentId, amount);
+                dbconn.addMaterial(studentId, amount, "objet_support");
         }
         else
         {

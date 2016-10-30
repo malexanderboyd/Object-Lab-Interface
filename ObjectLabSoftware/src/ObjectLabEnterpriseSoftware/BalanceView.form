@@ -135,9 +135,9 @@
                 <Column editable="true" title="First Name" type="java.lang.Object"/>
                 <Column editable="false" title="Last Name" type="java.lang.Object"/>
                 <Column editable="false" title="Towson ID" type="java.lang.Object"/>
-                <Column editable="true" title="Material 1" type="java.lang.Object"/>
-                <Column editable="true" title="Material 2" type="java.lang.Object"/>
-                <Column editable="true" title="Material 3" type="java.lang.Object"/>
+                <Column editable="true" title="Z Corp Plaster" type="java.lang.Object"/>
+                <Column editable="true" title="Objet Build" type="java.lang.Object"/>
+                <Column editable="true" title="Objet Support" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -240,9 +240,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="Material 1"/>
-            <StringItem index="1" value="Material 2"/>
-            <StringItem index="2" value="Material 3"/>
+            <StringItem index="0" value="Z Corp Plaster"/>
+            <StringItem index="1" value="Objet Build"/>
+            <StringItem index="2" value="Objet Support"/>
           </StringArray>
         </Property>
       </Properties>
