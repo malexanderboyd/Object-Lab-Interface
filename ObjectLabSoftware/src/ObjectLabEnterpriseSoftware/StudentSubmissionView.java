@@ -400,9 +400,9 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
     {//GEN-HEADEREND:event_backButtonActionPerformed
-                newStudentView = new newStudentView(userID, userName);
-		newStudentView.setVisible(true);
-		dispose();
+                //newStudentView = new newStudentView(userID, userName);
+		//newStudentView.setVisible(true);
+		//dispose();
 //                dispose();
 //                home.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed

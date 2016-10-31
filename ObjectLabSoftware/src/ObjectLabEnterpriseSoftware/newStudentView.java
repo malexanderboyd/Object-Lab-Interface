@@ -25,7 +25,11 @@ public class newStudentView extends javax.swing.JFrame {
     private String userName;
     private String projName;
     
-    public newStudentView(String id, String studentName) {
+    public newStudentView()
+    {
+        
+    }
+    public void newStudentView(String id, String studentName) {
         getContentPane().setBackground(Color.WHITE);
         initComponents();
         userID = id;

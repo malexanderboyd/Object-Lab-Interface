@@ -21,7 +21,7 @@ public class MainView extends javax.swing.JFrame
    // AddStudentView newStudentSys;
 	//UpdateStudentView updateStudentSys;
     JobsView pendingSys;
-    StudentSubmissionView studentSys;
+    newStudentView studentSys;
     boolean show;
     String PASS = "ForwardMotion";
 
@@ -32,7 +32,7 @@ public class MainView extends javax.swing.JFrame
         this.setResizable(false);
         setPrintersVisible(false);
         njm = new newJobsMgr();
-        studentSys = new StudentSubmissionView();
+        studentSys = new newStudentView();
       //  newStudentSys = new AddStudentView();
 	//updateStudentSys = new UpdateStudentView();
 	
@@ -384,7 +384,7 @@ public class MainView extends javax.swing.JFrame
             {
                 errorIdLabel.setText("");
                 dispose();
-                studentSys.studentSubmissionStart(idString, UtilController.getStudentFname());
+                studentSys.newStudentView(idString, UtilController.getStudentFname());
             } else
             {
                 errorIdLabel.setText("Invalid TU ID or Password.");
@@ -409,7 +409,7 @@ public class MainView extends javax.swing.JFrame
             {
                 errorIdLabel.setText("");
                 dispose();
-                studentSys.studentSubmissionStart(idString, UtilController.getStudentFname());
+                studentSys.newStudentView(idString, UtilController.getStudentFname());
             } else
             {
                 errorIdLabel.setText("Invalid TU ID or Password.");

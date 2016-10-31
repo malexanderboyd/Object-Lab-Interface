@@ -226,7 +226,7 @@ public class newJobsMgr extends JFrame {
 		jobsModel = 
 				new DefaultTableModel() {
 			Class[] columnTypes = new Class[] {
-					Boolean.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
+					Boolean.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -234,7 +234,7 @@ public class newJobsMgr extends JFrame {
 		};
 		jobsModel.setColumnCount(8);
 		jobsModel.setColumnIdentifiers(new String[] {
-				"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Volume"
+				"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Stat1", "Stat2"
 		});
 
 		jobsTable.setModel(jobsModel);
@@ -256,7 +256,7 @@ public class newJobsMgr extends JFrame {
 		logoutButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		logoutButton.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(logoutButton);
-
+                
 		approveButton = new JButton("Approve");
 		approveButton.setBounds(331, 459, 89, 23);
 		approveButton.addMouseListener(new MouseAdapter() {
@@ -432,34 +432,39 @@ public class newJobsMgr extends JFrame {
 				selectedDevices.add(j); // adds row # for all selected rows.
 			}
 		}
-/*
-		if(trackingStatInput1.getText().isEmpty())
-		{
-			System.out.println("Missing stat 1");
-		}
-		else if(trackingStatInput2.getText().isEmpty())
-		{
-			System.out.println("Missing stat 2");
-		}
-		else
-		{
-*/
-
-			int rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
-
-
+                        int rowDataLocation;
+                        if (selectedDevices.get(0) != 0)
+                        {
+                            rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
+                        } else
+                        {
+                            rowDataLocation = 0;
+                        }
+                       
+                        SQLMethods dbconn = new SQLMethods();
+                        String first_name =(String) jobsModel.getValueAt(rowDataLocation, 2);
+                        String last_name = (String) jobsModel.getValueAt(rowDataLocation, 3); 
+                        String id = dbconn.getStudentId(first_name, last_name);
+                        String printer = dbconn.getFilePrinter((String) jobsModel.getValueAt(rowDataLocation, 1), id);
+                        dbconn.closeDBConnection();
+     
 			/* Hand off the data in the selected row found in our tablemodel to this method so we can 
 			                 approve the correct file to be printed... -Nick 
 			 */
-			UtilController.approveStudentSubmission(
-					(String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
-
-			trackingStatInput1.setText("");
-			trackingStatInput2.setText("");
-			jobsModel.fireTableDataChanged();
-			jobStatusCombo.setSelectedIndex(0); //*****
-			jobsTable.repaint();
-	//	}
+                        if (printer.equalsIgnoreCase("Z Printer 250") || printer.equalsIgnoreCase("Objet Desktop 30"))  
+                        {
+                            double stat1 = Double.parseDouble(trackingStatInput1.getText());                       
+                            double stat2 = Double.parseDouble(trackingStatInput1.getText());
+                            UtilController.changeStudentBalance(
+                                            printer, id, stat1, stat2);
+                        } 
+                            UtilController.approveStudentSubmission(
+                                            (String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
+                            trackingStatInput1.setText("");
+                            trackingStatInput2.setText("");
+                            jobsModel.fireTableDataChanged();
+                            jobStatusCombo.setSelectedIndex(0); //*****
+                            jobsTable.repaint();
 
 		jobsModel.fireTableDataChanged();
 		jobsTable.repaint();
@@ -550,23 +555,7 @@ public class newJobsMgr extends JFrame {
                         queryResult = null;
                     }
 					
-					
-					/*
-					if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("All Jobs"))
-					{
-						queryResult = dbconn.searchAllJobsStatusPrinter(selectedDevice);
-					} else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Approved"))
-					{
-						queryResult = dbconn.searchJobsStatusPrinter("approved", selectedDevice);	
-
-					} else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Pending"))
-					{
-						queryResult = dbconn.searchJobsStatusPrinter("pending", selectedDevice);
-					}
-					else
-					{
-						queryResult = dbconn.searchAllJobsStatusPrinter(selectedDevice);
-					}*/
+				
 					while(queryResult.next())
 					{
 						int jobId = queryResult.getInt(1);
@@ -577,11 +566,21 @@ public class newJobsMgr extends JFrame {
 						String deviceName = queryResult.getString(6);
 						String className = queryResult.getString(7);
 						String classSection = queryResult.getString(8);
-                                                String balance = queryResult.getString(9);
+                                                String balance1 = queryResult.getString(9);
+                                                String balance2 = queryResult.getString(10);
+                                                String balance3 = queryResult.getString(11);
 						System.out.println("Adding row...");
-						jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance});
-                                                //jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection });
-					}
+						if (selectedDevice.equalsIgnoreCase("Z Printer 250"))
+                                                {
+                                                    jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance1});
+                                                } else if (selectedDevice.equalsIgnoreCase("Objet Desktop 30"))
+                                                {
+                                                    jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance2, balance3});
+                                                } else
+                                                {
+                                                    jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection});
+                                                }
+                                        }
 					jobsTable.setModel(jobsModel);
 					jobsTable.repaint();
 					dbconn.closeDBConnection();
@@ -594,10 +593,6 @@ public class newJobsMgr extends JFrame {
 		};
 		runner.run();
 	}
-	/*"SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
-					+ "job.submission_date ,job.printer_name, class_name, class_section  " 
-					+ "FROM job, users , class " + "WHERE job.status = * AND printer_name = ? "
-					+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;*/
 
 
 	private void showDeviceStats(String selectedDevice) { // used to update 

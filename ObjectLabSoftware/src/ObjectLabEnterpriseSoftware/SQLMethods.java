@@ -165,13 +165,9 @@ public class SQLMethods
         res = null;
         try
         {
-        	// *****
-            //stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
-			//		+ "job.submission_date ,job.printer_name, class_name, class_section  " 
-			//		+ "FROM job, users , class " + "WHERE job.status = ? AND printer_name = ? "
-			//		+ "AND users.towson_id = job.student_id AND job.class_id = class.class_id;");
+            
         	stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
-                    + "job.submission_date ,job.printer_name, class_name, class_section, z_corp_plaster " 
+                    + "job.submission_date ,job.printer_name, class_name, class_section, material.z_corp_plaster, material.objet_build, material.objet_support " 
                     + "FROM job INNER JOIN users ON users.towson_id = job.student_id "
                     + "INNER JOIN class ON job.class_id = class.class_id INNER JOIN material ON material.id = job.student_id WHERE job.status = ? AND "
                                    + "printer_name = ?;");
@@ -326,6 +322,51 @@ public class SQLMethods
             System.err.println(e);
         }
         return current;
+        
+    }
+    
+    public String getFilePrinter(String fileName, String id)
+    {               
+        String printer = "";
+        try
+        {    
+            ResultSet queryResult;
+            stmt = this.conn.prepareStatement("SELECT printer_name FROM job WHERE job.file_name = ? AND job.student_id = ?;");
+            stmt.setString(1, fileName);
+            stmt.setString(2, id);
+            queryResult = stmt.executeQuery();
+            while(queryResult.next())
+        {
+            printer = queryResult.getString("printer_name");
+        }
+        } catch (SQLException e)
+        {
+            System.err.println(e);
+        }
+        return printer;
+        
+    }
+    
+    public String getStudentId(String first_name, String last_name)
+    {
+             
+        String id = "";
+        try
+        {    
+            ResultSet queryResult;
+            stmt = this.conn.prepareStatement("SELECT towson_id FROM users WHERE users.first_name = ? AND users.last_name = ?;");
+            stmt.setString(1, first_name);
+            stmt.setString(2, last_name);
+            queryResult = stmt.executeQuery();
+            while(queryResult.next())
+        {
+            id = queryResult.getString("towson_id");
+        }
+        } catch (SQLException e)
+        {
+            System.err.println(e);
+        }
+        return id;
         
     }
     
