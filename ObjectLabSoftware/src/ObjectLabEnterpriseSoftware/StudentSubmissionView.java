@@ -26,7 +26,7 @@ public class StudentSubmissionView extends javax.swing.JFrame
     private static final MainView home = new MainView();
     private String userID;
     private String userName;
-    private StudentInfoView studentInfoView;
+    private newStudentView newStudentView;
     public void studentSubmissionStart(String id, String studentName)
     {
         /* set valid id passed in from MainView.java as our userID for submitting files... */
@@ -400,8 +400,8 @@ public class StudentSubmissionView extends javax.swing.JFrame
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backButtonActionPerformed
     {//GEN-HEADEREND:event_backButtonActionPerformed
-                studentInfoView = new StudentInfoView(userID, userName);
-		studentInfoView.setVisible(true);
+                newStudentView = new newStudentView(userID, userName);
+		newStudentView.setVisible(true);
 		dispose();
 //                dispose();
 //                home.setVisible(true);
