@@ -232,10 +232,10 @@ public class newJobsMgr extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		};
-		jobsModel.setColumnCount(8);
-		jobsModel.setColumnIdentifiers(new String[] {
-				"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Stat1", "Stat2"
-		});
+		//jobsModel.setColumnCount(6);
+		//jobsModel.setColumnIdentifiers(new String[] {
+		//		"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"
+		//});
 
 		jobsTable.setModel(jobsModel);
 		jobListingsPane.setViewportView(jobsTable);
@@ -531,7 +531,7 @@ public class newJobsMgr extends JFrame {
 
 		ArrayList rows = new ArrayList();
 		jobsModel.setRowCount(0);
-		jobsTable.repaint();
+		jobsTable.repaint(); 
 		/// Adds tracked devices to comboBox dropdown window
 		Thread runner = new Thread() {
 			public void run()
@@ -570,16 +570,26 @@ public class newJobsMgr extends JFrame {
                                                 String balance2 = queryResult.getString(10);
                                                 String balance3 = queryResult.getString(11);
 						System.out.println("Adding row...");
-						if (selectedDevice.equalsIgnoreCase("Z Printer 250"))
+                                                if (selectedDevice.equalsIgnoreCase("Z Printer 250"))
                                                 {
+                                                    jobsModel.setColumnCount(7);
+                                                    jobsModel.setColumnIdentifiers(new String[] {
+                                                        "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Z Corp Plaster"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance1});
                                                 } else if (selectedDevice.equalsIgnoreCase("Objet Desktop 30"))
                                                 {
+                                                    jobsModel.setColumnCount(8);
+                                                    jobsModel.setColumnIdentifiers(new String[] {
+                                                        "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Oject Build", "Oject Support"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance2, balance3});
                                                 } else
                                                 {
+                                                    jobsModel.setColumnCount(6);
+                                                    jobsModel.setColumnIdentifiers(new String[] {
+                                                        "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection});
                                                 }
+
                                         }
 					jobsTable.setModel(jobsModel);
 					jobsTable.repaint();

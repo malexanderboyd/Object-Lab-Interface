@@ -165,7 +165,7 @@ public class newStudentView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Towson Id", "Material 1", "Material 2", "Material 3"
+                "Towson Id", "Z Corp Plaster", "Objet Build", "Objet Support"
             }
         ) {
             boolean[] canEdit = new boolean [] {
