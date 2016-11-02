@@ -522,7 +522,8 @@ public class UtilController
                     + "\n\nPlease fix the file and resubmit." + "\n\nThank you,\nObject Lab Staff";
             //Backup email
             //TowsonOli@gmail.com passwordTowson 
-            return true; //new EmailUtils(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage).send();
+            EmailUtils.send(emailadr, "TowsonuObjectLab@gmail.com", "oblabsoftware", emailMessage);
+            return true; 
         } catch (SQLException ex)
         {
             System.out.println("Program crashed in reject subm\n" + ex);
