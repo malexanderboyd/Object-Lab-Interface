@@ -58,7 +58,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         passwordError = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -74,10 +74,9 @@ public class PasswordDialogView extends javax.swing.JFrame
         getContentPane().add(CancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 20));
 
         SubmitButton.setText("Submit");
-
-        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitButtonActionPerformed();
+        SubmitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                SubmitButtonMousePressed(evt);
             }
         });
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, 20));
@@ -88,40 +87,13 @@ public class PasswordDialogView extends javax.swing.JFrame
         passwordError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(passwordError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 200, 20));
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 130));
-        Password.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
-                char c = e.getKeyChar();
-                if(c == KeyEvent.VK_ENTER)
-                {
-                	SubmitButtonActionPerformed();
-                }
-            }
-        });
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SubmitButtonActionPerformed() {//GEN-FIRST:event_SubmitButtonActionPerformed
-        /*Hashes the predefined password and the password entered into the
-         *JPasswordField and then compares the two
-         */
-        boolean wasLoginSuccessful = UtilController.checkAdminLogin(new String(Password.getPassword()));
-
-        if (wasLoginSuccessful)
-        {
-            System.out.println("Password passed!");
-            adminLoginStatus = true;
-            dispose();
-            home.resetAdminMode();
-        } else
-        {
-            passwordError.setText("ERROR: Invalid password");
-            adminLoginStatus = false;
-        }
-    }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CancelButtonActionPerformed
     {//GEN-HEADEREND:event_CancelButtonActionPerformed
@@ -130,6 +102,25 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.showStudentOptions();
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
+
+    private void SubmitButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitButtonMousePressed
+                /*Hashes the predefined password and the password entered into the
+         *JPasswordField and then compares the two
+         */
+        boolean wasLoginSuccessful = UtilController.checkAdminLogin(new String(Password.getPassword()));
+
+        if (wasLoginSuccessful)
+        {
+            System.out.println("Password passed!"); 
+            adminLoginStatus = true;
+            dispose();
+            home.resetAdminMode();
+        } else
+        {
+            passwordError.setText("ERROR: Invalid password");
+            adminLoginStatus = false;
+        }
+    }//GEN-LAST:event_SubmitButtonMousePressed
 
     private boolean capsLockDetector()
     {

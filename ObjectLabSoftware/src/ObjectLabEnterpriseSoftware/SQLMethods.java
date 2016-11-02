@@ -1340,7 +1340,7 @@ public class SQLMethods
                                    + "printer_name = ?;");
         	*/
         	stmt = this.conn.prepareStatement("SELECT job.job_id, job.file_name, users.first_name, users.last_name, "
-                    + "job.submission_date ,job.printer_name, class_name, class_section, job_stats.stat1 " 
+                    + "job.submission_date ,job.printer_name, class_name, class_section, job_stats.stat1, job_stats.stat2 " 
                     + "FROM job INNER JOIN job_stats ON job.job_id = job_stats.job_id "
                              + "INNER JOIN users ON users.towson_id = job.student_id "
                              + "INNER JOIN class ON job.class_id = class.class_id WHERE job.status = 'completed' AND "
