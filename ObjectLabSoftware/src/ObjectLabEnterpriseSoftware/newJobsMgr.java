@@ -572,19 +572,19 @@ public class newJobsMgr extends JFrame {
 						System.out.println("Adding row...");
                                                 if (selectedDevice.equalsIgnoreCase("Z Printer 250"))
                                                 {
-                                                    jobsModel.setColumnCount(7);
+                                                    jobsModel.setColumnCount(8);
                                                     jobsModel.setColumnIdentifiers(new String[] {
                                                         "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Z Corp Plaster"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance1});
                                                 } else if (selectedDevice.equalsIgnoreCase("Objet Desktop 30"))
                                                 {
-                                                    jobsModel.setColumnCount(8);
+                                                    jobsModel.setColumnCount(9);
                                                     jobsModel.setColumnIdentifiers(new String[] {
                                                         "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Oject Build", "Oject Support"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance2, balance3});
                                                 } else
                                                 {
-                                                    jobsModel.setColumnCount(6);
+                                                    jobsModel.setColumnCount(7);
                                                     jobsModel.setColumnIdentifiers(new String[] {
                                                         "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection});

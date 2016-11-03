@@ -130,6 +130,7 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
             }
         });
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},

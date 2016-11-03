@@ -131,6 +131,7 @@ public class newStudentView extends javax.swing.JFrame {
         jLabel8_StudentSubmission1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8_StudentSubmission1.setText("Student Submission");
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -358,6 +359,7 @@ public class newStudentView extends javax.swing.JFrame {
             dispose();
 			//Reset view after successful submission to allow for multiple submissions without having to login each time
             Reset_StudentSubmissionFields();
+            updateFileStatusWindow(userID, userName);
         //} else
         {
             dispose();
