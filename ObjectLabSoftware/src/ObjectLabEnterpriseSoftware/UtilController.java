@@ -55,7 +55,6 @@ import com.sun.jndi.ldap.LdapName;
 
 public class UtilController
 {
-
     private static final boolean SUCCESS = true;
     private static final boolean FAILURE = false;
 
@@ -64,10 +63,8 @@ public class UtilController
     
     private static final String USER_GUIDE_URL = "https://drive.google.com/file/d/0ByBesmdK0SzlV0Zha3M1Mmp2SW8/view?usp=sharing";
 
-
     private static String studentFname;
-	private static String studentLname;
-    
+    private static String studentLname;
     
     public static String getPageName(String pageName)
     {
@@ -515,6 +512,7 @@ public class UtilController
             String newFileLocation = cloudStorageOperations.getRejected() + file;
             dbconn.updateJobFLocation(Integer.parseInt(primaryKey), newFileLocation.replace("\\", "\\\\"));
             dbconn.updateStatus("rejected", Integer.parseInt(primaryKey));
+            reasonForRejection = dbconn.getFileComment(file);
             dbconn.closeDBConnection();
 
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "

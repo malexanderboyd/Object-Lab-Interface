@@ -1059,6 +1059,40 @@ public class SQLMethods
         }
     }
 
+    public String getFileComment(String file)
+    {
+        String comment = "";
+        try
+        {
+            stmt = conn.prepareStatement("SELECT comment FROM job WHERE file_name = ?; ");
+            stmt.setString(1 , file);
+            res = stmt.executeQuery();
+            while(res.next())
+            {
+                comment = res.getString("comment");
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return comment;
+    }
+    
+    public void updateFileComment(String file, String comment)
+    {
+        res = null;
+        try
+        {
+            stmt = conn.prepareStatement("UPDATE job SET comment = ? WHERE file_name = ?; ");
+            stmt.setString(1, comment);
+            stmt.setString(2, file);
+            stmt.executeUpdate();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     public void updateColumnFieldName(String updatedName, int id)
     {
         res = null;

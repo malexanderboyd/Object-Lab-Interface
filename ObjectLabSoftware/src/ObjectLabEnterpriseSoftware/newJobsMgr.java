@@ -42,6 +42,7 @@ import java.util.logging.Logger;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Toolkit;
+import java.util.concurrent.TimeUnit;
 
 
 /*
@@ -58,24 +59,6 @@ import java.awt.Toolkit;
  * 
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public class newJobsMgr extends JFrame {
 	// --nav bar views ~Alex
 	private BuildView buildView;
@@ -84,6 +67,8 @@ public class newJobsMgr extends JFrame {
         private BalanceView balanceView;
 	private newSettingsMenu adminSettingsView;
 	//
+        
+        private CommentView commentview;
 	public newJobsMgr() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(newJobsMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setTitle("Administration Panel");
@@ -381,11 +366,15 @@ public class newJobsMgr extends JFrame {
                 /* Hand off the data in the selected row found in our tablemodel to this method so we can 
                  * reject the correct file -Nick 
                  */
-                boolean success = UtilController.rejectStudentSubmission(
-                        (String) jobsModel.getValueAt(selectedDevices.get(0), 1),
-                        "Rejected"
-                );
-
+                String file = (String) jobsModel.getValueAt(selectedDevices.get(0), 1);
+                commentview = new CommentView(file);
+                    try {
+                        TimeUnit.SECONDS.sleep(10);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(newJobsMgr.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                boolean success = UtilController.rejectStudentSubmission(file, "Rejected" );
+                
                 if (success) // always rejects, commenting out email utlity for now ~Alex
                 {
                    JOptionPane op = new JOptionPane("Submission successfully rejected.", JOptionPane.INFORMATION_MESSAGE);
@@ -460,6 +449,7 @@ public class newJobsMgr extends JFrame {
                         } 
                             UtilController.approveStudentSubmission(
                                             (String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
+                            JOptionPane op = new JOptionPane("Submission successfully approved.", JOptionPane.INFORMATION_MESSAGE);
                             trackingStatInput1.setText("");
                             trackingStatInput2.setText("");
                             jobsModel.fireTableDataChanged();
