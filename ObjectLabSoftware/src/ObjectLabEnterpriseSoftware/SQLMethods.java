@@ -388,6 +388,25 @@ public class SQLMethods
         } 
     }
   
+    public void addTransactionHistory(String studentID, String material, double amount)
+    {
+    	try
+        {
+    		SQLMethods dbconn = new SQLMethods();
+    		stmt = this.conn.prepareStatement("INSERT INTO material_transaction_history (date, net_id, material, amount) "
+    									    + "VALUES (NOW(), ?, ?, ?)");
+    		stmt.setString(1, studentID);
+    		stmt.setString(2, material);
+    		stmt.setDouble(3, amount);
+    		stmt.execute();
+        } 
+    	catch (SQLException ex)
+        {
+            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,null, ex);
+        } 
+    }    
+    
+    
     public ResultSet searchJobsStatus(String status) // returns filename,first name,lastname ,submission_date, printer for based off status and printer
     {
         res = null;

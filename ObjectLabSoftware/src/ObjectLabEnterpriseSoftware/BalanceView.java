@@ -292,13 +292,17 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
         if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Z Corp Plaster"))
         {
                 dbconn.addMaterial(studentId, amount, "z_corp_plaster");
-        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Objet Build"))
+                dbconn.addTransactionHistory(studentId, "z_corp_plaster", amount);
+        } 
+        else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Objet Build"))
         {
-                dbconn.addMaterial(studentId, amount, "objet_build");	
-
-        } else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Objet Support"))
+                dbconn.addMaterial(studentId, amount, "objet_build");
+                dbconn.addTransactionHistory(studentId, "objet_build", amount);
+        } 
+        else if(jComboBox1.getSelectedItem().toString().equalsIgnoreCase("Objet Support"))
         {
                 dbconn.addMaterial(studentId, amount, "objet_support");
+                dbconn.addTransactionHistory(studentId, "objet_support", amount);
         }
         else
         {
