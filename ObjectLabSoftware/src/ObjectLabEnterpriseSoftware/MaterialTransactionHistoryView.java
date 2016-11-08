@@ -66,8 +66,9 @@ public class MaterialTransactionHistoryView extends JFrame {
 	        {
 	                String date = queryResult.getString(1);
 	                String material = queryResult.getString(2);
-	                String amount = queryResult.getString(3);
+	                double amount = queryResult.getDouble(3);
 	                System.out.println("Adding row...");
+	                System.out.println(date + "     " + material + "     " + amount);
 	                
 	                //model.addRow(new Object[] {date, material, amount});
 	        }

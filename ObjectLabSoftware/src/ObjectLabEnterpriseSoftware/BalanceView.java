@@ -128,7 +128,7 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
                 	
                 	materialTransView = new MaterialTransactionHistoryView();
                 	materialTransView.showHistory(fName, lName, id);
-                	dispose();
+                	//dispose();
                 }
         	}
         });
