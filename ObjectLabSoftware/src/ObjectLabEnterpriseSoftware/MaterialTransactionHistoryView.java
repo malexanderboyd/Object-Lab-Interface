@@ -2,6 +2,7 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.ResultSet;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -55,5 +56,27 @@ public class MaterialTransactionHistoryView extends JFrame {
 		System.out.println("showHistory()");
 		lblStudentName.setText(fName + " " + lName);
 		
+		try {
+	        SQLMethods dbconn = new SQLMethods();
+	        ResultSet queryResult;                  
+	        
+	        queryResult = dbconn.searchStudentTransactionHistory(studentID);
+	        
+	        while(queryResult.next())
+	        {
+	                String date = queryResult.getString(1);
+	                String material = queryResult.getString(2);
+	                String amount = queryResult.getString(3);
+	                System.out.println("Adding row...");
+	                
+	                //model.addRow(new Object[] {date, material, amount});
+	        }
+	            //jTable1.setModel(model);
+	            //jTable1.repaint();
+	            dbconn.closeDBConnection();
+	        } catch(Exception e)
+	        {
+	                System.out.println("Error: " + e);
+	        }
 	}
 }

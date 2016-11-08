@@ -270,6 +270,22 @@ public class SQLMethods
     }
     */
     
+    public ResultSet searchStudentTransactionHistory(String id)
+    {
+    	res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT date, material, amount " +
+                                              "FROM material_transaction_history "+
+                                               "WHERE net = ?;"); 
+            stmt.setString(1, id);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
     
     public ResultSet getStudentFileStatus(String studentId)
     {
