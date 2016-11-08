@@ -7,13 +7,17 @@ package ObjectLabEnterpriseSoftware;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.sql.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 /**
@@ -27,6 +31,7 @@ public class BalanceView extends javax.swing.JFrame {
     private ReportsView reportsView;	
     private BalanceView balanceView;
     private newSettingsMenu adminSettingsView;
+    private MaterialTransactionHistoryView materialTransView;
     private double amount = 0;
     private String firstName = "";
     private String lastName = "";
@@ -104,6 +109,29 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+       
+        // Listener for clicking on a row in the table
+        jTable1.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent me) {
+        		JTable table =(JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                if (me.getClickCount() == 2) {
+                    // double-click a row
+                	System.out.println("double clicked...");
+                	System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+                	
+                	String fName = table.getValueAt(table.getSelectedRow(), 0).toString();
+                	String lName = table.getValueAt(table.getSelectedRow(), 1).toString();
+                	String id = table.getValueAt(table.getSelectedRow(), 2).toString();
+                	
+                	materialTransView = new MaterialTransactionHistoryView();
+                	materialTransView.showHistory(fName, lName, id);
+                	dispose();
+                }
+        	}
+        });
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
