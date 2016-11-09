@@ -75,8 +75,8 @@ public class PasswordDialogView extends javax.swing.JFrame
 
         SubmitButton.setText("Submit");
         SubmitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                SubmitButtonMousePressed(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SubmitButtonMouseClicked(evt);
             }
         });
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, 20));
@@ -103,7 +103,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
-    private void SubmitButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitButtonMousePressed
+    private void SubmitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitButtonMouseClicked
                 /*Hashes the predefined password and the password entered into the
          *JPasswordField and then compares the two
          */
@@ -120,7 +120,7 @@ public class PasswordDialogView extends javax.swing.JFrame
             passwordError.setText("ERROR: Invalid password");
             adminLoginStatus = false;
         }
-    }//GEN-LAST:event_SubmitButtonMousePressed
+    }//GEN-LAST:event_SubmitButtonMouseClicked
 
     private boolean capsLockDetector()
     {

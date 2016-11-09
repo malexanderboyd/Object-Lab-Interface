@@ -44,6 +44,7 @@ public class newStudentView extends javax.swing.JFrame {
     private static DefaultTableModel model;
     private static DefaultTableModel model2;
     private static final MainView home = new MainView();
+    private MaterialTransactionHistoryView materialTransView;
     private JPanel contentPane;
     private JTable table;
     private String userID;
@@ -300,6 +301,11 @@ public class newStudentView extends javax.swing.JFrame {
             }
         });
         jTable2.getTableHeader().setReorderingAllowed(false);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
 
         jLabel1.setText("File Status");
@@ -498,6 +504,25 @@ public class newStudentView extends javax.swing.JFrame {
         //printerBox.setSelectedItem(null);
         setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+       JTable table =(JTable) evt.getSource();
+       Point p = evt.getPoint();
+       int row = table.rowAtPoint(p);
+       if (evt.getClickCount() == 2) {
+           // double-click a row
+           System.out.println("double clicked...");
+           //System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+
+           //String fName = table.getValueAt(table.getSelectedRow(), 0).toString();
+           //String lName = table.getValueAt(table.getSelectedRow(), 1).toString();
+           //String id = table.getValueAt(table.getSelectedRow(), 2).toString();
+
+           materialTransView = new MaterialTransactionHistoryView();
+           materialTransView.showHistory(userName, UtilController.getStudentLname(), userID);
+           //dispose();
+       }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable2MouseClicked
 
     
 

@@ -109,29 +109,6 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-       
-        // Listener for clicking on a row in the table
-        jTable1.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent me) {
-        		JTable table =(JTable) me.getSource();
-                Point p = me.getPoint();
-                int row = table.rowAtPoint(p);
-                if (me.getClickCount() == 2) {
-                    // double-click a row
-                	System.out.println("double clicked...");
-                	System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
-                	
-                	String fName = table.getValueAt(table.getSelectedRow(), 0).toString();
-                	String lName = table.getValueAt(table.getSelectedRow(), 1).toString();
-                	String id = table.getValueAt(table.getSelectedRow(), 2).toString();
-                	
-                	materialTransView = new MaterialTransactionHistoryView();
-                	materialTransView.showHistory(fName, lName, id);
-                	//dispose();
-                }
-        	}
-        });
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
@@ -171,11 +148,16 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, true, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -341,6 +323,25 @@ protected void updateBalanceWindow(String firstName, String lastName, String id)
         dbconn.closeDBConnection();
         updateBalanceWindow(firstName, lastName, id);
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+       JTable table =(JTable) evt.getSource();
+       Point p = evt.getPoint();
+       int row = table.rowAtPoint(p);
+       if (evt.getClickCount() == 2) {
+           // double-click a row
+           System.out.println("double clicked...");
+           System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+
+           String fName = table.getValueAt(table.getSelectedRow(), 0).toString();
+           String lName = table.getValueAt(table.getSelectedRow(), 1).toString();
+           String id = table.getValueAt(table.getSelectedRow(), 2).toString();
+
+           materialTransView = new MaterialTransactionHistoryView();
+           materialTransView.showHistory(fName, lName, id);
+           //dispose();
+       }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
