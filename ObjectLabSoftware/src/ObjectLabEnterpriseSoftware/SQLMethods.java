@@ -861,6 +861,27 @@ public class SQLMethods
         return -1;
     }
 
+    public void insertIntoMaterial(String id)
+    {
+    	try
+        {
+            stmt = conn.prepareStatement
+            (
+                    "INSERT INTO material(id, z_corp_plaster, objet_build, objet_support) "
+                  + "values (?,?,?,?) "
+            );
+            
+            stmt.setString(1, id);
+            stmt.setDouble(2, 0);
+            stmt.setDouble(3, 0);
+            stmt.setDouble(4, 0);
+            stmt.execute();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     public void insertIntoAdmin(String user_id, String userName, String pass)
     {
         try

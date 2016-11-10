@@ -1170,6 +1170,7 @@ public class UtilController
         }
         SQLMethods dbconn = new SQLMethods();
         int flag = dbconn.insertIntoUsers(studentId, firstname, lastname, email);
+        dbconn.insertIntoMaterial(studentId);
         dbconn.closeDBConnection();
 
         return flag;
