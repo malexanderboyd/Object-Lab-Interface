@@ -142,7 +142,7 @@ public class newStudentView extends javax.swing.JFrame {
     
      private void initDragDrop()
     {
-        JScrollPane scrollPane_3 = new JScrollPane((Component) null);
+        /*JScrollPane scrollPane_3 = new JScrollPane((Component) null);
         contentPane = new JPanel();
 		scrollPane_3.setBounds(65, 220, 320, 150);
 		contentPane.add(scrollPane_3);
@@ -159,18 +159,18 @@ public class newStudentView extends javax.swing.JFrame {
                 table.setGridColor(Color.GRAY);
 
                 table.setFillsViewportHeight(true);
-                table.setPreferredSize(new Dimension(320, 150));
+                table.setPreferredSize(new Dimension(320, 150));*/
 
 
-                table.setDropTarget(new DropTarget() {
+                jTable3.setDropTarget(new DropTarget() {
                 @Override
                 public synchronized void dragOver(DropTargetDragEvent dtde) {
                     Point point = dtde.getLocation();
-                    int row = table.rowAtPoint(point);
+                    int row = jTable3.rowAtPoint(point);
                     if (row < 0) {
-                        table.clearSelection();
+                        jTable3.clearSelection();
                     } else {
-                        table.setRowSelectionInterval(row, row);
+                        jTable3.setRowSelectionInterval(row, row);
                     }
                     dtde.acceptDrag(DnDConstants.ACTION_COPY_OR_MOVE);
                 }
@@ -184,10 +184,10 @@ public class newStudentView extends javax.swing.JFrame {
                     try {
                         fileList = (List) t.getTransferData(DataFlavor.javaFileListFlavor);
                         if (fileList.size() > 0) {
-                            table.clearSelection();
+                            jTable3.clearSelection();
                             Point point = dtde.getLocation();
-                            int row = table.rowAtPoint(point);
-                            DefaultTableModel model = (DefaultTableModel) table.getModel();
+                            int row = jTable3.rowAtPoint(point);
+                            DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
                             for (Object value : fileList) {
                                 if (value instanceof File) {
                                     File f = (File) value;
@@ -242,6 +242,8 @@ public class newStudentView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        scrollPane_3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student View");
@@ -341,6 +343,29 @@ public class newStudentView extends javax.swing.JFrame {
 
         jLabel5.setText("File Location:");
 
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "File", "File Path"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
+        scrollPane_3.setViewportView(jTable3);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -350,19 +375,27 @@ public class newStudentView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addComponent(jLabel8_StudentSubmission1)
+                                .addGap(181, 181, 181)
+                                .addComponent(jLabel8_StudentSubmission))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton2))
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton2))
+                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(scrollPane_3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(44, 44, 44)
@@ -371,12 +404,7 @@ public class newStudentView extends javax.swing.JFrame {
                                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(206, 206, 206)
-                                        .addComponent(jLabel1))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jLabel8_StudentSubmission1)
-                                .addGap(181, 181, 181)
-                                .addComponent(jLabel8_StudentSubmission)))
+                                        .addComponent(jLabel1)))))
                         .addGap(0, 23, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(181, 181, 181)
@@ -416,15 +444,17 @@ public class newStudentView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton3)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2)
-                        .addComponent(jLabel5)))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scrollPane_3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -524,6 +554,19 @@ public class newStudentView extends javax.swing.JFrame {
        }        // TODO add your handling code here:
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+       
+       JTable table =(JTable) evt.getSource();
+       Point p = evt.getPoint();
+       int row = table.rowAtPoint(p);
+       if (evt.getClickCount() == 2) 
+       {
+           int modelIndex = jTable3.convertRowIndexToModel(row);
+           DefaultTableModel model = (DefaultTableModel)jTable3.getModel();
+           model.removeRow(modelIndex);
+       }
+    }//GEN-LAST:event_jTable3MouseClicked
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -543,6 +586,8 @@ public class newStudentView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane scrollPane_3;
     // End of variables declaration//GEN-END:variables
 }
