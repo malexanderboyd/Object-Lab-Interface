@@ -29,6 +29,9 @@ import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+
+import org.apache.commons.io.FilenameUtils;
+
 import javax.sql.*;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -494,20 +497,74 @@ public class newStudentView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2MousePressed
 
+    
+    private boolean errCheck()
+    {
+    	String fullFilePath = jTextField1.getText();
+        String fileName = projName;
+        String printer = (String) jComboBox2.getSelectedItem();
+        /* parse classBox string and pull out the primary key and store it in an integer */
+        String classText = (String) jComboBox1.getSelectedItem();
+
+        boolean isErr = false;
+        //hideErrorFields();
+        if (fullFilePath == null || fullFilePath == "")
+        {
+        	JOptionPane.showMessageDialog(null, "Select a file.", "File Choice Empty", JOptionPane.ERROR_MESSAGE);
+            isErr = true;
+        }
+
+        //End Email Validation
+        else if (jComboBox1.getSelectedIndex() == -1)
+        {
+        	JOptionPane.showMessageDialog(null, "Select a class.", "Class Choice Empty", JOptionPane.ERROR_MESSAGE);
+            isErr = true;
+        }
+
+        else if (jComboBox2.getSelectedIndex() == -1)
+        {
+        	JOptionPane.showMessageDialog(null, "Select a device.", "Device Choice Empty", JOptionPane.ERROR_MESSAGE);
+            isErr = true;
+        }
+        
+        else if (extensionCheck() == false)
+        {
+        	JOptionPane.showMessageDialog(null, "Your file extension is incorrect. No submission has occured.",
+        			"Invalid Submission", JOptionPane.ERROR_MESSAGE);
+        	isErr = true;
+        }
+        return isErr;
+    }
+
+    private boolean extensionCheck()
+    {
+    	boolean isValidExtension = false;
+    	
+    	String printer = (String) jComboBox2.getSelectedItem(); 
+    	String fullFilePath = jTextField1.getText();
+    	String extension = "." + FilenameUtils.getExtension(fullFilePath);
+    	
+    	isValidExtension = UtilController.checkExtension(printer, extension);
+    	
+    	return isValidExtension;
+    	
+    }
+    
+    // Submit button
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        /*
-         Verifies user and file information is inputted in its entirety
-         */
-        //if (errCheck() == false)
-        //
-            /* Recieve our input from the UI and hand it off to back end to submit / store file information */
+        
+        // Verifies user and file information is inputted in its entirety
+        if (errCheck() == false)
+        {
+            // Recieve our input from the UI and hand it off to back end to submit / store file information 
             String fullFilePath, fileName, classText, printer;
             int classFK;
             
             fullFilePath = jTextField1.getText();
             fileName = projName;
             printer = (String) jComboBox2.getSelectedItem();
-            /* parse classBox string and pull out the primary key and store it in an integer */
+            
+            // parse classBox string and pull out the primary key and store it in an integer 
             classText = (String) jComboBox1.getSelectedItem();
             classFK = (Integer.parseInt(classText.split(" ")[0]));
 
@@ -515,10 +572,12 @@ public class newStudentView extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(new java.awt.Frame(), "Successfully submitted file! Let your professor or lab assistant know you've submitted.");
             dispose();
+            
 			//Reset view after successful submission to allow for multiple submissions without having to login each time
             Reset_StudentSubmissionFields();
             updateFileStatusWindow(userID, userName);
-        //} else
+        } 
+        else
         {
             dispose();
             Reset_StudentSubmissionFields();
