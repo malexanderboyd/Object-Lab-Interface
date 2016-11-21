@@ -659,8 +659,13 @@ public class SQLMethods
         try
         {
             stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = '" + printer + "';");
+            //System.out.println(stmt.toString());
+            
             //stmt.setString(1, printer);
             res = stmt.executeQuery();
+            
+            String str = res.toString();
+            
         } catch (SQLException e)
         {
             System.err.println("SQL Execution Error.");

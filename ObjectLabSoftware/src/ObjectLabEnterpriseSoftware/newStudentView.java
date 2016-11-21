@@ -56,7 +56,7 @@ public class newStudentView extends javax.swing.JFrame {
     
     public newStudentView()
     {
-        
+    	//newStudentView("sturne18", "Scott");
     }
     public void newStudentView(String id, String studentName) {
         getContentPane().setBackground(Color.WHITE);
