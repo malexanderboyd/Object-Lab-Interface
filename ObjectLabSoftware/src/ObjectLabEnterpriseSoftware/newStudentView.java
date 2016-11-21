@@ -111,11 +111,10 @@ public class newStudentView extends javax.swing.JFrame {
         {
                 String file_name = queryResult.getString(1);
                 String date = queryResult.getString(2);
-                String stat1 = queryResult.getString(3);
-                String stat2  = queryResult.getString(4);
-                String status  = queryResult.getString(5);
+                String comment = queryResult.getString(3);
+                String status  = queryResult.getString(4);
                 System.out.println("Adding row...");
-                model.addRow(new Object[] {file_name, date, stat1, stat2, status});
+                model.addRow(new Object[] {file_name, date, comment, status});
         }
             jTable1.setModel(model);
             jTable1.repaint();
@@ -262,17 +261,17 @@ public class newStudentView extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "File Name", "Date ", "Stat 1", "Stat 2", "Status"
+                "File Name", "Date ", "Comment", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
