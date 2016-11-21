@@ -360,43 +360,34 @@ public class newJobsMgr extends JFrame {
 		}
         if (selectedDevices.size() >= 0)
         {
-        	System.out.println("Test");
-         //   String desc = JOptionPane.showInputDialog("Please enter why you're rejecting the submission: ");
+        		// String desc = JOptionPane.showInputDialog("Please enter why you're rejecting the submission: ");
+        	String[] choices = {"Insufficient material balance", "Invalid file", "Other - See instructor"};
+        	String description = (String) JOptionPane.showInputDialog(null, "Choose reason:",
+        	        "Select Reason for Rejecting", JOptionPane.QUESTION_MESSAGE, null, choices, choices[2]); 
+        	
+			String file = (String) jobsModel.getValueAt(selectedDevices.get(0), 1);
 
-                /* Hand off the data in the selected row found in our tablemodel to this method so we can 
-                 * reject the correct file -Nick 
-                 */
-                String file = (String) jobsModel.getValueAt(selectedDevices.get(0), 1);
-                commentview = new CommentView(file);
-                    try {
-                        TimeUnit.SECONDS.sleep(10);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(newJobsMgr.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                boolean success = UtilController.rejectStudentSubmission(file, "Rejected" );
-                
-                if (success) // always rejects, commenting out email utlity for now ~Alex
-                {
-                   JOptionPane op = new JOptionPane("Submission successfully rejected.", JOptionPane.INFORMATION_MESSAGE);
-                   JDialog dialog = op.createDialog("Job Manager: Submission Rejected");
-                   dialog.setAlwaysOnTop(true);
-                   dialog.setModal(true);
-                   dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                   dialog.setVisible(true);
-                   
-                    jobsModel.fireTableDataChanged();
-        			jobStatusCombo.setSelectedIndex(1);
-        			jobsTable.repaint();
-               
-                } else
-                {
-                    JOptionPane.showMessageDialog(new JFrame(), "Something went wrong! You shouldn't see this, ever!");
-                }
-            }
-         else
-        {
-            JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
-        }
+			boolean success = UtilController.rejectStudentSubmission(file, description);
+
+			if (success) // always rejects, commenting out email utlity for now   ~Alex
+			{
+				JOptionPane op = new JOptionPane("Submission rejected.", JOptionPane.INFORMATION_MESSAGE);
+				JDialog dialog = op.createDialog("Job Manager: Submission Rejected");
+				dialog.setAlwaysOnTop(true);
+				dialog.setModal(true);
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+
+				jobsModel.fireTableDataChanged();
+				jobStatusCombo.setSelectedIndex(1);
+				jobsTable.repaint();
+
+			} else {
+				JOptionPane.showMessageDialog(new JFrame(), "Something went wrong! You shouldn't see this, ever!");
+			}
+		} else {
+			JOptionPane.showMessageDialog(new JFrame(), "Please select a submission file to reject!");
+		}
 	}
 
 	private void toggleButtons(boolean status) // toggles the approve,reject,review buttons along with stat panel so you can't approve the already approved

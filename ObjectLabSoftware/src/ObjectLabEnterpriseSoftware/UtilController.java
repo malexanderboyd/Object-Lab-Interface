@@ -545,7 +545,9 @@ public class UtilController
             String newFileLocation = cloudStorageOperations.getRejected() + file;
             dbconn.updateJobFLocation(Integer.parseInt(primaryKey), newFileLocation.replace("\\", "\\\\"));
             dbconn.updateStatus("rejected", Integer.parseInt(primaryKey));
-            reasonForRejection = dbconn.getFileComment(file);
+            
+            //reasonForRejection = dbconn.getFileComment(file);
+            
             dbconn.closeDBConnection();
 
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
