@@ -68,7 +68,7 @@ public class SQLMethods
         String pass = "olipass";
         String db   = "olidatabase";
         String driver = "com.mysql.jdbc.Driver";
-        
+       
         url = "jdbc:mysql://" + host + ":" + port + "/" + db;
         connectToDatabase(driver, url, user, pass);
     }
@@ -292,7 +292,7 @@ public class SQLMethods
         res = null;
         try 
         {
-            stmt = this.conn.prepareStatement("SELECT file_name, submission_date, stat1, stat2, status " +
+            stmt = this.conn.prepareStatement("SELECT file_name, submission_date, comment, status " +
                                               "FROM job INNER JOIN job_stats ON job.job_id = job_stats.job_id " +
                                               "WHERE ? = job.student_id"); 
             stmt.setString(1, studentId);
