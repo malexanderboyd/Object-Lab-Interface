@@ -27,7 +27,6 @@ public class newSettingsMenu extends JFrame {
 		private ReportsView reportsView;	
                 private BalanceView balanceView;         
 		private newSettingsMenu adminSettingsView;
-		/////// Nav Bar ~Alex /////
 		// --nav bar vars ~Alex
 		private JButton navBtn_jobsMgr;
 		private JButton navBtn_build;
@@ -35,7 +34,10 @@ public class newSettingsMenu extends JFrame {
                 private JButton navBtn_balance;
 		private JButton navBtn_settings;
 
-		//
+		// Return to main view after logout
+		private static MainView home = new MainView();
+		
+		
 	public newSettingsMenu() {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setPreferredSize(new Dimension(465, 300));
@@ -246,8 +248,8 @@ public class newSettingsMenu extends JFrame {
 	
 	private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) { //GEN-FIRST:event_logoutButtonActionPerformed
         //GEN-HEADEREND:event_logoutButtonActionPerformed
-    		dispose();
-          //  home.setVisible(true);
+    	dispose();
+        home.setVisible(true);
 	 }//GEN-LAST:event_logoutButtonActionPerformed
 	 
 	
