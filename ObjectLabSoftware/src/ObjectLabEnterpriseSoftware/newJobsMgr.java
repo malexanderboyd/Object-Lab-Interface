@@ -78,7 +78,8 @@ public class newJobsMgr extends JFrame {
 		initWindow();
 		setLocationRelativeTo(null);
 	}
-
+	
+	
 	private void initWindow()
 	{
 		
@@ -122,9 +123,12 @@ public class newJobsMgr extends JFrame {
 		getContentPane().setLayout(null);
 
 		jobStatusCombo = new JComboBox();
-		jobStatusCombo.setBounds(163, 63, 89, 20);
+		//****
+		jobStatusCombo.setBounds(163, 63, 89, 20);//163 //87 //80 //77
 		// *****
 		//jobStatusCombo.addItem("All Jobs");
+		//****
+		jobStatusCombo.addItem(" ");
 		jobStatusCombo.addItem("Pending");
 		jobStatusCombo.addItem("Rejected");
 		//
@@ -132,13 +136,53 @@ public class newJobsMgr extends JFrame {
 		getContentPane().add(jobStatusCombo);
 
 		JLabel lblJobStatus = new JLabel("Job Status:");
-		lblJobStatus.setBounds(86, 63, 78, 17);
+		//****
+		lblJobStatus.setBounds(86, 63, 78, 17);//86 //20 //10
 		lblJobStatus.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		//
 		lblJobStatus.setLabelFor(jobStatusCombo);
 		getContentPane().add(lblJobStatus);
+		
+		//****
+		JLabel findclass = new JLabel("Class:");
+		findclass.setBounds(414, 64, 60, 14);//283 //370
+		findclass.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		findclass.setLabelFor(jobStatusCombo);//devicecombo
+		//getContentPane().add(findclass); -sorry
+		//
+		
+		//****
+		classCombo = new JComboBox();
+		classCombo.setBounds(450, 63, 67, 20);//380//67
+		classCombo.addItem(" ");
+		classCombo.addItem("ART 101");
+		classCombo.addItem("COSC 412");
+		classCombo.addItem("THEA 102");
+		classCombo.addItem("CIS 237");
+		//getContentPane().add(classCombo); -sorry
+		//
+		
+		
+		//****
+		JLabel findsection = new JLabel("Sect:");
+		findsection.setBounds(523, 64, 30, 14);//283
+		findsection.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		findsection.setLabelFor(jobStatusCombo);//devicecombo
+		//getContentPane().add(findsection); -sorry
+		//
+		
+		//****
+		sectionCombo = new JComboBox();
+		sectionCombo.setBounds(553, 63, 55, 20);
+		sectionCombo.addItem(" ");
+		sectionCombo.addItem("-");
+		//getContentPane().add(sectionCombo); -sorry
+		//
+		
 
 		final JComboBox deviceCombo = new JComboBox();
-		deviceCombo.setBounds(342, 63, 125, 20);
+		//****
+		deviceCombo.setBounds(342, 63, 125, 20);//342 //266 //259 //251
 		deviceCombo.addItem(" ");
 		/// Adds tracked devices to comboBox dropdown window
 		SQLMethods dbconn = new SQLMethods();
@@ -162,6 +206,7 @@ public class newJobsMgr extends JFrame {
 				String selectedDevice = (String) cb.getSelectedItem();
 				System.out.println(selectedDevice);
 				updateJobWindow(selectedDevice);
+
 				if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("rejected")) // hide approve/reject/review buttons and panel
 				{
 					toggleButtons(false);
@@ -198,7 +243,8 @@ public class newJobsMgr extends JFrame {
 		getContentPane().add(deviceCombo);
 
 		JLabel deviceLabel = new JLabel("Device:");
-		deviceLabel.setBounds(283, 64, 60, 14);
+		//****
+		deviceLabel.setBounds(283, 64, 60, 14);//283 //207
 		deviceLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		deviceLabel.setLabelFor(deviceCombo);
 		getContentPane().add(deviceLabel);
@@ -206,6 +252,7 @@ public class newJobsMgr extends JFrame {
 		JScrollPane jobListingsPane = new JScrollPane();
 		jobListingsPane.setBounds(10, 94, 598, 166);
 		getContentPane().add(jobListingsPane);
+		
 
 		jobsTable = new JTable();
 		jobsModel = 
@@ -216,7 +263,14 @@ public class newJobsMgr extends JFrame {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			//****
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		};
+		
+		
+	
 		//jobsModel.setColumnCount(6);
 		//jobsModel.setColumnIdentifiers(new String[] {
 		//		"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"
@@ -224,6 +278,7 @@ public class newJobsMgr extends JFrame {
 
 		jobsTable.setModel(jobsModel);
 		jobListingsPane.setViewportView(jobsTable);
+
 
 		JLabel titleLabel = new JLabel("Jobs Manager");
 		titleLabel.setBounds(226, 11, 159, 41);
@@ -252,6 +307,9 @@ public class newJobsMgr extends JFrame {
 		});
 		approveButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		getContentPane().add(approveButton);
+		//****
+		approveButton.setVisible(false);
+
 
 		rejectButton = new JButton("Reject");
 		rejectButton.setBounds(426, 459, 89, 23);
@@ -263,6 +321,8 @@ public class newJobsMgr extends JFrame {
 		});
 		rejectButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		getContentPane().add(rejectButton);
+		//****
+		rejectButton.setVisible(false);
 
 		reviewButton = new JButton("Review");
 		reviewButton.setBounds(519, 459, 89, 23);
@@ -274,6 +334,70 @@ public class newJobsMgr extends JFrame {
 		});
 		reviewButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		getContentPane().add(reviewButton);
+		//****
+		reviewButton.setVisible(false);
+		
+		
+		//****NOT NEEDED -cesar
+		/*
+		selectallButton = new JButton("Select All");
+		selectallButton.setBounds(424, 265, 89, 23);//459 //250 //265
+		selectallButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		
+		//
+		selectallButton.addMouseListener(new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            if(selectallButton.isSelected()){
+
+                for(int i=0;i<jobsModel.getRowCount();i++)
+                	jobsModel.setValueAt(true, i, 0);
+
+            }else{
+
+                for(int i=0;i<jobsModel.getRowCount();i++)
+                	jobsModel.setValueAt(true, i, 0);
+		            //jobsModel.getValueAt(1,1)).setValueAt(false, i, 5); 
+            }       
+
+        }
+		});*/
+		//
+	
+		//getContentPane().add(selectallButton);
+		
+		//****
+		
+		
+		//
+		/*
+		deselectallButton = new JButton("Deselect All");
+		deselectallButton.setBounds(519, 265, 89, 23);//459 //250 //265
+		deselectallButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		
+		//$$$$
+		deselectallButton.addMouseListener(new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            if(deselectallButton.isSelected()){
+
+                for(int i=0;i<jobsModel.getRowCount();i++)
+                	jobsModel.setValueAt(false, i, 0);
+
+            }else{
+
+                for(int i=0;i<jobsModel.getRowCount();i++)
+                	jobsModel.setValueAt(false, i, 0);
+		            //jobsModel.getValueAt(1,1)).setValueAt(false, i, 5); 
+            }       
+
+        }
+		});*/
+		//
+		
+	
+		//getContentPane().add(deselectallButton);	
+		
+		
+		
 
 		lblFillInData = new JLabel("Please enter device statistic tracking data if approving:");
 		lblFillInData.setBounds(10, 271, 375, 23);
@@ -526,16 +650,38 @@ public class newJobsMgr extends JFrame {
 					if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Pending"))
                     {
                     	queryResult = dbconn.searchJobsStatusPrinter("pending", selectedDevice);
+                    	//****
+                    	reviewButton.setVisible(true);
                     }
                     else if(jobStatusCombo.getSelectedItem().toString().equalsIgnoreCase("Rejected"))
                     {
                     	queryResult = dbconn.searchJobsStatusPrinter("rejected", selectedDevice);
+                    	//****
+                    	approveButton.setVisible(false);
+                    	rejectButton.setVisible(false);
                     }
                     else 
                     {
                         queryResult = null;
                     }
 					
+					
+					//**** work here
+					if(classCombo.getSelectedItem().toString().equalsIgnoreCase("ART 101"))
+                    {
+                    	queryResult = dbconn.searchJobsStatus("ART 101");
+                    	//****
+                    	reviewButton.setVisible(true);
+                    }
+                    //else if(classCombo.getSelectedItem().toString().equalsIgnoreCase("COSC 412"))
+                    //{
+                    	//queryResult = dbconn.searchJobsStatusPrinter("rejected", selectedDevice);
+                    	//****
+                    	//approveButton.setVisible(false);
+                    	//rejectButton.setVisible(false);
+                    //}
+					
+					//
 				
 					while(queryResult.next())
 					{
@@ -555,19 +701,20 @@ public class newJobsMgr extends JFrame {
                                                 {
                                                     jobsModel.setColumnCount(8);
                                                     jobsModel.setColumnIdentifiers(new String[] {
-                                                        "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Z Corp Plaster"});
+                                                    		//****
+                                                    		"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Z Corp Plaster"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance1});
                                                 } else if (selectedDevice.equalsIgnoreCase("Objet Desktop 30"))
                                                 {
                                                     jobsModel.setColumnCount(9);
                                                     jobsModel.setColumnIdentifiers(new String[] {
-                                                        "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Oject Build", "Oject Support"});
+                                                    		"Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section", "Oject Build", "Oject Support"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection, balance2, balance3});
                                                 } else
                                                 {
                                                     jobsModel.setColumnCount(7);
                                                     jobsModel.setColumnIdentifiers(new String[] {
-                                                        "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"});
+                                                    		 "Selected?", "File Name", "First Name", "Last Name", "Date", "Class", "Section"});
                                                     jobsModel.addRow(new Object[] {(Boolean) false, fileName, fName, lName, date, className, classSection});
                                                 }
 
@@ -575,6 +722,8 @@ public class newJobsMgr extends JFrame {
 					jobsTable.setModel(jobsModel);
 					jobsTable.repaint();
 					dbconn.closeDBConnection();
+
+					
 				} catch(Exception e)
 				{
 					System.out.println("Error: " + e);
@@ -712,4 +861,12 @@ public class newJobsMgr extends JFrame {
 	private JButton approveButton;
 	private JButton rejectButton;
 	private JButton reviewButton;
+	//****
+	private JComboBox classCombo;
+	private JComboBox sectionCombo;
+	//
+	//****NOT NEEDED  -cesar
+		//private JButton selectallButton;
+		//private JButton deselectallButton;
+	//
 }
