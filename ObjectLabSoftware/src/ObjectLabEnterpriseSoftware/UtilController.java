@@ -455,6 +455,39 @@ public class UtilController
         }
     }
 
+    public static boolean checkExtension(String printer, String submittedFileExtension)
+    {
+		boolean isValid = false;
+		
+		SQLMethods dbconn = new SQLMethods();
+		ResultSet results = dbconn.selectAcceptedFiles(printer);
+		
+		try 
+		{
+			String ext;
+			while(results.next())
+			{
+				ext = results.getString(1);
+				if(ext.compareTo(submittedFileExtension) == 0)
+				{
+					// The file matches a valid extension in the DB.
+					// Return true.
+					System.out.println("The file extension is valid.");
+					return true;
+				}
+			}
+		} 
+		catch (SQLException e) 
+		{
+			System.out.println("The file extension is invalid:\n" + e.toString());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("The file extension is invalid. No match was found.");
+    	return isValid;
+    }
+    
     public static boolean rejectStudentSubmission(String file, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
@@ -512,7 +545,9 @@ public class UtilController
             String newFileLocation = cloudStorageOperations.getRejected() + file;
             dbconn.updateJobFLocation(Integer.parseInt(primaryKey), newFileLocation.replace("\\", "\\\\"));
             dbconn.updateStatus("rejected", Integer.parseInt(primaryKey));
-            reasonForRejection = dbconn.getFileComment(file);
+            
+            //reasonForRejection = dbconn.getFileComment(file);
+            
             dbconn.closeDBConnection();
 
             emailMessage = "Dear " + fName + " " + lName + ", \n\nAfter analyzing your file submission, "
@@ -596,6 +631,7 @@ public class UtilController
         }
         dbconn.closeDBConnection();
     }
+    
     public static void approveStudentSubmission(String fileName, String stat1, String stat2)
     {
         /* Make the connection to our DB and query for the PK of pendingjobs which is a combination of

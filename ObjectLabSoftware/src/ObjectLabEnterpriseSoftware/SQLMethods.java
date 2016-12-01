@@ -70,7 +70,7 @@ public class SQLMethods
         String pass = "olipass";
         String db   = "olidatabase";
         String driver = "com.mysql.jdbc.Driver";
-        
+
         
         //Russell's local database
         /*
@@ -305,7 +305,7 @@ public class SQLMethods
         res = null;
         try 
         {
-            stmt = this.conn.prepareStatement("SELECT file_name, submission_date, stat1, stat2, status " +
+            stmt = this.conn.prepareStatement("SELECT file_name, submission_date, comment, status " +
                                               "FROM job INNER JOIN job_stats ON job.job_id = job_stats.job_id " +
                                               "WHERE ? = job.student_id"); 
             stmt.setString(1, studentId);
@@ -671,9 +671,10 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = " +printer +";");
+            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = " + printer +";");
             //stmt.setString(1, printer);
             res = stmt.executeQuery();
+
         } catch (SQLException e)
         {
             System.err.println("SQL Execution Error.");
