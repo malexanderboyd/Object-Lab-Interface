@@ -62,12 +62,25 @@ public class SQLMethods
         //url = "jdbc:mysql://" + ip + ":3306/";
         //connectToDatabase("com.mysql.jdbc.Driver", url + "AAAlvxm_oli", "AAAlvxm_oliAdmin", "Password1");
         
+        //For online database
+        
         String host = "db4free.net";
         String port = "3306";
         String user = "oliadminuser";
         String pass = "olipass";
         String db   = "olidatabase";
         String driver = "com.mysql.jdbc.Driver";
+        
+        
+        //Russell's local database
+        /*
+        String host = "127.0.0.1";
+        String port = "3306";
+        String user = "root";
+        String pass = "password";
+        String db   = "localoli";
+        String driver = "com.mysql.jdbc.Driver";
+        */
         
         url = "jdbc:mysql://" + host + ":" + port + "/" + db;
         connectToDatabase(driver, url, user, pass);
@@ -896,7 +909,9 @@ public class SQLMethods
             e.printStackTrace();
         }
     }
-
+    //Rajewski
+    //No longer called with these params in UtilController
+    /*
     public void insertIntoBuild(String buildname, int runtime, int models, String printer)
     {
         try
@@ -916,7 +931,27 @@ public class SQLMethods
             e.printStackTrace();
         }
     }
-
+    */
+    
+    public void insertIntoBuild(String buildname, int models, String printer)
+    {
+        try
+        {
+            stmt = conn.prepareStatement("INSERT INTO printer_build "
+                    + "(build_name, date_created, total_runtime_seconds, number_of_models, printer_name) "
+                    + "VALUES (?, NOW(), 0, ?, ?);");
+            
+            stmt.setString(1, buildname);
+            stmt.setInt(2, models);
+            stmt.setString(3, printer);
+            
+            stmt.executeUpdate();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
     public void insertIntoColumnBuildData(String printer, String columnName, String data, String buildLocation)
     {
         try
@@ -1881,6 +1916,28 @@ public class SQLMethods
             stmt = this.conn.prepareStatement(
                     "SELECT build_name "
                     + "FROM printer_build");	
+        System.out.println(stmt);
+		res = stmt.executeQuery();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return res;
+	}
+        
+        //Rajewski
+        //function to populate new table on build view
+        public ResultSet getBuildsForRecordsTable(String currentDevice)
+	{
+		res = null;
+		try
+		{
+            stmt = this.conn.prepareStatement(
+                    "SELECT build_name, date_created, number_of_models "
+                    + "FROM printer_build WHERE printer_name = ?;");
+            stmt.setString(1, currentDevice);
+            
+            
         System.out.println(stmt);
 		res = stmt.executeQuery();
 		} catch (Exception e)

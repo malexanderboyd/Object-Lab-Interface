@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.ListSelectionModel;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class BuildView extends javax.swing.JFrame
 {
-
     private static final String NAME_OF_PAGE = "Build File Creator";
     private static MainView home = new MainView();
     private static RemoveBuildView removeWindow = new RemoveBuildView();
@@ -41,23 +41,27 @@ public class BuildView extends javax.swing.JFrame
 
     private DefaultTableModel fileTableModel; /* Used to hold available files (student submissions) displayed in the first table */
     private DefaultTableModel fileTableModel2; /*Used to hold current files which the add/remove come into play */
+    private DefaultTableModel fileTableModel3; //Used to hold builds that have already been created for the selected device
     
     private Device deviceModel = null;
 
     FileManager inst;
 
-    private static void updateViewData(DefaultTableModel model, ArrayList<ArrayList<Object>> view)
+    
+    //this function is never called
+    //Rajewski
+    /*private static void updateViewData(DefaultTableModel model, ArrayList<ArrayList<Object>> view)
     {
-        /* Clears up the rows in the view's model. */
+        /* Clears up the rows in the view's model. 
         for (int rows = model.getRowCount() - 1; rows >= 0; rows--)
         {
             model.removeRow(rows);
         }
 
-        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display */
+        /* Inserts data found in (ArrayList -> listOfRows) by row into the UI model to display 
         for (ArrayList<Object> row : view)
         {
-            /* We need to account for the check box by adding in a boolean value = false as the first value. */
+            /* We need to account for the check box by adding in a boolean value = false as the first value. 
             if(UtilController.findAndVerifyFile((String)(row.get(1)))){
                 row.add(0, (Boolean) false);
                 model.addRow(row.toArray());
@@ -65,7 +69,7 @@ public class BuildView extends javax.swing.JFrame
             //System.out.println(row.get(1));
         }
     }
-
+    */
     private void clearEntries(DefaultTableModel fileTableModel)
     {
         while (fileTableModel.getRowCount() > 0)
@@ -115,14 +119,16 @@ public class BuildView extends javax.swing.JFrame
             }
         }
 
+        //Rajewski
+        //Removed becuase no more device input table
         /* Now that a printer has been selected, build file location, and files that are part of the build we can validate 
          the input for the build data 
-         */
+               
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
-            /* Test the column input to see type */
+            // Test the column input to see type /
             int testColumnInput = InputValidation.getDataType((String) deviceInputTable.getValueAt(0, column));
-            /* Ask Device model which type the column SHOULD be */
+            // Ask Device model which type the column SHOULD be /
             int expectedColumnInput = deviceModel.getFieldType(trackableFields.get(column));
 
             if (testColumnInput == -1)
@@ -137,10 +143,16 @@ public class BuildView extends javax.swing.JFrame
                 return false;
             }
         }
+        */
+        
         return true;
     }
 
-    private boolean preprocessDataForSubmit()
+    //Rajewski
+    //Does not need to be called
+    /*
+    /based entirely on nonexistent deviceInputTable
+    /private boolean preprocessDataForSubmit()
     {
         for (int column = 0; column < deviceInputTable.getColumnCount(); column++)
         {
@@ -153,6 +165,7 @@ public class BuildView extends javax.swing.JFrame
         }
         return true;
     }
+    */
     
     private boolean submit()
     {
@@ -162,33 +175,40 @@ public class BuildView extends javax.swing.JFrame
 
         if (getAndValididateUserInput())
         {
-            if(preprocessDataForSubmit())
+                //Rajewski
+                //no need to call this now without the input table
+                //if(preprocessDataForSubmit())
+            ErrorText.setVisible(false);
+            if (studentSubmissionTracked)
             {
-                ErrorText.setVisible(false);
-                if (studentSubmissionTracked)
-                {
-                    filePathToBuildFile = filepathToSelectedDeviceBuild.getText();
-                } else
-                {
-                    filePathToBuildFile = "not_tracked_" + UtilController.getCurrentTimeFromDB();
-                }
-                selectedJobID = new ArrayList<>();
+                filePathToBuildFile = filepathToSelectedDeviceBuild.getText();
+            } else
+            {
+                filePathToBuildFile = "not_tracked_" + UtilController.getCurrentTimeFromDB();
+            }
+            selectedJobID = new ArrayList<>();
 
-                /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
-                for (int row = 0; row < fileTableModel2.getRowCount(); row++)
+            /* "", "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section" */
+            for (int row = 0; row < submissionsToBuildList.getRowCount(); row++)
+            {
+                if (submissionsToBuildList.getValueAt(row, 0) != null) /* If checked then add file to list */ // has to be in the second table in order for a file to be successfully submitted 
                 {
-                    if (fileTableModel2.getValueAt(row, 0) != null) /* If checked then add file to list */ // has to be in the second table in order for a file to be successfully submitted 
-                    {
-                        selectedJobID.add(Integer.parseInt((String) fileTableModel2.getValueAt(row, 0)));
-                        countNumOfModels++;
-                    }
-                }
-                if(UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels))
-                {
-                	JOptionPane.showMessageDialog(null, "Build successfully created");
-                	return true;
+                    selectedJobID.add(Integer.parseInt((String) submissionsToBuildList.getValueAt(row, 0)));
+                    countNumOfModels++;
                 }
             }
+            System.out.println(selectedJobID + deviceModel.getDeviceName() + filePathToBuildFile + countNumOfModels);
+            
+            //Russell- Joe
+            //After clicking submit, you get to here. It passes all other error checks when you have at least 
+            //one file in the right hand table, and one build file selected via Browse
+            //submitBuild is in UtilController
+            if(UtilController.submitBuild(selectedJobID, deviceModel, filePathToBuildFile, countNumOfModels))
+            {
+                JOptionPane.showMessageDialog(null, "Build successfully created");
+                return true;
+            }
+                //}
         }
         return false;
     }
@@ -203,7 +223,9 @@ public class BuildView extends javax.swing.JFrame
         //
         
         buildFileLocationErrorStatusText.setVisible(false);
-        deviceInputTable.setVisible(false);
+        //Rajewski
+        //no more need for deviceInputTable calls
+        //deviceInputTable.setVisible(false);
 
         try
         {
@@ -221,9 +243,10 @@ public class BuildView extends javax.swing.JFrame
         }
 
         countNumOfModels = 0;
-        fileTableModel = (DefaultTableModel) studentSubmissionTableList.getModel();
-        fileTableModel2 = (DefaultTableModel) studentSubmissionApprovedTableList.getModel(); //added 
 
+        fileTableModel = (DefaultTableModel) studentSubmissionApprovedTableList.getModel();
+        fileTableModel2 =  (DefaultTableModel) submissionsToBuildList.getModel(); //added 
+        fileTableModel3 = (DefaultTableModel) buildsForCurrentDeviceTable.getModel();
         
         ErrorText.setVisible(false);
         this.setVisible(true);
@@ -268,36 +291,20 @@ public class BuildView extends javax.swing.JFrame
         browseBtn = new javax.swing.JButton();
         ErrorText = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        studentSubmissionTableList = new javax.swing.JTable();
+        studentSubmissionApprovedTableList = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         deviceNameComboBox = new javax.swing.JComboBox();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        deviceInputTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         backToMainMenu = new javax.swing.JButton();
         buildFileLocationErrorStatusText = new javax.swing.JLabel();
-        runtimeLabel = new javax.swing.JLabel();
-        hourField = new javax.swing.JTextField();
-        secondField = new javax.swing.JTextField();
-        minuteField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        removeBuildOpen = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        userGuide = new javax.swing.JMenuItem();
-        addArrow = new javax.swing.JButton();
-        removeArrow = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        studentSubmissionApprovedTableList = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        buildsForCurrentDeviceTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        logoutButton = new javax.swing.JButton();
-        
+        submissionsToBuildList = new javax.swing.JTable();
+        swapButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -313,7 +320,7 @@ public class BuildView extends javax.swing.JFrame
 
         jScrollPane5.setViewportView(jTextPane1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -327,20 +334,11 @@ public class BuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 700, 100, 30));
-        
-        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        logoutButton.setText("Logout");
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 700, 100, 30));
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 550, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Available Jobs: ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 200, 19));
+        jLabel4.setText("Choose jobs part of build: ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 19));
 
         buildLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         buildLbl.setText("Build File Name:");
@@ -370,32 +368,39 @@ public class BuildView extends javax.swing.JFrame
         ErrorText.setText("Error Text");
         getContentPane().add(ErrorText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 760, -1));
 
-        studentSubmissionTableList.setAutoCreateRowSorter(true);
-       
-            jScrollPane3.setViewportView(studentSubmissionTableList);
-            if (studentSubmissionTableList.getColumnModel().getColumnCount() > 0) {
-                studentSubmissionTableList.getColumnModel().getColumn(0).setMinWidth(30);
-                studentSubmissionTableList.getColumnModel().getColumn(0).setMaxWidth(30);
-                studentSubmissionTableList.getColumnModel().getColumn(1).setResizable(false);
-                studentSubmissionTableList.getColumnModel().getColumn(2).setResizable(false);
-            }
-            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 415, 350));
+        studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
+        studentSubmissionApprovedTableList.setModel(new javax.swing.table.DefaultTableModel()
+            {
+                Class[] types = new Class []
+                {
+                    java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                    ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                };
+                boolean[] canEdit = new boolean []
+                {
+                    false, false, false, false, false, false, false, false
+                };
 
-            
-            //added to create the current jobs table 
-            jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-            jLabel11.setText("Current Jobs:");
-            getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(533, 120, 150, 20));            
-            studentSubmissionApprovedTableList.setAutoCreateRowSorter(true);
-                jScrollPane6.setViewportView(studentSubmissionApprovedTableList);
-                if (studentSubmissionApprovedTableList.getColumnModel().getColumnCount() > 0) {
-                    studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMinWidth(30);
-                    studentSubmissionApprovedTableList.getColumnModel().getColumn(0).setMaxWidth(30);
-                    studentSubmissionApprovedTableList.getColumnModel().getColumn(1).setResizable(false);
-                    studentSubmissionApprovedTableList.getColumnModel().getColumn(2).setResizable(false);
+                public Class getColumnClass(int columnIndex)
+                {
+                    return types [columnIndex];
                 }
-                getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(533, 140, 415, 350));
-                
+
+                public boolean isCellEditable(int rowIndex, int columnIndex)
+                {
+                    return canEdit [columnIndex];
+                }
+
+            });
+            studentSubmissionApprovedTableList.setColumnSelectionAllowed(true);
+            studentSubmissionApprovedTableList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            studentSubmissionApprovedTableList.setShowVerticalLines(false);
+            studentSubmissionApprovedTableList.getTableHeader().setReorderingAllowed(false);
+            jScrollPane3.setViewportView(studentSubmissionApprovedTableList);
+            studentSubmissionApprovedTableList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+            getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 400, 210));
+
             jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             jLabel2.setText("Select Device:");
             getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
@@ -410,24 +415,15 @@ public class BuildView extends javax.swing.JFrame
             });
             getContentPane().add(deviceNameComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 170, -1));
 
-            deviceInputTable.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-            deviceInputTable.setModel(new javax.swing.table.DefaultTableModel(new Object[]{}, 1)
-            );
-            deviceInputTable.setRowHeight(24);
-            jScrollPane4.setViewportView(deviceInputTable);
-
-            getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 525, 950, 150));
-
             jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-            jLabel3.setText("Enter Build Data:");
-            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 150, 20));
+            jLabel3.setText("Previous Builds for Device:");
+            getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 150, 20));
 
             backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
             backToMainMenu.setToolTipText("Back");
             backToMainMenu.setBorderPainted(false);
             backToMainMenu.setContentAreaFilled(false);
             backToMainMenu.setFocusPainted(false);
-            backToMainMenu.setVisible(false);
             backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     backToMainMenuActionPerformed(evt);
@@ -443,122 +439,122 @@ public class BuildView extends javax.swing.JFrame
             buildFileLocationErrorStatusText.setToolTipText("");
             getContentPane().add(buildFileLocationErrorStatusText, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 520, 20));
 
-            runtimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-            runtimeLabel.setText("Total Runtime:");
-            //getContentPane().add(runtimeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 700, -1, 20));
+            buildsForCurrentDeviceTable.setModel(new javax.swing.table.DefaultTableModel()
+                {
+                    Class[] types = new Class []
+                    {
+                        java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                    };
 
-            hourField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            hourField.setText("00");
-          //  getContentPane().add(hourField, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 700, 20, -1));
+                    boolean[] canEdit = new boolean []
+                    {
+                        false, false, false
+                    };
 
-            secondField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            secondField.setText("00");
-            secondField.setPreferredSize(new java.awt.Dimension(20, 20));
-         //   getContentPane().add(secondField, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 700, -1, -1));
+                    public Class getColumnClass(int columnIndex)
+                    {
+                        return types [columnIndex];
+                    }
 
-            minuteField.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            minuteField.setText("00");
-            minuteField.setPreferredSize(new java.awt.Dimension(20, 20));
-            minuteField.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    minuteFieldActionPerformed(evt);
-                }
-            });
-          //  getContentPane().add(minuteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 700, -1, -1));
+                    public boolean isCellEditable(int rowIndex, int columnIndex)
+                    {
+                        return false;
+                        //Rajewski
+                        //no editing
+                        //return canEdit [columnIndex];
+                    }
+                });
+                buildsForCurrentDeviceTable.getTableHeader().setReorderingAllowed(false);
+                jScrollPane4.setViewportView(buildsForCurrentDeviceTable);
 
-            jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-            jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel5.setText(":");
-           // getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 700, 10, 20));
+                getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 950, 150));
 
-            jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-            jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel6.setText(":");
-           // getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 700, 10, 20));
+                submissionsToBuildList.setModel(new javax.swing.table.DefaultTableModel()
+                    {
+                        Class[] types = new Class []
+                        {
+                            java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                            ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                        };
+                        boolean[] canEdit = new boolean []
+                        {
+                            false, false, false, false, false, false, false, false
+                        };
 
-            jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-            jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel7.setText("H");
-          // getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 720, 20, -1));
+                        public Class getColumnClass(int columnIndex)
+                        {
+                            return types [columnIndex];
+                        }
 
-            jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-            jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel8.setText("M");
-          //  getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 720, 20, -1));
+                        public boolean isCellEditable(int rowIndex, int columnIndex)
+                        {
+                            return canEdit [columnIndex];
+                        }
 
-            jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
-            jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            jLabel9.setText("S");
-          //  getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 720, 20, -1));
-            
-            addArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            addArrow.setText("--->");
-            addArrow.setPreferredSize(new java.awt.Dimension(60, 23));
-            addArrow.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    addArrowActionPerformed(evt);
-                }
-            });
-            getContentPane().add(addArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 240, 90, -1));
-     
-            removeArrow.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-            removeArrow.setText("<---");
-            removeArrow.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    removeArrowActionPerformed(evt);
-                }
-            });
-            getContentPane().add(removeArrow, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 270, 90, -1));
+                    });
+                    submissionsToBuildList.setColumnSelectionAllowed(true);
+                    submissionsToBuildList.getTableHeader().setReorderingAllowed(false);
+                    jScrollPane6.setViewportView(submissionsToBuildList);
+                    submissionsToBuildList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-            jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
-            getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-6, -26, 980, 900));
+                    getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 430, 210));
 
+                    swapButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/swap3.png"))); // NOI18N
+                    swapButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            swapButtonMouseClicked(evt);
+                        }
+                    });
+                    swapButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            swapButtonActionPerformed(evt);
+                        }
+                    });
+                    getContentPane().add(swapButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 240, 80, 40));
 
-            getContentPane().setPreferredSize(new Dimension(975,800));
-            pack();
-            setLocationRelativeTo(null);
-        }// </editor-fold>//GEN-END:initComponents
+                    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
+                    getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 630));
+                    setJMenuBar(jMenuBar2);
+
+                    pack();
+                    setLocationRelativeTo(null);
+                }// </editor-fold>//GEN-END:initComponents
     
 
     private void initNavBar()
     {
 
-    	jMenuBar1.setPreferredSize(new Dimension(275, 30));
-        setJMenuBar(jMenuBar1);
+    	jMenuBar2.setPreferredSize(new Dimension(275, 30));
+        setJMenuBar(jMenuBar2);
         
         navBtn_jobsMgr = new JButton("Jobs Manager");
         navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
-        navBtn_jobsMgr.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(220,0)));
-        jMenuBar1.add(navBtn_jobsMgr);
+        jMenuBar2.add(Box.createRigidArea(new Dimension(42,12)));
+        jMenuBar2.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
         navBtn_build.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/hammer_icon.png")));
-        
         navBtn_build.setPreferredSize(new Dimension(100,24));
-        navBtn_build.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
-        jMenuBar1.add(navBtn_build);
+        jMenuBar2.add(navBtn_build);
         
         navBtn_reports = new JButton("Reports");
         navBtn_reports.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/reports_icon.png")));
         navBtn_reports.setPreferredSize(new Dimension(100,24));
-        navBtn_reports.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
-        jMenuBar1.add(navBtn_reports);
+        jMenuBar2.add(navBtn_reports);
         
         navBtn_balance = new JButton("Balance");
-	navBtn_balance.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png")));
+        navBtn_balance.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/stats_icon.png")));
 	navBtn_balance.setPreferredSize(new Dimension(100,24));
 
-	jMenuBar1.add(navBtn_balance);
+        jMenuBar2.add(navBtn_balance);
+
         
         navBtn_settings = new JButton("Settings");
         navBtn_settings.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/cog_icon.png")));
         navBtn_settings.setPreferredSize(new Dimension(100,24));
-        navBtn_settings.setAlignmentX(jScrollPane2.CENTER_ALIGNMENT);
-        jMenuBar1.add(navBtn_settings);
-
+        jMenuBar2.add(navBtn_settings);
         
         navBtn_jobsMgr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -579,10 +575,11 @@ public class BuildView extends javax.swing.JFrame
         });
         
         navBtn_balance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                navBtn_balanceActionPerformed(evt);
-            }
-	});
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				navBtn_balanceActionPerformed(evt);
+                        }
+                });
+        
         
         navBtn_settings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -646,7 +643,10 @@ public class BuildView extends javax.swing.JFrame
         } else
         {
             dispose();
-            home.resetAdminMode();
+            //Rajewski
+            //Will now reload build view instead of go to jobs manager.
+            //home.resetAdminMode();
+            navBtn_buildActionPerformed(evt);
         }
     }//GEN-LAST:event_Submit_ButtonActionPerformed
 
@@ -665,11 +665,17 @@ public class BuildView extends javax.swing.JFrame
      *
      * @param evt
      */
+    //this might be what brings up the page
+    //Rajewski
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         JFileChooser chooser = new JFileChooser();//Select Default
+        ///?
+        //Rajewski
         File defaultBuildDirectory;
         String device = (String)deviceNameComboBox.getSelectedItem();
         device.toLowerCase();
+        //RAJEWSKI
+        //WHAT DOES THIS DO?
         defaultBuildDirectory = new File(FileManager.getDeviceToPrint(device));
         chooser.setPreferredSize(new Dimension(800, 500));
         chooser.setCurrentDirectory(defaultBuildDirectory);
@@ -684,41 +690,49 @@ public class BuildView extends javax.swing.JFrame
 
         if (!filepathToSelectedDeviceBuild.getText().isEmpty() && deviceModel != null)
         {
+            //checks that new build file is unique
             if (!UtilController.isBuildFileLocationUsed(filepathToSelectedDeviceBuild.getText()))
             {
-                setupUserInputBuildData();
+                //Rajewski
+                //create new function for making the list of builds table visible/populated for selected device
+                //call it here
+                //setupUserInputBuildData();
             } else
             {
                 filepathToSelectedDeviceBuild.setText("");
                 buildFileLocationErrorStatusText.setText("Select a unique build file location");
                 buildFileLocationErrorStatusText.setVisible(true);
 
-                invalidBuildLocationSelectedColumnModel.setColumnIdentifiers(errorTextColumnHeader);
-                deviceInputTable.setModel(invalidBuildLocationSelectedColumnModel);
-                deviceInputTable.setVisible(false);
+                //Rajewski
+                //deviceInputTable was removed and replaced with table of previous builds
+                
+                //invalidBuildLocationSelectedColumnModel.setColumnIdentifiers(errorTextColumnHeader);
+                //deviceInputTable.setModel(invalidBuildLocationSelectedColumnModel);
+                //deviceInputTable.setVisible(false);
             }
         }
     }//GEN-LAST:event_browseBtnActionPerformed
 
-    private void userGuideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userGuideActionPerformed
-        // TODO add your handling code here:
-        UtilController.openAdminHelpPage();
-    }//GEN-LAST:event_userGuideActionPerformed
-
+    //Rajewski
+    //Removed because no longer used/needed for input table
+    /*
     private void setupUserInputBuildData()
     {
         buildFileLocationErrorStatusText.setVisible(false);
-        deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) */
-        /*
+        deviceModel.addField("Run time", 0); /* Should later remove this and make it a seperate parameter in the function submitBuild call (so the backend knows less about how the UI stores its data) 
+        
         deviceModel.addField("Hours", 0);
         deviceModel.addField("Minutes", 0);
         deviceModel.addField("Seconds", 0);
-        */
+        
         trackableFields = deviceModel.getFieldNames();
         deviceDataModel = new DefaultTableModel(trackableFields.toArray(), 1);
+        
         deviceInputTable.setModel(deviceDataModel);
         deviceInputTable.setVisible(true);
     }
+    */ 
+    
     private void deviceNameComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deviceNameComboBoxActionPerformed
     {//GEN-HEADEREND:event_deviceNameComboBoxActionPerformed
         /* When a device is selected we put the info into the Device class and then detrmine how we update our view from here 
@@ -729,8 +743,18 @@ public class BuildView extends javax.swing.JFrame
     	
     	clearEntries(fileTableModel);
     	clearEntries(fileTableModel2);
+        clearEntries(fileTableModel3);
     	
-    	
+        studentSubmissionApprovedTableList.setRowSelectionAllowed(true);
+        studentSubmissionApprovedTableList.setColumnSelectionAllowed(true);
+        studentSubmissionApprovedTableList.setCellSelectionEnabled(false);
+        studentSubmissionApprovedTableList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                
+        submissionsToBuildList.setRowSelectionAllowed(true);
+        submissionsToBuildList.setColumnSelectionAllowed(true);
+        submissionsToBuildList.setCellSelectionEnabled(false);
+    	submissionsToBuildList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        
         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
 
         if (deviceModel.getTrackSubmission())
@@ -742,6 +766,7 @@ public class BuildView extends javax.swing.JFrame
                 fileTableModel.setColumnIdentifiers(new String[]
                 {
                     "Job ID", "File name", "First name", "Last name", "Submission date", "Printer name", "Class name", "Class section"
+                    
                 });
                 
                 fileTableModel2.setColumnIdentifiers(new String[]
@@ -750,31 +775,32 @@ public class BuildView extends javax.swing.JFrame
                 });
                 for(int i = 0; i < approvedStudentSubmissions.size(); i++)
                 {
-                	
-                	fileTableModel.addRow(new Object[] { approvedStudentSubmissions.get(i).get(0), approvedStudentSubmissions.get(i).get(1),
+                	fileTableModel.addRow(new Object[] {approvedStudentSubmissions.get(i).get(0), approvedStudentSubmissions.get(i).get(1),
                 			approvedStudentSubmissions.get(i).get(2), approvedStudentSubmissions.get(i).get(3), approvedStudentSubmissions.get(i).get(4),
                 			approvedStudentSubmissions.get(i).get(5), approvedStudentSubmissions.get(i).get(6), approvedStudentSubmissions.get(i).get(7)
-
                 	});
-                	
-                	
+                        //Rajewski
+                        //development purposes
+                        /*System.out.println(approvedStudentSubmissions.get(i).get(0) + "\t" + approvedStudentSubmissions.get(i).get(1) + "\t" +
+                			approvedStudentSubmissions.get(i).get(2) + "\t" + approvedStudentSubmissions.get(i).get(3) + "\t" + approvedStudentSubmissions.get(i).get(4) + "\t" +
+                			approvedStudentSubmissions.get(i).get(5) + "\t" + approvedStudentSubmissions.get(i).get(6) + "\t" + approvedStudentSubmissions.get(i).get(7));*/
                 }
-                /*
-                studentSubmissionTableList.setModel(fileTableModel);
-                studentSubmissionApprovedTableList.setModel(fileTableModel2);
-                studentSubmissionTableList.setVisible(true);
+
+                submissionsToBuildList.setModel(fileTableModel2);
+                studentSubmissionApprovedTableList.setModel(fileTableModel);
+                submissionsToBuildList.setVisible(true);
                 studentSubmissionApprovedTableList.setVisible(true);
                 buildLbl.setVisible(true);
                 browseBtn.setVisible(true);
                 filepathToSelectedDeviceBuild.setVisible(true);
-                repaint();*/
+                repaint();
             } else
             {
                 fileTableModel.setColumnIdentifiers(new String[]
                 {
                     "There are no approved student submissions for the " + deviceModel.getDeviceName()
                 });
-                studentSubmissionTableList.setVisible(false);
+                submissionsToBuildList.setVisible(false);
                 studentSubmissionApprovedTableList.setVisible(false);
                 buildLbl.setVisible(false);
                 browseBtn.setVisible(false);
@@ -783,10 +809,12 @@ public class BuildView extends javax.swing.JFrame
 
         } else
         {
-            setupUserInputBuildData();
+            //Rajewski
+            //deleted function
+            //setupUserInputBuildData();
             studentSubmissionTracked = false;
 
-            studentSubmissionTableList.setVisible(false);
+            submissionsToBuildList.setVisible(false);
             studentSubmissionApprovedTableList.setVisible(false);
             filepathToSelectedDeviceBuild.setVisible(false);
             buildLbl.setVisible(false);
@@ -797,75 +825,196 @@ public class BuildView extends javax.swing.JFrame
                 "Student submission for the " + deviceModel.getDeviceName() + " was added to Opt-Out of approval/denal of jobs"
             });
         }
+        
+        setupBuildRecordsTable();
+        
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
+    private void setupBuildRecordsTable(){
+        //Rajewski
+        //Setting up table of previous builds
+        fileTableModel3.setColumnIdentifiers(new String[]
+            {
+                "Build File Name", "Date", "Number of Files" 
+
+            });
+        
+        String currentDevice = (String) deviceNameComboBox.getSelectedItem();
+        ArrayList<ArrayList<Object>> buildList = UtilController.arrayListOfBuilds(currentDevice);
+        for(int i = 0; i < buildList.size(); i++)
+            {
+                    fileTableModel3.addRow(new Object[] { buildList.get(i).get(0), buildList.get(i).get(1),
+                                    buildList.get(i).get(2)
+                    });
+                    //Rajewski
+                    //line for testing
+                    //System.out.println(buildList.get(i).get(0) + "\t" + buildList.get(i).get(1) + "\t" + buildList.get(i).get(2));
+            }
+        
+    }
+    
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backToMainMenuActionPerformed
     {//GEN-HEADEREND:event_backToMainMenuActionPerformed
         dispose();
         home.resetAdminMode();
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
-    private void removeBuildOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_removeBuildOpenActionPerformed
-    {//GEN-HEADEREND:event_removeBuildOpenActionPerformed
+    private void swapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapButtonActionPerformed
+        
+    }//GEN-LAST:event_swapButtonActionPerformed
 
-    }//GEN-LAST:event_removeBuildOpenActionPerformed
+    private void swapButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_swapButtonMouseClicked
+       // TODO add your handling code here:
+        //Rajewski
+        //Optimize this function later
+        /*studentSubmissionApprovedTableList.setRowSelectionAllowed(true);
+        studentSubmissionApprovedTableList.setColumnSelectionAllowed(true);
+        studentSubmissionApprovedTableList.setCellSelectionEnabled(true);
+        studentSubmissionApprovedTableList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+                
+        submissionsToBuildList.setRowSelectionAllowed(true);
+        submissionsToBuildList.setColumnSelectionAllowed(true);
+        submissionsToBuildList.setCellSelectionEnabled(true);
+    	submissionsToBuildList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        */
+        //Rajewski
+        //This is not good error checking.
+        /*
+        if (studentSubmissionApprovedTableList.equals(submissionsToBuildList.getSelectedRow())) //believe this check works //No, it does not Spring 2016. - Rajewski
+        {
+                JOptionPane.showMessageDialog(null, "File is already in the current jobs list!",
+                                "Add Error", JOptionPane.ERROR_MESSAGE);
+        } 
+	*/
+        
+    	/*if(submissionsToBuildList.getSelectedRow() == 0)
+    	{
+    		((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(submissionsToBuildList.getSelectedRow());
+			((MutableComboBoxModel) submissionsToBuildList).removeElement(submissionsToBuildList.getSelectedRow());
+    	}*/
+		
+        //removed else if block becuase not having a selection could still mean that the other table has a selected row
+        /*
+        else if(submissionsToBuildList.getSelectedRow() == -1)
+            {
+                    JOptionPane.showMessageDialog(null, "No file selected!",
+                                    "Add Error", JOptionPane.ERROR_MESSAGE);
+            }
+        */
+                //gets all info for selected row to add to build table
+        
+        int k = 0;
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
-    {//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-		dispose();
-		removeWindow.init();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        while(k < studentSubmissionApprovedTableList.getRowCount()){
+            if(studentSubmissionApprovedTableList.isRowSelected(k)){
+                fileTableModel2.addRow(new Object[] { 
+                studentSubmissionApprovedTableList.getValueAt(k, 0), 
+                studentSubmissionApprovedTableList.getValueAt(k, 1),	
+                studentSubmissionApprovedTableList.getValueAt(k, 2),
+                studentSubmissionApprovedTableList.getValueAt(k, 3),
+                studentSubmissionApprovedTableList.getValueAt(k, 4),
+                studentSubmissionApprovedTableList.getValueAt(k, 5),
+                studentSubmissionApprovedTableList.getValueAt(k, 6),
+                studentSubmissionApprovedTableList.getValueAt(k, 7)
+                });
+            fileTableModel.removeRow(k);
+            k--;
+            }
+            k++;
+            System.out.print(k + "\t");
+        }
+        System.out.println();
 
-    private void minuteFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minuteFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_minuteFieldActionPerformed
+        studentSubmissionApprovedTableList.setModel(fileTableModel);
+        submissionsToBuildList.setModel(fileTableModel2);
+
+        /*
+         * 
+         * removeClassListModel.addElement(currentClassListRC.getSelectedValue());
+        currentDeviceListModel.removeElement(currentClassListRC.getSelectedValue());
+        //((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(submissionsToBuildList.getSelectedRow());
+        //((MutableComboBoxModel) submissionsToBuildList).removeElement(submissionsToBuildList.getSelectedRow());
+        //removeClassList.setModel(removeClassListModel);
+         * 
+         * */
+
+
+        //Rajewski
+        //logic for moving a row from the new build table back to the approved files table
+        int j = 0;
+
+        while(j < submissionsToBuildList.getRowCount()){
+            if(submissionsToBuildList.isRowSelected(j)){
+                fileTableModel.addRow(new Object[] { 
+                    submissionsToBuildList.getValueAt(j, 0), 
+                    submissionsToBuildList.getValueAt(j, 1),	
+                    submissionsToBuildList.getValueAt(j, 2),
+                    submissionsToBuildList.getValueAt(j, 3),
+                    submissionsToBuildList.getValueAt(j, 4),
+                    submissionsToBuildList.getValueAt(j, 5),
+                    submissionsToBuildList.getValueAt(j, 6),
+                    submissionsToBuildList.getValueAt(j, 7)
+
+            });
+            fileTableModel2.removeRow(j);
+            j--;
+            }
+            j++;
+        }
+
+        studentSubmissionApprovedTableList.setModel(fileTableModel);
+        submissionsToBuildList.setModel(fileTableModel2);
+
+
+        setupBuildRecordsTable();
+    }//GEN-LAST:event_swapButtonMouseClicked
     
     
     private void addArrowActionPerformed (java.awt.event.ActionEvent evt)
 	{
-		if (studentSubmissionApprovedTableList.equals(studentSubmissionTableList.getSelectedRow())) //believe this check works
+		if (studentSubmissionApprovedTableList.equals(submissionsToBuildList.getSelectedRow())) //believe this check works
 		{
 			JOptionPane.showMessageDialog(null, "File is already in the current jobs list!",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		} 
 		
-    	/*if(studentSubmissionTableList.getSelectedRow() == 0)
+    	/*if(submissionsToBuildList.getSelectedRow() == 0)
     	{
-    		((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(studentSubmissionTableList.getSelectedRow());
-			((MutableComboBoxModel) studentSubmissionTableList).removeElement(studentSubmissionTableList.getSelectedRow());
+    		((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(submissionsToBuildList.getSelectedRow());
+			((MutableComboBoxModel) submissionsToBuildList).removeElement(submissionsToBuildList.getSelectedRow());
     	}*/
 		
-		else if(studentSubmissionTableList.getSelectedRow() == -1)
+		else if(submissionsToBuildList.getSelectedRow() == -1)
 		{
 			JOptionPane.showMessageDialog(null, "No file selected!",
 					"Add Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else
 		{
-			fileTableModel2.addRow(new Object[] { studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 0), 
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 1),	
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 2),
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 3),
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 4),
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 5),
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 6),
-					studentSubmissionTableList.getValueAt(studentSubmissionTableList.getSelectedRow(), 7)
+			fileTableModel2.addRow(new Object[] { submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 0), 
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 1),	
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 2),
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 3),
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 4),
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 5),
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 6),
+					submissionsToBuildList.getValueAt(submissionsToBuildList.getSelectedRow(), 7)
 			
 			});
 			
 			
 			
 			
-			fileTableModel.removeRow(studentSubmissionTableList.getSelectedRow());
+			fileTableModel.removeRow(submissionsToBuildList.getSelectedRow());
 			
-			studentSubmissionTableList.setModel(fileTableModel);
+			submissionsToBuildList.setModel(fileTableModel);
 			studentSubmissionApprovedTableList.setModel(fileTableModel2);
 			/*
 			 * 
 			 * removeClassListModel.addElement(currentClassListRC.getSelectedValue());
 			currentDeviceListModel.removeElement(currentClassListRC.getSelectedValue());
-			//((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(studentSubmissionTableList.getSelectedRow());
-			//((MutableComboBoxModel) studentSubmissionTableList).removeElement(studentSubmissionTableList.getSelectedRow());
+			//((MutableComboBoxModel) studentSubmissionApprovedTableList).addElement(submissionsToBuildList.getSelectedRow());
+			//((MutableComboBoxModel) submissionsToBuildList).removeElement(submissionsToBuildList.getSelectedRow());
 			//removeClassList.setModel(removeClassListModel);
 			 * 
 			 * */
@@ -891,62 +1040,46 @@ public class BuildView extends javax.swing.JFrame
 		
 		
 		fileTableModel2.removeRow(studentSubmissionApprovedTableList.getSelectedRow());
-		studentSubmissionTableList.setModel(fileTableModel);
+		submissionsToBuildList.setModel(fileTableModel);
 		studentSubmissionApprovedTableList.setModel(fileTableModel2);
     }
 
     private JButton navBtn_balance;
 
+    private JButton navBtn_jobsMgr;
+    private JButton navBtn_build;
+    private JButton navBtn_reports;
+    private JButton navBtn_settings;
+    //Rajewski
+    //refactored submissionsToBuildList to submissionsToBuildList
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildFileLocationErrorStatusText;
     private javax.swing.JLabel buildLbl;
-    private javax.swing.JTable deviceInputTable;
+    private javax.swing.JTable buildsForCurrentDeviceTable;
     private javax.swing.JComboBox deviceNameComboBox;
     private javax.swing.JTextField filepathToSelectedDeviceBuild;
-    private javax.swing.JMenu helpMenu;
-    private javax.swing.JTextField hourField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
-    private javax.swing.JTextField minuteField;
-    private javax.swing.JMenu removeBuildOpen;
-    private javax.swing.JLabel runtimeLabel;
-    private javax.swing.JTextField secondField;
-    private javax.swing.JTable studentSubmissionTableList;
-    private javax.swing.JMenuItem userGuide;
-    private javax.swing.JButton addArrow;
-    private javax.swing.JButton removeArrow;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JTable studentSubmissionApprovedTableList;
-    private javax.swing.JScrollPane jScrollPane6;
-    
-    // --nav bar vars ~Alex
-    private JButton navBtn_jobsMgr;
-    private JButton navBtn_build;
-    private JButton navBtn_reports;
-    private JButton navBtn_settings;
-    //
+    private javax.swing.JTable submissionsToBuildList;
+    private javax.swing.JButton swapButton;
     // End of variables declaration//GEN-END:variables
 }
+

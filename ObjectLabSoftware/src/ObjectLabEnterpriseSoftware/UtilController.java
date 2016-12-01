@@ -865,6 +865,24 @@ public class UtilController
         }
         return returnBuilds;
     }
+    
+    //Rajewski
+    //done
+    
+    public static ArrayList<ArrayList<Object>> arrayListOfBuilds(String currentDevice)
+    {
+        /*
+         Fetch available builds
+         */
+
+        SQLMethods dbconn = new SQLMethods();
+        ResultSet buildsResult = dbconn.getBuildsForRecordsTable(currentDevice);
+        ArrayList<ArrayList<Object>> builds = readyOutputForViewPage(buildsResult);
+        /* Must process results found in ResultSet before the connection is closed! */
+        dbconn.closeDBConnection();
+
+        return builds;
+    }
 	
     public static void submitStudentFile(String userID, String fileLocation, String fileName, String printerName, int classFK)
     {
@@ -1242,23 +1260,43 @@ public class UtilController
         /*
         runtime = convertToSeconds(deviceModel.getFieldData("Hours"), deviceModel.getFieldData("Minutes"), deviceModel.getFieldData("Seconds"));
         */
-        if (deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
+        //Russell - Joe
+        //Started commenting out anything that needed info for the runtime input
+        //Rajewski
+        //no need for runtime
+        /*if (deviceModel.getFieldType("Run time") == Device.TYPE_STRING)
         {
             runtime = Integer.parseInt((String) deviceModel.getFieldData("Run time"));
         } else
         {
             runtime = (Integer) deviceModel.getFieldData("Run time");
         }
-
-        dbconn.insertIntoBuild(filePathToBuildFile.replace("\\", "\\\\"), runtime, models, deviceName);
+        */
+        
+        //Russell - Joe
+        //This function requires runtime to be a part of a build
+        //The first call that is commented out here was removed for that reason. I stopped here
+        //and then messaged you on Slack about this whole ordeal at this time before changing that whole function around
+        //Rajewski
+        //Removing runtime, adjust function insertIntoBuild
+        //dbconn.insertIntoBuild(filePathToBuildFile.replace("\\", "\\\\"), runtime, models, deviceName);
+        dbconn.insertIntoBuild(filePathToBuildFile.replace("\\", "\\\\"),  models, deviceName);
         /* Remove first entry becuase it is now not needed (HOTFIX) */
-        deviceModel.rmField("Run time");
+        //Rajewski
+        //Removed Runtime
+        //deviceModel.rmField("Run time");
         /* STEP 1.1 - Insert all build data for the device into the database for the assoicated printer and trackable field for that printer */
+        //Rajewski
+        //I don't think we need this for loop since there is no more input table. Hotfix 11/21/
+        /*
         for (String fieldName : deviceFieldNames)
         {
+            //Rajewski
+            //for development purposes
+            System.out.println(deviceFieldNames);
             dbconn.insertIntoColumnBuildData(deviceName, fieldName, "" + deviceModel.getFieldData(fieldName), filePathToBuildFile.replace("\\", "\\\\"));
         }
-
+        */
         /* Loop through currentJob that where checked in as part of the build and update data related to student submissions */
         for (Integer currentJob : selectedStudentSubmissionFiles)
         {
