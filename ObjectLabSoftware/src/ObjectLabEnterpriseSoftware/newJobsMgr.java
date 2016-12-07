@@ -68,7 +68,7 @@ public class newJobsMgr extends JFrame {
 	private newSettingsMenu adminSettingsView;
 	//
         
-        private CommentView commentview;
+        //private CommentView commentview;
 	public newJobsMgr() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(newJobsMgr.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setTitle("Administration Panel");
@@ -485,7 +485,6 @@ public class newJobsMgr extends JFrame {
 		}
         if (selectedDevices.size() >= 0)
         {
-        		// String desc = JOptionPane.showInputDialog("Please enter why you're rejecting the submission: ");
         	String[] choices = {"Insufficient material balance", "Invalid file", "Other - See instructor"};
         	String description = (String) JOptionPane.showInputDialog(null, "Choose reason:",
         	        "Select Reason for Rejecting", JOptionPane.QUESTION_MESSAGE, null, choices, choices[2]); 

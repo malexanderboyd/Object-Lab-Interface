@@ -671,8 +671,8 @@ public class SQLMethods
         res = null;
         try
         {
-            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = " + printer +";");
-            //stmt.setString(1, printer);
+            stmt = this.conn.prepareStatement("SELECT file_extension FROM accepted_files Where printer_name = ?;");
+            stmt.setString(1, printer);
             res = stmt.executeQuery();
 
         } catch (SQLException e)

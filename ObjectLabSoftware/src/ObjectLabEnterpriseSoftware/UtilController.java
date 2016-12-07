@@ -458,8 +458,8 @@ public class UtilController
     public static boolean checkExtension(String printer, String submittedFileExtension)
     {
 		boolean isValid = false;
-		
 		SQLMethods dbconn = new SQLMethods();
+		
 		ResultSet results = dbconn.selectAcceptedFiles(printer);
 		
 		try 
@@ -491,8 +491,10 @@ public class UtilController
     public static boolean rejectStudentSubmission(String file, String reasonForRejection)
     {
         SQLMethods dbconn = new SQLMethods();
+        
+        dbconn.updateFileComment(file, reasonForRejection);        
+        
         ResultSet results = dbconn.searchID((file));
-
         try
         {
             String emailadr, emailMessage, primaryKey, fName, lName;
