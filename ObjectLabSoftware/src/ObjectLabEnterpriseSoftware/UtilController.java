@@ -1211,18 +1211,29 @@ public class UtilController
     	        {
     	            System.out.println("Something went wrong ");    
     	        }
+                
+                SQLMethods dbconn = new SQLMethods();
+                ResultSet queryResult = dbconn.getStudentName(studentId);
+                try{
+                    while(queryResult.next())
+                    {
+                        studentFname  = queryResult.getString(1);
+                        studentLname = queryResult.getString(2);
+                    }
+                } catch(Exception e)
+                    {
+                                System.out.println("Error: " + e);
+                    }
 
-    	        
+                setStudentFName(studentFname);
+                setStudentLName(studentLname);
+                
     	    	if(studentFname.equals("debug_failed_fname"))
     	    	{
     	    		System.out.println("Failed to grab student data.");
-    	    		//return false;
+    	    		return false;
     	    		
-    	    		// WORKAROUND *****
-    	    		setStudentLName("Gehret");
- 	                setStudentFName("Russell");
- 	                return true;
- 	                // END WORKAROUND
+                        
     	    	}
     	    	else if(!checkUser(studentId)) // user isn't in db
 	    		{
@@ -1238,7 +1249,7 @@ public class UtilController
     	    }
 
     	} catch (NamingException ex) {
-    	    return false;
+            return false;
     	}
     	//*****
         return true;

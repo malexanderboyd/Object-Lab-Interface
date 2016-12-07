@@ -352,6 +352,22 @@ public class SQLMethods
         return res;
     }
     
+    public ResultSet getStudentName(String studentId)
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT first_name, last_name " +
+                                              "FROM users WHERE ? = towson_id"); 
+            stmt.setString(1, studentId);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
+    
     public double getCurrentMaterialBalance(String studentId, String whichMaterial)
     {
         double current = 0;
