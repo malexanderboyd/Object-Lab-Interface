@@ -403,17 +403,19 @@ public class SQLMethods
     {
         try
         {
-        double current; 
-        SQLMethods dbconn = new SQLMethods();
-        current = dbconn.getCurrentMaterialBalance(studentId, whichMaterial);
-        amount += current;
-        stmt = this.conn.prepareStatement("UPDATE material SET "+ whichMaterial+" = " + amount + " WHERE id = ?;");
-        stmt.setString(1, studentId);
-        stmt.executeUpdate();
-        } catch (SQLException ex)
+        	SQLMethods dbconn = new SQLMethods();
+        	
+        	double current; 
+        	current = dbconn.getCurrentMaterialBalance(studentId, whichMaterial);
+        	amount = amount + current;
+        	
+        	stmt = this.conn.prepareStatement("UPDATE material SET "+ whichMaterial+" = " + amount + " WHERE id = ?;");
+        	stmt.setString(1, studentId);
+        	stmt.executeUpdate();
+        } 
+        catch (SQLException ex)
         {
-            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            Logger.getLogger(SQLMethods.class.getName()).log(Level.SEVERE,null, ex);
         } 
     }
   

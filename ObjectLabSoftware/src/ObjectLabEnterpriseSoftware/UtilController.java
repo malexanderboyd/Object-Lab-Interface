@@ -623,16 +623,43 @@ public class UtilController
     {
         SQLMethods dbconn = new SQLMethods();
         if(printer.equalsIgnoreCase("Z Printer 250"))
+        {
             dbconn.addMaterial(id, -(stat1), "z_corp_plaster");
-        else if (printer.equalsIgnoreCase("Objet Desktop 30")){
+        }
+        else if (printer.equalsIgnoreCase("Objet Desktop 30"))
+        {
             dbconn.addMaterial(id, -(stat1), "objet_build");
             dbconn.addMaterial(id, -(stat2), "objet_support");
-        } else
+        } 
+        else
         {
             System.out.println("Error");
         }
         dbconn.closeDBConnection();
     }
+    
+    public static void changeStudentBalanceHistory(String printer, String id, double stat1, double stat2)
+    {
+    	SQLMethods dbconn = new SQLMethods();
+        if(printer.equalsIgnoreCase("Z Printer 250"))
+        {
+            //dbconn.addMaterial(id, -(stat1), "z_corp_plaster");
+        	dbconn.addTransactionHistory(id, "z_corp_plaster", -(stat1));
+        }
+        else if (printer.equalsIgnoreCase("Objet Desktop 30"))
+        {
+            //dbconn.addMaterial(id, -(stat1), "objet_build");
+            //dbconn.addMaterial(id, -(stat2), "objet_support");
+        	dbconn.addTransactionHistory(id, "objet_build", -(stat1));
+        	dbconn.addTransactionHistory(id, "objet_support", -(stat2));
+        } 
+        else
+        {
+            System.out.println("Error");
+        }
+        dbconn.closeDBConnection();
+    }
+    
     
     public static void approveStudentSubmission(String fileName, String stat1, String stat2)
     {

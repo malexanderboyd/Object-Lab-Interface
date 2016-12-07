@@ -46,16 +46,12 @@ import java.util.concurrent.TimeUnit;
 
 
 /*
- * 
  *  Jobs Manager V2
  *  @Author=M. Alex Boyd
  * 	@Date=4/22/16
  * 
  * 	To-Dos
  * 	- Add check to make sure jobs are not already approved before approving
- *	- Add Error text for missing stat input
- * 
- * 
  * 
  */
 
@@ -574,9 +570,11 @@ public class newJobsMgr extends JFrame {
                         if (printer.equalsIgnoreCase("Z Printer 250") || printer.equalsIgnoreCase("Objet Desktop 30"))  
                         {
                             double stat1 = Double.parseDouble(trackingStatInput1.getText());                       
-                            double stat2 = Double.parseDouble(trackingStatInput1.getText());
-                            UtilController.changeStudentBalance(
-                                            printer, id, stat1, stat2);
+                            double stat2 = Double.parseDouble(trackingStatInput2.getText());
+                            
+                            // Updates transaction history
+                            UtilController.changeStudentBalance(printer, id, stat1, stat2);
+                            UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
                         } 
                             UtilController.approveStudentSubmission(
                                             (String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
