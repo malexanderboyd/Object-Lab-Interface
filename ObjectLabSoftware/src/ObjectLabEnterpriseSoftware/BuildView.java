@@ -304,6 +304,7 @@ public class BuildView extends javax.swing.JFrame
         swapButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
+        logoutButton = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -326,7 +327,7 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
-        Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
+        //Submit_Button.setBackground(new java.awt.Color(0, 255, 0)); green glow around button
         Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -336,6 +337,16 @@ public class BuildView extends javax.swing.JFrame
         });
         getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 550, 100, 30));
 
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 100, 30));
+        
+        
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Choose jobs part of build: ");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 19));
@@ -1052,6 +1063,7 @@ public class BuildView extends javax.swing.JFrame
     //Rajewski
     //refactored submissionsToBuildList to submissionsToBuildList
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
     private javax.swing.JButton backToMainMenu;
