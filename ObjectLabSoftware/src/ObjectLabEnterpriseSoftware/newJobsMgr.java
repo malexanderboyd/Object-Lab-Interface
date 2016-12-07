@@ -255,8 +255,7 @@ public class newJobsMgr extends JFrame {
 		
 
 		jobsTable = new JTable();
-		jobsModel = 
-				new DefaultTableModel() {
+		jobsModel = new DefaultTableModel() {
 			Class[] columnTypes = new Class[] {
 					Boolean.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class
 			};
@@ -265,7 +264,9 @@ public class newJobsMgr extends JFrame {
 			}
 			//****
 			public boolean isCellEditable(int row, int column) {
-				return false;
+				if (column == 0)
+                                    return true;
+                                return false;
 			}
 		};
 		

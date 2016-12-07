@@ -206,7 +206,6 @@
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="1"/>
             </Property>
-            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Default Cursor"/>
             </Property>
@@ -319,6 +318,7 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="buildsForCurrentDeviceTable">
           <Properties>
+            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.table.DefaultTableModel()&#xa;    {&#xa;        Class[] types = new Class []&#xa;        {&#xa;            java.lang.Object.class, java.lang.Object.class, java.lang.Object.class&#xa;        };&#xa;&#xa;        boolean[] canEdit = new boolean []&#xa;        {&#xa;            false, false, false&#xa;        };&#xa;&#xa;        public Class getColumnClass(int columnIndex)&#xa;        {&#xa;            return types [columnIndex];&#xa;        }&#xa;&#xa;        public boolean isCellEditable(int rowIndex, int columnIndex)&#xa;        {&#xa;            return false;&#xa;            //Rajewski&#xa;            //no editing&#xa;            //return canEdit [columnIndex];&#xa;        }&#xa;    }" type="code"/>
             </Property>
@@ -352,7 +352,6 @@
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="1"/>
             </Property>
-            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>

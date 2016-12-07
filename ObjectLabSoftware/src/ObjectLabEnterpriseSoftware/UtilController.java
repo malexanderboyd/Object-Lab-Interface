@@ -1211,7 +1211,8 @@ public class UtilController
     	} catch (NamingException ex) {
     	    return false;
     	}
-    	return false;
+    	//*****
+        return true;
     }
  
 

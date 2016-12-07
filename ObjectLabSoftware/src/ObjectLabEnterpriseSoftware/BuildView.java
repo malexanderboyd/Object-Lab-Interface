@@ -392,7 +392,6 @@ public class BuildView extends javax.swing.JFrame
                 }
 
             });
-            studentSubmissionApprovedTableList.setColumnSelectionAllowed(true);
             studentSubmissionApprovedTableList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
             studentSubmissionApprovedTableList.setShowVerticalLines(false);
             studentSubmissionApprovedTableList.getTableHeader().setReorderingAllowed(false);
@@ -439,6 +438,7 @@ public class BuildView extends javax.swing.JFrame
             buildFileLocationErrorStatusText.setToolTipText("");
             getContentPane().add(buildFileLocationErrorStatusText, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 520, 20));
 
+            buildsForCurrentDeviceTable.setAutoCreateRowSorter(true);
             buildsForCurrentDeviceTable.setModel(new javax.swing.table.DefaultTableModel()
                 {
                     Class[] types = new Class []
@@ -492,7 +492,6 @@ public class BuildView extends javax.swing.JFrame
                         }
 
                     });
-                    submissionsToBuildList.setColumnSelectionAllowed(true);
                     submissionsToBuildList.getTableHeader().setReorderingAllowed(false);
                     jScrollPane6.setViewportView(submissionsToBuildList);
                     submissionsToBuildList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
