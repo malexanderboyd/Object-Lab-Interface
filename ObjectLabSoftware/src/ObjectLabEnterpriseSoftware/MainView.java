@@ -137,6 +137,19 @@ public class MainView extends javax.swing.JFrame
         });
         getContentPane().add(studentButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, 20));
 
+        //Login with ENTER button
+        studentPassString.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char c = e.getKeyChar();
+                if(c == KeyEvent.VK_ENTER)
+                {
+                	attemptLogin();
+                }
+            }
+        });
+        
         studentLoginLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         studentLoginLabel.setText("Enter Your TU ID:");
         getContentPane().add(studentLoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, 20));

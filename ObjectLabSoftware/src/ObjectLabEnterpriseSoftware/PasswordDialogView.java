@@ -81,6 +81,20 @@ public class PasswordDialogView extends javax.swing.JFrame
         });
         getContentPane().add(SubmitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, 20));
         getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 136, -1));
+        
+        //Login with ENTER button
+        Password.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char c = e.getKeyChar();
+                if(c == KeyEvent.VK_ENTER)
+                {
+                	
+                	attemptAdminLogin();
+                }
+            }
+        });
 
         passwordError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordError.setForeground(new java.awt.Color(255, 0, 0));
@@ -91,6 +105,7 @@ public class PasswordDialogView extends javax.swing.JFrame
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/white_bg.jpg"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 130));
 
+        
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -103,6 +118,23 @@ public class PasswordDialogView extends javax.swing.JFrame
         home.setVisible(true);
     }//GEN-LAST:event_CancelButtonActionPerformed
 
+    private void attemptAdminLogin()
+    {
+    	 boolean wasLoginSuccessful = UtilController.checkAdminLogin(new String(Password.getPassword()));
+
+         if (wasLoginSuccessful)
+         {
+             System.out.println("Password passed!"); 
+             adminLoginStatus = true;
+             dispose();
+             home.resetAdminMode();
+         } else
+         {
+             passwordError.setText("ERROR: Invalid password");
+             adminLoginStatus = false;
+         }
+    }
+    
     private void SubmitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SubmitButtonMouseClicked
                 /*Hashes the predefined password and the password entered into the
          *JPasswordField and then compares the two
