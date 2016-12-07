@@ -40,7 +40,7 @@ public class newSettingsMenu extends JFrame {
 		
 	public newSettingsMenu() {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(465, 300));
+		setPreferredSize(new Dimension(560, 300));
 		setIconImage(Toolkit.getDefaultToolkit().getImage(newSettingsMenu.class.getResource("/ObjectLabEnterpriseSoftware/images/icon.ico")));
 		setResizable(false);
 		setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -50,7 +50,7 @@ public class newSettingsMenu extends JFrame {
 		
 		JLabel titleLabel = new JLabel("Settings");
 		titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 24));
-		titleLabel.setBounds(181, 11, 92, 55);
+		titleLabel.setBounds(211, 11, 92, 55);
 		getContentPane().add(titleLabel);
 		
 			JMenuBar jMenuBar1 = new JMenuBar();
@@ -151,7 +151,7 @@ public class newSettingsMenu extends JFrame {
 			}
 		});
 		btnManageClasses.setFont(new Font("Segoe UI Light", Font.PLAIN, 12));
-		btnManageClasses.setBounds(169, 77, 121, 23);
+		btnManageClasses.setBounds(200, 77, 121, 23);
 		getContentPane().add(btnManageClasses);
 		
 		JButton btnManageDevices = new JButton("Manage Devices");
@@ -164,7 +164,7 @@ public class newSettingsMenu extends JFrame {
 			}
 		});
 		btnManageDevices.setFont(new Font("Segoe UI Light", Font.PLAIN, 12));
-		btnManageDevices.setBounds(169, 111, 121, 23);
+		btnManageDevices.setBounds(200, 111, 121, 23);
 		getContentPane().add(btnManageDevices);
 		
 		JButton btnUserGuide = new JButton("User Guide");
@@ -175,7 +175,7 @@ public class newSettingsMenu extends JFrame {
 			}
 		});
 		btnUserGuide.setFont(new Font("Segoe UI Light", Font.PLAIN, 12));
-		btnUserGuide.setBounds(169, 145, 121, 23);
+		btnUserGuide.setBounds(200, 145, 121, 23);
 		getContentPane().add(btnUserGuide);
 		
 		

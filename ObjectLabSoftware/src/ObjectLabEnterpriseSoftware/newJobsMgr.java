@@ -267,9 +267,12 @@ public class newJobsMgr extends JFrame {
 				if (column == 0)
                                     return true;
                                 return false;
-			}
+                        }
+                        
+                        
+                       
 		};
-		
+
 		
 	
 		//jobsModel.setColumnCount(6);
@@ -279,8 +282,21 @@ public class newJobsMgr extends JFrame {
 
 		jobsTable.setModel(jobsModel);
 		jobListingsPane.setViewportView(jobsTable);
+                
+                jobsTable.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        for(int i=0; i<jobsTable.getRowCount(); i++){
+                            if(i==jobsTable.getSelectedRow()){
+                                jobsTable.setValueAt(true, jobsTable.getSelectedRow(), 0);
+                            }else{
+                                jobsTable.setValueAt(false, i, 0);
+                    }
+                    }    
 
+                }
+                }); 
 
+                
 		JLabel titleLabel = new JLabel("Jobs Manager");
 		titleLabel.setBounds(226, 11, 159, 41);
 		titleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 24));
@@ -755,6 +771,8 @@ public class newJobsMgr extends JFrame {
 		if(selectedDevice.equals("Objet Desktop 30")) { // hard coding these quick and dirttay
 			trackingStatLabel1.setText("Build material (g)");
 			trackingStatLabel2.setText("Support material (g)");
+                        trackingStatLabel2.setVisible(true);
+                        trackingStatInput2.setVisible(true);
 		}
 		/*else if(selectedDevice.equals("Solidscape R66+"))
 		{
@@ -764,7 +782,8 @@ public class newJobsMgr extends JFrame {
 		else if(selectedDevice.equals("Z Printer 250"))
 		{
 			trackingStatLabel1.setText("Volume (cubic in)");
-			//trackingStatLabel2.setText("Color");
+			trackingStatLabel2.setVisible(false);
+                        trackingStatInput2.setVisible(false);
 			// *** *** Fix needed
 		}
 		else if(selectedDevice.equals(" ") || selectedDevice.equals(""))
