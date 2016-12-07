@@ -246,6 +246,25 @@ public class SQLMethods
         }
         return res;
     }
+     
+    public ResultSet searchStudentBalanceAll(String value)
+    {
+        res = null;
+        try 
+        {
+            stmt = this.conn.prepareStatement("SELECT first_name, last_name, towson_id, z_corp_plaster, objet_build, objet_support " +
+                                              "FROM users INNER JOIN material ON users.towson_id = material.id " +
+                                               "WHERE towson_id = ? or users.last_name = ? or users.first_name = ?;"); 
+            stmt.setString(1, value);
+            stmt.setString(2, value);
+            stmt.setString(3, value);
+            res = stmt.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return res;
+    }
     
     public ResultSet searchStudentBalance()
     {
