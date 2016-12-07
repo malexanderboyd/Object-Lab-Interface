@@ -404,7 +404,7 @@ public class UtilController
     public static void exportReportsForPrinters()
     {
 
-        ArrayList<String> printers = UtilController.getListOfAllDevices();
+        ArrayList<String> printers = UtilController.getListOfCurrentDevices();
         FileManager fileManager = new FileManager();
 
         Workbook wb = new HSSFWorkbook();
