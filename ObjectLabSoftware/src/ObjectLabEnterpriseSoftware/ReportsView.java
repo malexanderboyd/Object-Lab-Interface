@@ -33,7 +33,7 @@ public class ReportsView extends javax.swing.JFrame
     public ReportsView() 
     {
         this.controller = new UtilController();
-        printers = UtilController.getListOfAllDevices();
+        printers = UtilController.getListOfCurrentDevices();
         if(printers.size() > 0){
             selectedPrinter = printers.get(1);
           //* THIS IS THE PROBLEM WITH THE REPORTS NOT OPENING, THIS FEEDS THEM THE WRONG HEADERS NOW - used to be sql error. *\\\
@@ -58,6 +58,10 @@ public class ReportsView extends javax.swing.JFrame
                 }
             }
         );
+        
+        // ***
+        // This line is necessary for debugging with WindowsBuilder
+        //ReportsPage();
     }
 
     public void ReportsPage() 
