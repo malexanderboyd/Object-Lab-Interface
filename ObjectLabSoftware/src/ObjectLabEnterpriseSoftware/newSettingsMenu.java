@@ -181,7 +181,7 @@ public class newSettingsMenu extends JFrame {
 		
 		JButton btnLogout = new JButton("Logout");
 		btnLogout.setFont(new Font("Segoe UI Light", Font.PLAIN, 12));
-		btnLogout.setBounds(10, 200, 121, 23);
+		btnLogout.setBounds(10, 200, 95, 23);
 		getContentPane().add(btnLogout);
 		btnLogout.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {

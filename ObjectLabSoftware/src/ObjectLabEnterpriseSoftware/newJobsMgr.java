@@ -299,7 +299,7 @@ public class newJobsMgr extends JFrame {
 		getContentPane().add(titleLabel);
 
 		JButton logoutButton = new JButton("Logout");
-		logoutButton.setBounds(10, 459, 89, 23);
+		logoutButton.setBounds(10, 459, 95, 23);
 		logoutButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

@@ -100,11 +100,11 @@ public class ReportsView extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         reportsTable = new javax.swing.JTable();
         exportBtn = new javax.swing.JButton();
-        closeBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
@@ -150,6 +150,18 @@ public class ReportsView extends javax.swing.JFrame
         });
         getContentPane().add(ExportMasterReportButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
 
+        //logout Button
+        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 95, 23));
+        
+        
+        
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Reports");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
@@ -185,17 +197,7 @@ public class ReportsView extends javax.swing.JFrame
     });
     getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 140, 20));
 
-    closeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
-    closeBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-    closeBtn.setBorderPainted(false);
-    closeBtn.setContentAreaFilled(false);
-    closeBtn.setFocusPainted(false);
-    closeBtn.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            closeBtnActionPerformed(evt);
-        }
-    });
-    getContentPane().add(closeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 40));
+    
 
     jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
     jLabel4.setText("Device Name:");
@@ -217,12 +219,6 @@ public class ReportsView extends javax.swing.JFrame
     setPreferredSize(new Dimension(800, 550));
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
-
-        dispose();
-        home.resetAdminMode();
-    }//GEN-LAST:event_closeBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         
@@ -391,6 +387,13 @@ public class ReportsView extends javax.swing.JFrame
     	
     }
     
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+    	//GEN-HEADEREND:event_logoutButtonActionPerformed
+    	    		dispose();
+    	            home.setVisible(true);
+    	    }//GEN-LAST:event_logoutButtonActionPerformed
+    	    
+    
     
     /////// Nav Bar ~Alex /////
 
@@ -409,8 +412,8 @@ public class ReportsView extends javax.swing.JFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ExportMasterReportButton;
-    private static javax.swing.JButton closeBtn;
+	private javax.swing.JButton logoutButton;
+	private javax.swing.JButton ExportMasterReportButton;
     private javax.swing.JButton exportBtn;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
