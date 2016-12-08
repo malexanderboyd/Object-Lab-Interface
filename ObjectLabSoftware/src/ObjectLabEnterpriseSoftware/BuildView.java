@@ -296,7 +296,6 @@ public class BuildView extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         deviceNameComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        //backToMainMenu = new javax.swing.JButton();
         buildFileLocationErrorStatusText = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         buildsForCurrentDeviceTable = new javax.swing.JTable();
@@ -305,7 +304,7 @@ public class BuildView extends javax.swing.JFrame
         swapButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
-        logoutButton = new javax.swing.JButton();
+
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -327,7 +326,7 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
-        //Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
+        Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
         Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -336,16 +335,7 @@ public class BuildView extends javax.swing.JFrame
             }
         });
         getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 550, 100, 30));
-        
-        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        logoutButton.setText("Logout");
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
-            }
-        });     
-        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 95, 23));
-        
+
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Choose jobs part of build: ");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 200, 19));
@@ -386,6 +376,7 @@ public class BuildView extends javax.swing.JFrame
                     java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
                     ,java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
                 };
+
                 boolean[] canEdit = new boolean []
                 {
                     false, false, false, false, false, false, false, false
@@ -426,19 +417,7 @@ public class BuildView extends javax.swing.JFrame
             jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel3.setText("Previous Builds for Device:");
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 150, 20));
-            /*
-            backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
-            backToMainMenu.setToolTipText("Back");
-            backToMainMenu.setBorderPainted(false);
-            backToMainMenu.setContentAreaFilled(false);
-            backToMainMenu.setFocusPainted(false);
-            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    backToMainMenuActionPerformed(evt);
-                }
-            });
-            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
-            */
+
             buildFileLocationErrorStatusText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             buildFileLocationErrorStatusText.setForeground(new java.awt.Color(255, 0, 0));
             buildFileLocationErrorStatusText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -467,10 +446,7 @@ public class BuildView extends javax.swing.JFrame
 
                     public boolean isCellEditable(int rowIndex, int columnIndex)
                     {
-                        return false;
-                        //Rajewski
-                        //no editing
-                        //return canEdit [columnIndex];
+                        return canEdit [columnIndex];
                     }
                 });
                 buildsForCurrentDeviceTable.getTableHeader().setReorderingAllowed(false);
@@ -540,7 +516,7 @@ public class BuildView extends javax.swing.JFrame
         navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
         
-        jMenuBar2.add(Box.createRigidArea(new Dimension(42,12)));
+        jMenuBar2.add(Box.createRigidArea(new Dimension(170,12)));
         jMenuBar2.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
@@ -844,7 +820,7 @@ public class BuildView extends javax.swing.JFrame
         }
         
         setupBuildRecordsTable();
-        
+
     }//GEN-LAST:event_deviceNameComboBoxActionPerformed
 
     private void setupBuildRecordsTable(){
@@ -855,7 +831,7 @@ public class BuildView extends javax.swing.JFrame
                 "Build File Name", "Date", "Number of Files" 
 
             });
-        
+        buildsForCurrentDeviceTable.getColumnModel().getColumn(0).setPreferredWidth(410);
         String currentDevice = (String) deviceNameComboBox.getSelectedItem();
         ArrayList<ArrayList<Object>> buildList = UtilController.arrayListOfBuilds(currentDevice);
         for(int i = 0; i < buildList.size(); i++)
@@ -870,12 +846,6 @@ public class BuildView extends javax.swing.JFrame
         
     }
     
-    //private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backToMainMenuActionPerformed
-    //{//GEN-HEADEREND:event_backToMainMenuActionPerformed
-    //    dispose();
-    //    home.resetAdminMode();
-    //}//GEN-LAST:event_backToMainMenuActionPerformed
-
     private void swapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapButtonActionPerformed
         
     }//GEN-LAST:event_swapButtonActionPerformed
@@ -1084,10 +1054,8 @@ public class BuildView extends javax.swing.JFrame
     //Rajewski
     //refactored submissionsToBuildList to submissionsToBuildList
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
-    //private javax.swing.JButton backToMainMenu;
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildFileLocationErrorStatusText;
     private javax.swing.JLabel buildLbl;
