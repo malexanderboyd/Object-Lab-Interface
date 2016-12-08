@@ -541,58 +541,76 @@ public class newJobsMgr extends JFrame {
 	protected void approveJobs() { // handles the approveButton
 
 		ArrayList<Integer> selectedDevices = new ArrayList<Integer>();
-		for(int j = 0; j < jobsTable.getRowCount(); j++)
-		{
-			if(jobsTable.getValueAt(j, 0).toString().equalsIgnoreCase("true")) // get all the selected rows
+		for (int j = 0; j < jobsTable.getRowCount(); j++) {
+			if (jobsTable.getValueAt(j, 0).toString().equalsIgnoreCase("true")) // get all the selected rows
 			{
 				selectedDevices.add(j); // adds row # for all selected rows.
 			}
 		}
-                        int rowDataLocation;
-                        if (selectedDevices.get(0) != 0)
-                        {
-                            rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
-                        } else
-                        {
-                            rowDataLocation = 0;
-                        }
-                       
-                        SQLMethods dbconn = new SQLMethods();
-                        String first_name =(String) jobsModel.getValueAt(rowDataLocation, 2);
-                        String last_name = (String) jobsModel.getValueAt(rowDataLocation, 3); 
-                        String id = dbconn.getStudentId(first_name, last_name);
-                        String printer = dbconn.getFilePrinter((String) jobsModel.getValueAt(rowDataLocation, 1), id);
-                        dbconn.closeDBConnection();
-     
-			/* Hand off the data in the selected row found in our tablemodel to this method so we can 
-			                 approve the correct file to be printed... -Nick 
-			 */
-                        if (printer.equalsIgnoreCase("Objet Desktop 30"))  
-                        {
-                            double stat1 = Double.parseDouble(trackingStatInput1.getText());                       
-                            double stat2 = Double.parseDouble(trackingStatInput2.getText());
-                            
-                            // Updates transaction history
-                            UtilController.changeStudentBalance(printer, id, stat1, stat2);
-                            UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
-                        } 
-                        if (printer.equalsIgnoreCase("Z Printer 250"))  
-                        {
-                            double stat1 = Double.parseDouble(trackingStatInput1.getText());                       
-                            double stat2 = 0;
-                            
-                            // Updates transaction history
-                            UtilController.changeStudentBalance(printer, id, stat1, stat2);
-                            UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
-                        }
-                            UtilController.approveStudentSubmission(
-                                            (String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
-                            JOptionPane op = new JOptionPane("Submission successfully approved.", JOptionPane.INFORMATION_MESSAGE);
-                            trackingStatInput1.setText("");
-                            trackingStatInput2.setText("");
-                            jobsModel.fireTableDataChanged();
-                            jobStatusCombo.setSelectedIndex(0); //*****
-                            jobsTable.repaint();
+		int rowDataLocation;
+		if (selectedDevices.get(0) != 0) {
+			rowDataLocation = getSelectedRowNum(jobsModel, selectedDevices.get(0), 0);
+		} else {
+			rowDataLocation = 0;
+		}
+
+		SQLMethods dbconn = new SQLMethods();
+		String first_name = (String) jobsModel.getValueAt(rowDataLocation, 2);
+		String last_name = (String) jobsModel.getValueAt(rowDataLocation, 3);
+		String id = dbconn.getStudentId(first_name, last_name);
+		String printer = dbconn.getFilePrinter((String) jobsModel.getValueAt(rowDataLocation, 1), id);
+		dbconn.closeDBConnection();
+
+		/*
+		 * Hand off the data in the selected row found in our tablemodel to this
+		 * method so we can approve the correct file to be printed... -Nick
+		 */
+		if (printer.equalsIgnoreCase("Objet Desktop 30")) {
+			double stat1 = Double.parseDouble(trackingStatInput1.getText());
+			double stat2 = Double.parseDouble(trackingStatInput2.getText());
+
+			/*
+			 * This is a potential start to allowing admin to let a student run a negative material balance
+			 * 
+			// wouldBeNegative starts as 0.
+			// If it would be negative, then the variable becomes what 
+			// the student's balance would be if the job is completed.
+			int wouldBeNegative = 0;
+			wouldBeNegative = UtilController.checkNegativeBalance(printer, id, stat1, stat2);
+			
+			if(wouldBeNegative != 0)
+			{
+				String message = "Completing this job would reduce the student's balance of material to "+ wouldBeNegative +".\n\nWould you like to proceed?";
+				int reply = JOptionPane.showConfirmDialog(null, message, "Negative Balance Warning", JOptionPane.YES_NO_OPTION);
+		        if (reply == JOptionPane.YES_OPTION) {
+		          JOptionPane.showMessageDialog(null, "HELLO");
+		        }
+		        else {
+		           JOptionPane.showMessageDialog(null, "GOODBYE");
+		        }
+			}
+			*/
+			
+			// Updates transaction history
+			UtilController.changeStudentBalance(printer, id, stat1, stat2);
+			UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+		}
+		if (printer.equalsIgnoreCase("Z Printer 250")) {
+			double stat1 = Double.parseDouble(trackingStatInput1.getText());
+			double stat2 = 0;
+
+			// Updates transaction history
+			UtilController.changeStudentBalance(printer, id, stat1, stat2);
+			UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+		}
+		UtilController.approveStudentSubmission((String) jobsModel.getValueAt(rowDataLocation, 1),
+				trackingStatInput1.getText(), trackingStatInput2.getText());
+		JOptionPane op = new JOptionPane("Submission successfully approved.", JOptionPane.INFORMATION_MESSAGE);
+		trackingStatInput1.setText("");
+		trackingStatInput2.setText("");
+		jobsModel.fireTableDataChanged();
+		jobStatusCombo.setSelectedIndex(0); // *****
+		jobsTable.repaint();
 
 		jobsModel.fireTableDataChanged();
 		jobsTable.repaint();

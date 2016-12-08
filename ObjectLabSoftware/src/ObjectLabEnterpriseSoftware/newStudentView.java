@@ -495,9 +495,17 @@ public class newStudentView extends javax.swing.JFrame {
         
         else if (extensionCheck() == false)
         {
-        	JOptionPane.showMessageDialog(null, "Your file extension is incorrect. No submission has occured.",
-        			"Invalid Submission", JOptionPane.ERROR_MESSAGE);
-        	isErr = true;
+        	//JOptionPane.showMessageDialog(null, "Your file extension is incorrect. No submission has occured.",
+        	//		"Invalid Submission", JOptionPane.ERROR_MESSAGE);
+        	int reply = JOptionPane.showConfirmDialog(null, "Your file extension doesn't match the normally accepted file extensions for this printer.\n\nWould you like to proceed with submitting your file?", 
+        											"Abnormal File Extension", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.NO_OPTION) {
+            	// Abort submission
+            	isErr = true;
+            }
+            else if(reply == JOptionPane.YES_OPTION){
+            	// Allow submission to continue
+            }
         }
         return isErr;
     }
