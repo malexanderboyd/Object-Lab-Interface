@@ -301,6 +301,7 @@ public class BuildView extends javax.swing.JFrame
         buildsForCurrentDeviceTable = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
         submissionsToBuildList = new javax.swing.JTable();
+        logoutButton = new javax.swing.JButton();
         swapButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -326,7 +327,6 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
-        Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
         Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -483,6 +483,14 @@ public class BuildView extends javax.swing.JFrame
                     submissionsToBuildList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
                     getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 430, 210));
+
+                    logoutButton.setText("Logout");
+                    logoutButton.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            logoutButtonActionPerformed(evt);
+                        }
+                    });
+                    getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 100, 30));
 
                     swapButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/swap3.png"))); // NOI18N
                     swapButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -969,8 +977,12 @@ public class BuildView extends javax.swing.JFrame
 
         setupBuildRecordsTable();
     }//GEN-LAST:event_swapButtonMouseClicked
+/*
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
     
-    
+    */
     private void addArrowActionPerformed (java.awt.event.ActionEvent evt)
 	{
 		if (studentSubmissionApprovedTableList.equals(submissionsToBuildList.getSelectedRow())) //believe this check works
@@ -1077,6 +1089,7 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JTable studentSubmissionApprovedTableList;
     private javax.swing.JTable submissionsToBuildList;
     private javax.swing.JButton swapButton;
