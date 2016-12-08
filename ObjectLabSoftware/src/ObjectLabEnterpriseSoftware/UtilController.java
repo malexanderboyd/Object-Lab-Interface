@@ -660,6 +660,57 @@ public class UtilController
         dbconn.closeDBConnection();
     }
     
+    /***
+     * 
+     * @param printer	The printer the student is submitting to
+     * @param id		The student's ID
+     * @param stat1		The amount of stat1 the student wants to spend
+     * @param stat2		The amount of stat2 the student wants to spend
+     * @return			True/False: Would this transaction run a negative balance?
+     */
+    public static boolean checkNegativeBalance(String printer, String id, double stat1, double stat2)
+    {
+    	boolean retVal = false;
+    	SQLMethods dbconn = new SQLMethods();
+    	
+    	ResultSet queryResult = dbconn.searchStudentBalanceId(id);
+    	try {
+			while(queryResult.next())
+			{
+			        String first_name = queryResult.getString(1);
+			        String last_name= queryResult.getString(2);
+			        String towson_id = queryResult.getString(3);
+			        double zcorp = queryResult.getDouble(4);
+			        double obbuild = queryResult.getDouble(5);
+			        double obsupport  = queryResult.getDouble(6);
+			        
+			        if(printer.equalsIgnoreCase("Objet Desktop 30"))
+			        {
+			        	if(obbuild - stat1 < 0)
+			        	{
+			        		retVal = true;
+			        	}
+			        	else if(obsupport - stat2 < 0)
+			        	{
+			        		retVal = true;
+			        	}
+			        }
+			        else if (printer.equalsIgnoreCase("Z Printer 250"))
+			        {
+			        	if(zcorp - stat1 < 0)
+			        	{
+			        		retVal = true;
+			        	}
+			        }
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Error: " + e);
+		}
+    	
+    	
+    	return retVal;
+    }
     
     public static void approveStudentSubmission(String fileName, String stat1, String stat2)
     {

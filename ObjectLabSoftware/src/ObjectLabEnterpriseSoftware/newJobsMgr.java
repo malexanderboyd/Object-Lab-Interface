@@ -569,39 +569,65 @@ public class newJobsMgr extends JFrame {
 			double stat1 = Double.parseDouble(trackingStatInput1.getText());
 			double stat2 = Double.parseDouble(trackingStatInput2.getText());
 
-			/*
-			 * This is a potential start to allowing admin to let a student run a negative material balance
-			 * 
-			// wouldBeNegative starts as 0.
-			// If it would be negative, then the variable becomes what 
-			// the student's balance would be if the job is completed.
-			int wouldBeNegative = 0;
+			// This variable tracks whether the student's submission would push them into a negative balance on their account.
+			boolean wouldBeNegative;
 			wouldBeNegative = UtilController.checkNegativeBalance(printer, id, stat1, stat2);
 			
-			if(wouldBeNegative != 0)
+			if(wouldBeNegative == true)
 			{
-				String message = "Completing this job would reduce the student's balance of material to "+ wouldBeNegative +".\n\nWould you like to proceed?";
+				String message = "Completing this job would reduce the student's balance of a material to below 0.\n\nWould you like to proceed?";
 				int reply = JOptionPane.showConfirmDialog(null, message, "Negative Balance Warning", JOptionPane.YES_NO_OPTION);
 		        if (reply == JOptionPane.YES_OPTION) {
-		          JOptionPane.showMessageDialog(null, "HELLO");
+		        	// YES - Proceed and reduce their balance
+		        	// Updates transaction history
+					UtilController.changeStudentBalance(printer, id, stat1, stat2);
+					UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
 		        }
 		        else {
-		           JOptionPane.showMessageDialog(null, "GOODBYE");
+		        	// NO - Do not proceed
+		        	// Exit method
+		        	return;
 		        }
 			}
-			*/
-			
-			// Updates transaction history
-			UtilController.changeStudentBalance(printer, id, stat1, stat2);
-			UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+			// No negative balance issues -> proceed as usual:
+			else
+			{
+				// Updates transaction history
+				UtilController.changeStudentBalance(printer, id, stat1, stat2);
+				UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+			}
 		}
-		if (printer.equalsIgnoreCase("Z Printer 250")) {
+		else if (printer.equalsIgnoreCase("Z Printer 250")) {
 			double stat1 = Double.parseDouble(trackingStatInput1.getText());
 			double stat2 = 0;
 
-			// Updates transaction history
-			UtilController.changeStudentBalance(printer, id, stat1, stat2);
-			UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+			// This variable tracks whether the student's submission would push them into a negative balance on their account.
+			boolean wouldBeNegative;
+			wouldBeNegative = UtilController.checkNegativeBalance(printer, id, stat1, stat2);
+			
+			if(wouldBeNegative == true)
+			{
+				String message = "Completing this job would reduce the student's balance of a material to below 0.\n\nWould you like to proceed?";
+				int reply = JOptionPane.showConfirmDialog(null, message, "Negative Balance Warning", JOptionPane.YES_NO_OPTION);
+		        if (reply == JOptionPane.YES_OPTION) {
+		        	// YES - Proceed and reduce their balance
+		        	// Updates transaction history
+					UtilController.changeStudentBalance(printer, id, stat1, stat2);
+					UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+		        }
+		        else {
+		        	// NO - Do not proceed
+		        	// Exit method
+		        	return;
+		        }
+			}
+			// No negative balance issues -> proceed as usual:
+			else
+			{
+				// Updates transaction history
+				UtilController.changeStudentBalance(printer, id, stat1, stat2);
+				UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+			}
 		}
 		UtilController.approveStudentSubmission((String) jobsModel.getValueAt(rowDataLocation, 1),
 				trackingStatInput1.getText(), trackingStatInput2.getText());
