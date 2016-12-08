@@ -567,7 +567,7 @@ public class newJobsMgr extends JFrame {
 			/* Hand off the data in the selected row found in our tablemodel to this method so we can 
 			                 approve the correct file to be printed... -Nick 
 			 */
-                        if (printer.equalsIgnoreCase("Z Printer 250") || printer.equalsIgnoreCase("Objet Desktop 30"))  
+                        if (printer.equalsIgnoreCase("Objet Desktop 30"))  
                         {
                             double stat1 = Double.parseDouble(trackingStatInput1.getText());                       
                             double stat2 = Double.parseDouble(trackingStatInput2.getText());
@@ -576,6 +576,15 @@ public class newJobsMgr extends JFrame {
                             UtilController.changeStudentBalance(printer, id, stat1, stat2);
                             UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
                         } 
+                        if (printer.equalsIgnoreCase("Z Printer 250"))  
+                        {
+                            double stat1 = Double.parseDouble(trackingStatInput1.getText());                       
+                            double stat2 = 0;
+                            
+                            // Updates transaction history
+                            UtilController.changeStudentBalance(printer, id, stat1, stat2);
+                            UtilController.changeStudentBalanceHistory(printer, id, stat1, stat2);
+                        }
                             UtilController.approveStudentSubmission(
                                             (String) jobsModel.getValueAt(rowDataLocation, 1), trackingStatInput1.getText(), trackingStatInput2.getText());
                             JOptionPane op = new JOptionPane("Submission successfully approved.", JOptionPane.INFORMATION_MESSAGE);
