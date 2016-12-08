@@ -326,7 +326,8 @@ public class SQLMethods
         {
             stmt = this.conn.prepareStatement("SELECT file_name, date(submission_date), comment, status " +
                                               "FROM job INNER JOIN job_stats ON job.job_id = job_stats.job_id " +
-                                              "WHERE ? = job.student_id"); 
+                                              "WHERE ? = job.student_id " +
+                                              "ORDER BY submission_date DESC"); 
             stmt.setString(1, studentId);
             res = stmt.executeQuery();
         } catch (Exception e)
