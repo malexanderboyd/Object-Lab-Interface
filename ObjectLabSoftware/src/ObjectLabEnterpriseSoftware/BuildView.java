@@ -5,6 +5,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.awt.Color;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.Box;
@@ -295,6 +296,7 @@ public class BuildView extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         deviceNameComboBox = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        //backToMainMenu = new javax.swing.JButton();
         buildFileLocationErrorStatusText = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         buildsForCurrentDeviceTable = new javax.swing.JTable();
@@ -304,7 +306,6 @@ public class BuildView extends javax.swing.JFrame
         jLabel1 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         logoutButton = new javax.swing.JButton();
-
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -326,7 +327,7 @@ public class BuildView extends javax.swing.JFrame
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 950, 10));
 
-        //Submit_Button.setBackground(new java.awt.Color(0, 255, 0)); green glow around button
+        //Submit_Button.setBackground(new java.awt.Color(0, 255, 0));
         Submit_Button.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         Submit_Button.setText("Submit Build");
         Submit_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -334,17 +335,16 @@ public class BuildView extends javax.swing.JFrame
                 Submit_ButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 550, 100, 23));
-
+        getContentPane().add(Submit_Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 550, 100, 30));
+        
         logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         logoutButton.setText("Logout");
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutButtonActionPerformed(evt);
             }
-        });
+        });     
         getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 95, 23));
-        
         
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Choose jobs part of build: ");
@@ -403,7 +403,6 @@ public class BuildView extends javax.swing.JFrame
 
             });
             studentSubmissionApprovedTableList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-            studentSubmissionApprovedTableList.setShowVerticalLines(false);
             studentSubmissionApprovedTableList.getTableHeader().setReorderingAllowed(false);
             jScrollPane3.setViewportView(studentSubmissionApprovedTableList);
             studentSubmissionApprovedTableList.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -427,8 +426,19 @@ public class BuildView extends javax.swing.JFrame
             jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
             jLabel3.setText("Previous Builds for Device:");
             getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 150, 20));
-
-
+            /*
+            backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ObjectLabEnterpriseSoftware/images/back_arrow_button.png"))); // NOI18N
+            backToMainMenu.setToolTipText("Back");
+            backToMainMenu.setBorderPainted(false);
+            backToMainMenu.setContentAreaFilled(false);
+            backToMainMenu.setFocusPainted(false);
+            backToMainMenu.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    backToMainMenuActionPerformed(evt);
+                }
+            });
+            getContentPane().add(backToMainMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 40, 40));
+            */
             buildFileLocationErrorStatusText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
             buildFileLocationErrorStatusText.setForeground(new java.awt.Color(255, 0, 0));
             buildFileLocationErrorStatusText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -468,6 +478,7 @@ public class BuildView extends javax.swing.JFrame
 
                 getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 950, 150));
 
+                submissionsToBuildList.setAutoCreateRowSorter(true);
                 submissionsToBuildList.setModel(new javax.swing.table.DefaultTableModel()
                     {
                         Class[] types = new Class []
@@ -742,17 +753,25 @@ public class BuildView extends javax.swing.JFrame
     	clearEntries(fileTableModel);
     	clearEntries(fileTableModel2);
         clearEntries(fileTableModel3);
-    	
+        studentSubmissionApprovedTableList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        submissionsToBuildList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
+    	/*
         studentSubmissionApprovedTableList.setRowSelectionAllowed(true);
         studentSubmissionApprovedTableList.setColumnSelectionAllowed(true);
         studentSubmissionApprovedTableList.setCellSelectionEnabled(false);
-        studentSubmissionApprovedTableList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-                
+        
+        studentSubmissionApprovedTableList.setSelectionBackground(Color.BLUE);        
+        studentSubmissionApprovedTableList.setSelectionForeground(Color.BLUE);       
+        
         submissionsToBuildList.setRowSelectionAllowed(true);
         submissionsToBuildList.setColumnSelectionAllowed(true);
         submissionsToBuildList.setCellSelectionEnabled(false);
-    	submissionsToBuildList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         
+        submissionsToBuildList.setSelectionBackground(Color.BLUE);
+        submissionsToBuildList.setSelectionForeground(Color.BLUE);
+        */
         deviceModel = UtilController.getPrinterInfo((String) deviceNameComboBox.getSelectedItem());
 
         if (deviceModel.getTrackSubmission())
@@ -851,7 +870,12 @@ public class BuildView extends javax.swing.JFrame
         
     }
     
- 
+    //private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_backToMainMenuActionPerformed
+    //{//GEN-HEADEREND:event_backToMainMenuActionPerformed
+    //    dispose();
+    //    home.resetAdminMode();
+    //}//GEN-LAST:event_backToMainMenuActionPerformed
+
     private void swapButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_swapButtonActionPerformed
         
     }//GEN-LAST:event_swapButtonActionPerformed
@@ -896,28 +920,36 @@ public class BuildView extends javax.swing.JFrame
         */
                 //gets all info for selected row to add to build table
         
-        int k = 0;
+        int k;
 
+        /*
         while(k < studentSubmissionApprovedTableList.getRowCount()){
-            if(studentSubmissionApprovedTableList.isRowSelected(k)){
-                fileTableModel2.addRow(new Object[] { 
-                studentSubmissionApprovedTableList.getValueAt(k, 0), 
-                studentSubmissionApprovedTableList.getValueAt(k, 1),	
-                studentSubmissionApprovedTableList.getValueAt(k, 2),
-                studentSubmissionApprovedTableList.getValueAt(k, 3),
-                studentSubmissionApprovedTableList.getValueAt(k, 4),
-                studentSubmissionApprovedTableList.getValueAt(k, 5),
-                studentSubmissionApprovedTableList.getValueAt(k, 6),
-                studentSubmissionApprovedTableList.getValueAt(k, 7)
-                });
-            fileTableModel.removeRow(k);
-            k--;
+            
+            
+            //k--;
             }
             k++;
-            System.out.print(k + "\t");
+            //System.out.print(k + "\t");
         }
-        System.out.println();
-
+        //System.out.println();
+        */
+        k = studentSubmissionApprovedTableList.getSelectedRow();
+        System.out.println(k);
+        if(k != -1){
+                fileTableModel2.addRow(new Object[] { 
+                    studentSubmissionApprovedTableList.getValueAt(k, 0), 
+                    studentSubmissionApprovedTableList.getValueAt(k, 1),	
+                    studentSubmissionApprovedTableList.getValueAt(k, 2),
+                    studentSubmissionApprovedTableList.getValueAt(k, 3),
+                    studentSubmissionApprovedTableList.getValueAt(k, 4),
+                    studentSubmissionApprovedTableList.getValueAt(k, 5),
+                    studentSubmissionApprovedTableList.getValueAt(k, 6),
+                    studentSubmissionApprovedTableList.getValueAt(k, 7)
+                });
+                fileTableModel.removeRow(k);
+        }
+        
+        
         studentSubmissionApprovedTableList.setModel(fileTableModel);
         submissionsToBuildList.setModel(fileTableModel2);
 
@@ -934,26 +966,32 @@ public class BuildView extends javax.swing.JFrame
 
         //Rajewski
         //logic for moving a row from the new build table back to the approved files table
-        int j = 0;
-
+        int j;
+/*
         while(j < submissionsToBuildList.getRowCount()){
-            if(submissionsToBuildList.isRowSelected(j)){
-                fileTableModel.addRow(new Object[] { 
-                    submissionsToBuildList.getValueAt(j, 0), 
-                    submissionsToBuildList.getValueAt(j, 1),	
-                    submissionsToBuildList.getValueAt(j, 2),
-                    submissionsToBuildList.getValueAt(j, 3),
-                    submissionsToBuildList.getValueAt(j, 4),
-                    submissionsToBuildList.getValueAt(j, 5),
-                    submissionsToBuildList.getValueAt(j, 6),
-                    submissionsToBuildList.getValueAt(j, 7)
-
-            });
-            fileTableModel2.removeRow(j);
-            j--;
+            
+                //j--;
             }
             j++;
         }
+        */
+
+        j = submissionsToBuildList.getSelectedRow();
+        if(j != -1){
+            fileTableModel.addRow(new Object[] { 
+                submissionsToBuildList.getValueAt(j, 0), 
+                submissionsToBuildList.getValueAt(j, 1),	
+                submissionsToBuildList.getValueAt(j, 2),
+                submissionsToBuildList.getValueAt(j, 3),
+                submissionsToBuildList.getValueAt(j, 4),
+                submissionsToBuildList.getValueAt(j, 5),
+                submissionsToBuildList.getValueAt(j, 6),
+                submissionsToBuildList.getValueAt(j, 7)
+
+            });
+            fileTableModel2.removeRow(j);
+        }
+        
 
         studentSubmissionApprovedTableList.setModel(fileTableModel);
         submissionsToBuildList.setModel(fileTableModel2);
@@ -1049,6 +1087,7 @@ public class BuildView extends javax.swing.JFrame
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel ErrorText;
     private javax.swing.JButton Submit_Button;
+    //private javax.swing.JButton backToMainMenu;
     private javax.swing.JButton browseBtn;
     private javax.swing.JLabel buildFileLocationErrorStatusText;
     private javax.swing.JLabel buildLbl;
