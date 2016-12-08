@@ -307,9 +307,10 @@ public class SQLMethods
     	res = null;
         try 
         {
-            stmt = this.conn.prepareStatement("SELECT date, material, amount " +
-                                              "FROM material_transaction_history "+
-                                               "WHERE net_id = ?;"); 
+            stmt = this.conn.prepareStatement("SELECT date(date), material, amount " +
+                                              "FROM material_transaction_history " +
+                                              "WHERE net_id = ?" +
+                                              "ORDER BY date DESC;");
             stmt.setString(1, id);
             res = stmt.executeQuery();
         } catch (Exception e)
