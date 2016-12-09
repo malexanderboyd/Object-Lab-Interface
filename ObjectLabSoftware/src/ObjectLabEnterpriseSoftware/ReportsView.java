@@ -88,11 +88,7 @@ public class ReportsView extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchFilter = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        searchKey = new javax.swing.JTextField();
-        searchBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         ExportMasterReportButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -104,67 +100,27 @@ public class ReportsView extends javax.swing.JFrame
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        logoutButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(UtilController.getPageName(NAME_OF_PAGE));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        searchFilter.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
-        searchFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchFilterActionPerformed(evt);
-            }
-        });
-       // getContentPane().add(searchFilter, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 90, -1));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(750, 520));
+        setPreferredSize(new java.awt.Dimension(750, 520));
+        setSize(new java.awt.Dimension(750, 520));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Object Lab Search");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel2.setText("Search For:");
-        //getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 60, 21));
-
-        searchKey.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-       // getContentPane().add(searchKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 120, 430, -1));
-
-        searchBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        searchBtn.setText("Search");
-        searchBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        searchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBtnActionPerformed(evt);
-            }
-        });
-       // getContentPane().add(searchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 120, 50, 20));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 682, 10));
 
         ExportMasterReportButton.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        ExportMasterReportButton.setText("Export Master Report");
+        ExportMasterReportButton.setText("All Devices Report");
         ExportMasterReportButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExportMasterReportButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ExportMasterReportButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, -1, -1));
 
-        //logout Button
-        logoutButton.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        logoutButton.setText("Logout");
-        logoutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(logoutButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 95, 23));
-        
-        
-        
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel3.setText("Reports");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(printers.toArray()));
@@ -174,7 +130,6 @@ public class ReportsView extends javax.swing.JFrame
                 jComboBox1ItemStateChanged(evt);
             }
         });
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 135, -1));
 
         reportsTable.setAutoCreateRowSorter(true);
         reportsTable.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -185,27 +140,23 @@ public class ReportsView extends javax.swing.JFrame
     );
     jScrollPane1.setViewportView(reportsTable);
 
-    getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 682, 203));
-
     exportBtn.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-    exportBtn.setText("Export Current Report");
+    exportBtn.setText("Current Device Report");
     exportBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+    exportBtn.setMaximumSize(new java.awt.Dimension(141, 23));
+    exportBtn.setMinimumSize(new java.awt.Dimension(141, 23));
+    exportBtn.setPreferredSize(new java.awt.Dimension(141, 23));
     exportBtn.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             exportBtnActionPerformed(evt);
         }
     });
-    getContentPane().add(exportBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 140, 20));
-
-    
 
     jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
     jLabel4.setText("Device Name:");
-    getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 20));
 
-
-    /*
     jMenu2.setText("Help");
+
     jMenuItem1.setText("User Guide");
     jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,34 +164,63 @@ public class ReportsView extends javax.swing.JFrame
         }
     });
     jMenu2.add(jMenuItem1);
+
     jMenuBar1.add(jMenu2);
+
     setJMenuBar(jMenuBar1);
-    */
-    setPreferredSize(new Dimension(800, 550));
+
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(310, 310, 310)
+                    .addComponent(jLabel3))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(34, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ExportMasterReportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addContainerGap(34, Short.MAX_VALUE))
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(layout.createSequentialGroup()
+            .addGap(20, 20, 20)
+            .addComponent(jLabel3)
+            .addGap(6, 6, 6)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(jLabel1)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(9, 9, 9)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(30, 30, 30)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ExportMasterReportButton))
+            .addContainerGap(74, Short.MAX_VALUE))
+    );
+
+    getAccessibleContext().setAccessibleDescription("");
+
     pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
-        
-        /* All of the data that is being displayed and exported is found in the completedjobs table and retrieved here
-            depending on what filter is triggered
-        */
-        //System.out.println(searchFilter.getSelectedItem().toString());
-        //System.out.println(searchKey.getText().trim().length() > 0);
-        if(searchKey.getText().trim().length() > 0){
-            while (model.getRowCount() > 0) {
-                model.removeRow(0);
-            }
-            
-            model = (DefaultTableModel) reportsTable.getModel();
-            System.out.println(searchFilter.getSelectedItem().toString());
-            for (ArrayList<Object> retval1 : UtilController.updateReportTableData(searchFilter.getSelectedItem().toString(), searchKey.getText().trim(), selectedPrinter)){ 
-                model.addRow(retval1.toArray());
-            }
-
-        }
-
-    }//GEN-LAST:event_searchBtnActionPerformed
 
     private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
         
@@ -248,14 +228,6 @@ public class ReportsView extends javax.swing.JFrame
         controller.exportReportToFile(model, headers, (String)jComboBox1.getSelectedItem(), 'b');
         
     }//GEN-LAST:event_exportBtnActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        UtilController.openAdminHelpPage();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void searchFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFilterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchFilterActionPerformed
 
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         
@@ -271,7 +243,7 @@ public class ReportsView extends javax.swing.JFrame
             new Object[][]{},
             headers));
             model = (DefaultTableModel) reportsTable.getModel();
-            searchFilter.setModel(new javax.swing.DefaultComboBoxModel(headers));
+            
             for (ArrayList<Object> retval1 : UtilController.updateReportTableData(selectedPrinter)){ 
                 model.addRow(retval1.toArray());
             }
@@ -288,7 +260,7 @@ public class ReportsView extends javax.swing.JFrame
         navBtn_jobsMgr.setIcon(new ImageIcon(JobsView.class.getResource("/ObjectLabEnterpriseSoftware/images/view_file_icon.png")));
         navBtn_jobsMgr.setPreferredSize(new Dimension(100,24));
         
-        jMenuBar1.add(Box.createRigidArea(new Dimension(120,0)));
+        jMenuBar1.add(Box.createRigidArea(new Dimension(50,0)));
         jMenuBar1.add(navBtn_jobsMgr);
         
         navBtn_build = new JButton("Enter Build");
@@ -402,6 +374,10 @@ public class ReportsView extends javax.swing.JFrame
         UtilController.exportReportsForPrinters();
         
     }//GEN-LAST:event_ExportMasterReportButtonActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        UtilController.openAdminHelpPage();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 	/////// Nav Bar ~Alex /////
 	// --nav bar vars ~Alex
 	private JButton navBtn_jobsMgr;
@@ -412,12 +388,10 @@ public class ReportsView extends javax.swing.JFrame
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton logoutButton;
-	private javax.swing.JButton ExportMasterReportButton;
+    private javax.swing.JButton ExportMasterReportButton;
     private javax.swing.JButton exportBtn;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu2;
@@ -426,9 +400,5 @@ public class ReportsView extends javax.swing.JFrame
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable reportsTable;
-    private javax.swing.JButton searchBtn;
-    private javax.swing.JComboBox searchFilter;
-    private javax.swing.JTextField searchKey;
-    
     // End of variables declaration//GEN-END:variables
 }
